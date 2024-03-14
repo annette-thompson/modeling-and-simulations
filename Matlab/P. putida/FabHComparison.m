@@ -92,7 +92,7 @@ S.scaling_factor_fabF = S.p_vec(2);%parameter "a2" (option here to modify FabF s
 S.kcat_scaling_fabZ = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabZ = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105];
 S.scaling_factor_fabB_init = 1;
-S.scaling_factor_fabF_init = 1;
+S.scaling_factor_fabF_init = 0.1;
 
 S.scaling_factor_kcat8_CO2 = S.p_vec(15);
 S.scaling_factor_kcat10_CO2 = S.p_vec(16);
@@ -118,7 +118,8 @@ PP_H1_kcat3_scaling = [0.3,1,1,1,1,1,1,1,1];
 PP_H2_kcat3_scaling = [0,1,1,0.5,1,1,1,1,1];
 
 load('JpMat.mat','JpMatPrime')
-ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'JPattern',JpMatPrime,'Vectorized','on');
+%ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'JPattern',JpMatPrime,'Vectorized','on');
+ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 
 S.range = [0 150]; %2.5 mins (initial rate)
 
@@ -160,9 +161,9 @@ S.enzyme_conc = enz_conc(1,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Ta1,Ca1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_A(1)] = Calc_Function(Ta1,Ca1,S);
 
 
@@ -174,9 +175,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Ta2,Ca2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_A(2)] = Calc_Function(Ta2,Ca2,S);
 
 
@@ -188,9 +189,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Ta3,Ca3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_A(3)] = Calc_Function(Ta3,Ca3,S);
 
 
@@ -202,9 +203,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Ta4,Ca4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_A(4)] = Calc_Function(Ta4,Ca4,S);
 
 
@@ -238,9 +239,9 @@ S.enzyme_conc = enz_conc(1,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Tb1,Cb1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_B(1)] = Calc_Function(Tb1,Cb1,S);
 
 
@@ -252,9 +253,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[Tb2,Cb2] = ode15s(parameterized_ODEs,S.range,S.init_cond);
-
+tic
+[Tb2,Cb2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
 [~, rel_rate_B(2)] = Calc_Function(Tb2,Cb2,S);
 
 
@@ -266,9 +267,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Tb3,Cb3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_B(3)] = Calc_Function(Tb3,Cb3,S);
 
 
@@ -280,9 +281,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Tb4,Cb4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_B(4)] = Calc_Function(Tb4,Cb4,S);
 
 % Plot
@@ -314,9 +315,9 @@ S.enzyme_conc = enz_conc(1,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Tc1,Cc1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_C(1)] = Calc_Function(Tc1,Cc1,S);
 
 
@@ -328,9 +329,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Tc2,Cc2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_C(2)] = Calc_Function(Tc2,Cc2,S);
 
 
@@ -342,9 +343,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Tc3,Cc3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_C(3)] = Calc_Function(Tc3,Cc3,S);
 
 
@@ -356,9 +357,9 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
+tic
 [Tc4,Cc4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
+toc
 [~, rel_rate_C(4)] = Calc_Function(Tc4,Cc4,S);
 
 
@@ -413,4 +414,3 @@ ylim([0 15])
 % 
 % figure()
 % plot(log10(y),rel_rate_A)
-
