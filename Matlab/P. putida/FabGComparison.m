@@ -92,13 +92,14 @@ S.scaling_factor_fabF = S.p_vec(2);%parameter "a2" (option here to modify FabF s
 S.kcat_scaling_fabZ = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabZ = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105];
 S.scaling_factor_fabB_init = 1;
-S.scaling_factor_fabF_init = 1;
+S.scaling_factor_fabF_init = 0.1;
 
 S.scaling_factor_kcat8_CO2 = S.p_vec(15);
 S.scaling_factor_kcat10_CO2 = S.p_vec(16);
 S.scaling_factor_aCoA_8 = S.p_vec(17);
 S.scaling_factor_aCoA_10 = S.p_vec(18);
 
+%S.Pf_kcat_scaling = [0.0568,0.0509,0.1035,0.0158,0.25256,0.45819,1,1.221,1.5368];
 S.Pf_kcat_scaling = [0.0568,0.0509,0.1035,0.0158,0.25256,0.45819,1,1.221,1.5368];
 S.Pf_kd_est_scaling = [473 293.9 52.986 14.79];
 S.Pf_scaling = 0.519*14.79;
@@ -113,18 +114,19 @@ S.R3M4_kcat_scaling = [0.0568 0.0509 1 0.0158 0.25256 0.45819 0.25256 1.221 1.53
 S.R3M4_kd_est = [56.91208755 35.36250007 0.294555191 1.779555549 0.92358933 0.521582239 0.92358933 0.166345313 0.093940844];
 
 %% Figure D EC_FabH AcCoA
-EC_kcat3_scaling = [1,1,1,0.5,1,1,1,1,1];
+EC_kcat3_scaling = [1,0,0,0,0,0,0,0,0];
 PP_H1_kcat3_scaling = [0.3,1,1,1,1,1,1,1,1];
 PP_H2_kcat3_scaling = [0,1,1,0.5,1,1,1,1,1];
 
 S.kcat_scaling_fabH = EC_kcat3_scaling;
 
 EC_kcat4_scaling = [1,1,1,1,1,1,1,1,1];
-PP_1914_kcat4_scaling = [100,100,100,100,100,100,100,100,100];
-PP_2783_kcat4_scaling = [0,0,0,1,1,1,1,1,1];
+PP_1914_kcat4_scaling = [0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2];
+PP_2783_kcat4_scaling = [0,0,0,0.02,0.02,0.02,0.02,0.02,0.02];
 
 load('JpMat.mat','JpMatPrime')
-ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'JPattern',JpMatPrime,'Vectorized','on');
+%ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'JPattern',JpMatPrime,'Vectorized','on');
+ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 
 S.range = [0 150]; %2.5 mins (initial rate)
 
@@ -157,10 +159,10 @@ S.enzyme_conc = enz_conc(1,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[~, rel_rate_D(1)] = Calc_Function(T,C,S);
+tic
+[Td1,Cd1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[~, rel_rate_D(1)] = Calc_Function(Td1,Cd1,S);
 
 
 % EC FabG
@@ -171,10 +173,10 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[~, rel_rate_D(2)] = Calc_Function(T,C,S);
+tic
+[Td2,Cd2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[~, rel_rate_D(2)] = Calc_Function(Td2,Cd2,S);
 
 
 % PP 1914
@@ -185,10 +187,10 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[~, rel_rate_D(3)] = Calc_Function(T,C,S);
+tic
+[Td3,Cd3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[~, rel_rate_D(3)] = Calc_Function(Td3,Cd3,S);
 
 
 % PP 2783
@@ -199,13 +201,14 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[~, rel_rate_D(4)] = Calc_Function(T,C,S);
+tic
+[Td4,Cd4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[~, rel_rate_D(4)] = Calc_Function(Td4,Cd4,S);
 
 
 % Plot
+figure()
 bar(rel_rate_D,'cyan')
 ylabel('Initial Rate (uM C16 equiv. per min)')
 xticklabels(['No FabG';'EC FabG';'PP 1914';'PP 2783'])
@@ -235,10 +238,10 @@ S.enzyme_conc = enz_conc(1,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[~, rel_rate_E(1)] = Calc_Function(T,C,S);
+tic
+[Te1,Ce1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[~, rel_rate_E(1)] = Calc_Function(Te1,Ce1,S);
 
 
 % EC FabG
@@ -249,10 +252,10 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[~, rel_rate_E(2)] = Calc_Function(T,C,S);
+tic
+[Te2,Ce2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[~, rel_rate_E(2)] = Calc_Function(Te2,Ce2,S);
 
 
 % PP 1914
@@ -263,10 +266,10 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[~, rel_rate_E(3)] = Calc_Function(T,C,S);
+tic
+[Te3,Ce3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[~, rel_rate_E(3)] = Calc_Function(Te3,Ce3,S);
 
 
 % PP 2783
@@ -277,21 +280,23 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[~, rel_rate_E(4)] = Calc_Function(T,C,S);
+tic
+[Te4,Ce4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[~, rel_rate_E(4)] = Calc_Function(Te4,Ce4,S);
 
 % Plot
+figure()
 bar(rel_rate_E,'cyan')
 ylabel('Initial Rate (uM C16 equiv. per min)')
-xticklabels(['No FabH';'EC FabH';'PP 4379';'PP 4545'])
+xticklabels(['No FabG';'EC FabG';'PP 1914';'PP 2783'])
 ylim([0 15])
 
 %% Figure F PP_FabH2 OcCoA
+
 S.kcat_scaling_fabH = PP_H2_kcat3_scaling;
 
-S.range = [0 7200]; %12 mins (total production)
+S.range = [0 720]; %12 mins (total production)
 
 rel_rate_E = zeros(1,4);
 
@@ -303,7 +308,7 @@ S.init_cond(6) = 1300; %s8 (NADH) not in figure description
 S.init_cond(8) = 500; %p2 (malonyl-CoA)
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [0 1 10 1 1 1 10 1 1 1]; 
+enz_conc = [0 1 10 1 1 1 5 1 1 1]; 
 
 % EC FabG
 S.kcat_scaling_fabG = EC_kcat4_scaling;
@@ -313,10 +318,10 @@ S.enzyme_conc = enz_conc;
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[F_raw_F(1,:),~] = Calc_Function(T,C,S);
+tic
+[Tf1,Cf1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[F_raw_F(1,:),~] = Calc_Function(Tf1,Cf1,S);
 
 
 % PP 1914
@@ -327,10 +332,10 @@ S.enzyme_conc = enz_conc;
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[F_raw_F(2,:),~] = Calc_Function(T,C,S);
+tic
+[Tf2,Cf2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[F_raw_F(2,:),~] = Calc_Function(Tf2,Cf2,S);
 
 
 % PP 2783
@@ -341,10 +346,10 @@ S.enzyme_conc = enz_conc;
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
-
-[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-
-[F_raw_F(3,:),~] = Calc_Function(T,C,S);
+tic
+[Tf3,Cf3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[F_raw_F(3,:),~] = Calc_Function(Tf3,Cf3,S);
 
 F_raw_F_new(:,1:4) = F_raw_F(:,1:4);
 j=5;
@@ -352,6 +357,7 @@ for i=[5 7 9 11 13]
     F_raw_F_new(:,j) = F_raw_F(:,i)+F_raw_F(:,i+1);
     j=j+1;
 end
+
 
 % Plot
 figure()

@@ -42,7 +42,6 @@ for ind = 1:length(S.labels)
     end
 end
 
-
 rel_rate = F_weighted(end,1)/150*60;
 
 end
