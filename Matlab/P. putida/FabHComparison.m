@@ -91,8 +91,8 @@ S.kcat_scaling_fabF_unsat = [1,1,1,1,0.9,0.289,0.34,0.34,0.34];%specificity of r
 S.scaling_factor_fabF = S.p_vec(2);%parameter "a2" (option here to modify FabF scaling seperately)
 S.kcat_scaling_fabZ = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabZ = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105];
-S.scaling_factor_fabB_init = 1;
-S.scaling_factor_fabF_init = 0.1;
+S.scaling_factor_fabB_init = 0.1;
+S.scaling_factor_fabF_init = 1;
 
 S.scaling_factor_kcat8_CO2 = S.p_vec(15);
 S.scaling_factor_kcat10_CO2 = S.p_vec(16);
@@ -114,8 +114,8 @@ S.R3M4_kd_est = [56.91208755 35.36250007 0.294555191 1.779555549 0.92358933 0.52
 
 %% Figure A AcCoA
 EC_kcat3_scaling = [1,0,0,0,0,0,0,0,0];
-PP_H1_kcat3_scaling = [0.3,1,1,1,1,1,1,1,1];
-PP_H2_kcat3_scaling = [0,1,1,0.5,1,1,1,1,1];
+PP_H1_kcat3_scaling = [0.5,0,0,0,0,0,0,0,0];
+PP_H2_kcat3_scaling = [0,0,0,0.4,0,0,0,0,0];
 
 load('JpMat.mat','JpMatPrime')
 %ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'JPattern',JpMatPrime,'Vectorized','on');
@@ -209,12 +209,15 @@ toc
 [~, rel_rate_A(4)] = Calc_Function(Ta4,Ca4,S);
 
 
-% Plot
-figure()
+%% Plot
+figure('Position',[500 200 382 340])
 bar(rel_rate_A,'magenta')
-ylabel('Initial Rate (uM C16 equiv. per min)')
-xticklabels(['No FabH';'EC FabH';'PP 4379';'PP 4545'])
+ylabel('Initial Rate (uM C16/m)')
+xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
 ylim([0 15])
+ax = gca;
+ax.FontSize = 18; 
+text(0.1, 14, 'Acetyl-CoA','FontSize',18)
 
 %% Figure B OcCoA
 
@@ -287,11 +290,14 @@ toc
 [~, rel_rate_B(4)] = Calc_Function(Tb4,Cb4,S);
 
 % Plot
-figure()
+figure('Position',[500 200 382 340])
 bar(rel_rate_B,'magenta')
-ylabel('Initial Rate (uM C16 equiv. per min)')
-xticklabels(['No FabH';'EC FabH';'PP 4379';'PP 4545'])
+ylabel('Initial Rate (uM C16/m)')
+xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
 ylim([0 15])
+ax = gca;
+ax.FontSize = 18; 
+text(0.1, 14, 'Octanoyl-CoA','FontSize',18)
 
 %% Figure C No Acyl-CoA
 
@@ -364,11 +370,14 @@ toc
 
 
 % Plot
-figure()
+figure('Position',[500 200 382 340])
 bar(rel_rate_C,'magenta')
-ylabel('Initial Rate (uM C16 equiv. per min)')
-xticklabels(['No FabH';'EC FabH';'PP 4379';'PP 4545'])
+ylabel('Initial Rate (uM C16/m)')
+xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
 ylim([0 15])
+ax = gca;
+ax.FontSize = 18; 
+text(0.1, 14, 'No acyl-CoA','FontSize',18)
 
 %% Testing what params affect the rate
 

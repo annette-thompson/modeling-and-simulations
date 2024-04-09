@@ -51,6 +51,8 @@ S.num = length(S.labels); %how many diff eqs there are
 
 % Set thioesterase fitting source
 % 'Pf'; Pfleger group measurements
+% 'R3M1';
+% 'R3M4';
 % 'Fox'; Fox group measurements
 % 'Non-native'; For alternative thioesterases
 S.TesA_fitting_source = 'Pf';
@@ -91,15 +93,14 @@ S.kcat_scaling_fabF_unsat = [1,1,1,1,0.9,0.289,0.34,0.34,0.34];%specificity of r
 S.scaling_factor_fabF = S.p_vec(2);%parameter "a2" (option here to modify FabF scaling seperately)
 S.kcat_scaling_fabZ = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabZ = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105];
-S.scaling_factor_fabB_init = 1;
-S.scaling_factor_fabF_init = 0.1;
+S.scaling_factor_fabB_init = 0.1;
+S.scaling_factor_fabF_init = 1;
 
 S.scaling_factor_kcat8_CO2 = S.p_vec(15);
 S.scaling_factor_kcat10_CO2 = S.p_vec(16);
 S.scaling_factor_aCoA_8 = S.p_vec(17);
 S.scaling_factor_aCoA_10 = S.p_vec(18);
 
-%S.Pf_kcat_scaling = [0.0568,0.0509,0.1035,0.0158,0.25256,0.45819,1,1.221,1.5368];
 S.Pf_kcat_scaling = [0.0568,0.0509,0.1035,0.0158,0.25256,0.45819,1,1.221,1.5368];
 S.Pf_kd_est_scaling = [473 293.9 52.986 14.79];
 S.Pf_scaling = 0.519*14.79;
@@ -115,14 +116,14 @@ S.R3M4_kd_est = [56.91208755 35.36250007 0.294555191 1.779555549 0.92358933 0.52
 
 %% Figure D EC_FabH AcCoA
 EC_kcat3_scaling = [1,0,0,0,0,0,0,0,0];
-PP_H1_kcat3_scaling = [0.3,1,1,1,1,1,1,1,1];
-PP_H2_kcat3_scaling = [0,1,1,0.5,1,1,1,1,1];
+PP_H1_kcat3_scaling = [0.5,0,0,0,0,0,0,0,0];
+PP_H2_kcat3_scaling = [0,0,0,0.4,0,0,0,0,0];
 
 S.kcat_scaling_fabH = EC_kcat3_scaling;
 
 EC_kcat4_scaling = [1,1,1,1,1,1,1,1,1];
-PP_1914_kcat4_scaling = [0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2];
-PP_2783_kcat4_scaling = [0,0,0,0.02,0.02,0.02,0.02,0.02,0.02];
+PP_1914_kcat4_scaling = [.1,.1,.1,.1,.1,.1,.1,.1,.1];
+PP_2783_kcat4_scaling = [0,0,0,.025,.025,.025,.025,.025,.025];
 
 load('JpMat.mat','JpMatPrime')
 %ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'JPattern',JpMatPrime,'Vectorized','on');
@@ -207,12 +208,16 @@ toc
 [~, rel_rate_D(4)] = Calc_Function(Td4,Cd4,S);
 
 
-% Plot
-figure()
+%% Plot
+figure('Position',[500 200 382 340])
 bar(rel_rate_D,'cyan')
-ylabel('Initial Rate (uM C16 equiv. per min)')
+ylabel('Initial Rate (uM C16/m)')
 xticklabels(['No FabG';'EC FabG';'PP 1914';'PP 2783'])
 ylim([0 15])
+ax = gca;
+ax.FontSize = 18; 
+text(0.1, 14, 'Acetyl-CoA','FontSize',18)
+text(0.1, 12.5, '1 uM EC FabH','FontSize',18)
 
 %% Figure E PP_FabH2 OcCoA
 S.kcat_scaling_fabH = PP_H2_kcat3_scaling;
@@ -285,15 +290,18 @@ tic
 toc
 [~, rel_rate_E(4)] = Calc_Function(Te4,Ce4,S);
 
-% Plot
-figure()
+%% Plot
+figure('Position',[500 200 382 340])
 bar(rel_rate_E,'cyan')
-ylabel('Initial Rate (uM C16 equiv. per min)')
+ylabel('Initial Rate (uM C16/m)')
 xticklabels(['No FabG';'EC FabG';'PP 1914';'PP 2783'])
 ylim([0 15])
+ax = gca;
+ax.FontSize = 18; 
+text(0.1, 14, 'Octanoyl-CoA','FontSize',18)
+text(0.1, 12.5, '10 uM PP FabH2','FontSize',18)
 
 %% Figure F PP_FabH2 OcCoA
-
 S.kcat_scaling_fabH = PP_H2_kcat3_scaling;
 
 S.range = [0 720]; %12 mins (total production)
@@ -308,7 +316,7 @@ S.init_cond(6) = 1300; %s8 (NADH) not in figure description
 S.init_cond(8) = 500; %p2 (malonyl-CoA)
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [0 1 10 1 1 1 5 1 1 1]; 
+enz_conc = [0 1 10 1 1 1 10 1 1 1]; 
 
 % EC FabG
 S.kcat_scaling_fabG = EC_kcat4_scaling;
@@ -357,16 +365,113 @@ for i=[5 7 9 11 13]
     F_raw_F_new(:,j) = F_raw_F(:,i)+F_raw_F(:,i+1);
     j=j+1;
 end
+F_raw_F_plot = F_raw_F_new(:,4:8);
 
-
-% Plot
-figure()
-stack_labels = {'C4','C6','C8','C10','C12','C14','C16','C18','C20'};
-bar(F_raw_F_new,'stacked')
+%% Plot
+figure('Position',[500 200 382 340])
+stack_labels = {'C10','C12','C14','C16','C18'};
+bh = bar(F_raw_F_plot,.9,'stacked');
 xticklabels(['EC FabG';'PP 1914';'PP 2783'])
+xtickangle(30)
 legend(stack_labels)
-ylabel('Concentration \muM')
+ylabel('Production (uM)')
 ylim([0 150])
+xlim([0.4, 3.6])
+set(bh, 'FaceColor', 'Flat')
+colors =  [106/255, 173/255, 138/255;...
+               238/255, 210/255, 148/255;...
+               198/255, 96/255, 93/255;...
+               145/255, 145/255, 145/255;...
+               5/255, 84/255, 117/255];
+colors = mat2cell(colors,ones(5,1),3);
+set(bh, {'CData'}, colors)
+ax = gca;
+ax.FontSize = 18; 
+
+%% Plotting EC FabG Intermediates Separately
+% 
+% label = {'FabG-NADPH', 'C4 FabG-NADPH-B-ketoacyl-ACPs', 'C6 FabG-NADPH-B-ketoacyl-ACPs', 'C8 FabG-NADPH-B-ketoacyl-ACPs', 'C10 FabG-NADPH-B-ketoacyl-ACPs', 'C12 FabG-NADPH-B-ketoacyl-ACPs', 'C14 FabG-NADPH-B-ketoacyl-ACPs', 'C16 FabG-NADPH-B-ketoacyl-ACPs', 'C18 FabG-NADPH-B-ketoacyl-ACPs', 'C20 FabG-NADPH-B-ketoacyl-ACPs', 'C12 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C14 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C16 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C18 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C20 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'FabG-ACP'};
+% j=1;
+% for i=[93 97 112 127 142 157 172 187 202 217 226 241 256 271 286 294]
+%     figure()
+%     plot(Tf1,Cf1(:,i))
+%     title(label(j))
+%     j=j+1;
+% end
+% 
+% %% Plotting EC FabG Intermediates Sat/Unsat
+% figure()
+% for i=[97 112 127 142 157 172 187 202 217]
+%     plot(Tf1,Cf1(:,i))
+%     hold on
+% end
+% legend('C4','C6','C8','C10','C12','C14','C16','C18','C20')
+% title('FabG-NADPH-B-ketoacyl-ACPs')
+% 
+% figure()
+% for i=[226 241 256 271 286]
+%     plot(Tf1,Cf1(:,i))
+%     hold on
+% end
+% legend('C12','C14','C16','C18','C20')
+% title('Unsat FabG-NADPH-B-ketoacyl-ACPs')
+% 
+% %% Plotting EC FabG Intermediates by length
+% 
+% figure(1)
+% for i=[97 112 127]
+%     plot(Tf1,Cf1(:,i))
+%     hold on
+% end
+% legend('C4 TesA=10','C6 TesA=10','C8 TesA=10','C4 TesA=1','C6 TesA=1','C8 TesA=1')
+% title('FabG-NADPH-B-ketoacyl-ACPs')
+% xlabel('Time (seconds)')
+% ylabel('Concentration (uM)')
+% axis("padded")
+% 
+% figure(2)
+% for i=[142]
+%     plot(Tf1,Cf1(:,i))
+%     hold on
+% end
+% legend('C10 TesA=10','C10 TesA=1')
+% title('FabG-NADPH-B-ketoacyl-ACPs')
+% xlabel('Time (seconds)')
+% ylabel('Concentration (uM)')
+% axis("padded")
+% 
+% figure(3)
+% for i=[157 226]
+%         plot(Tf1,Cf1(:,i))
+%     hold on
+% end
+% legend('C12 TesA=10','C12 Unsat TesA=10','C12 TesA=1','C12 Unsat TesA=1')
+% title('FabG-NADPH-B-ketoacyl-ACPs')
+% xlabel('Time (seconds)')
+% ylabel('Concentration (uM)')
+% axis("padded")
+% 
+% figure(4)
+% for i=[172 241 187 256]
+%         plot(Tf1,Cf1(:,i))
+%     hold on
+% end
+% legend('C14 TesA=10','C14 Unsat TesA=10','C16 TesA=10','C16 Unsat TesA=10','C14 TesA=1','C14 Unsat TesA=1','C16 TesA=1','C16 Unsat TesA=1')
+% title('FabG-NADPH-B-ketoacyl-ACPs')
+% xlabel('Time (seconds)')
+% ylabel('Concentration (uM)')
+% axis("padded")
+% 
+% figure(5)
+% for i=[202 271 217 286]
+%         plot(Tf1,Cf1(:,i))
+%     hold on
+% end
+% legend('C18 TesA=10','C18 Unsat TesA=10','C20 TesA=10','C20 Unsat TesA=10','C18 TesA=1','C18 Unsat TesA=1','C20 TesA=1','C20 Unsat TesA=1')
+% title('FabG-NADPH-B-ketoacyl-ACPs')
+% xlabel('Time (seconds)')
+% ylabel('Concentration (uM)')
+% axis("padded")
 
 %% Testing what params affect the rate
 
