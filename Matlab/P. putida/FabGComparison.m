@@ -1,6 +1,6 @@
-% clear all
-% close all
-% clc
+clear all
+close all
+clc
 
 %% Variables
 
@@ -16,37 +16,54 @@ S.p_vec = [142473.7238 7597.676912 4.276689943 40213.92919 88.88525384 0.0053882
 % Numbers repeated are saturated and unsaturated
 S.FA_dist = [4,6,8,10,12,12,14,14,16,16,18,18,20,20];
 
-S.labels = {'s1';'s2';'s3';'s6';'s7';'s8';'p1';'p2';'p3';'p4';'p5';...
-    'Q_4';'M_4';'R_4';'T_4';'F_4';'Q_6';'M_6';'R_6';'T_6';'F_6';...
-    'Q_8';'M_8';'R_8';'T_8';'F_8';'Q_10';'M_10';'R_10';'T_10';'F_10';'R_10_un';...
-    'Q_12';'M_12';'R_12';'T_12';'F_12';'Q_12_un';'M_12_un';'R_12_un';'T_12_un';'F_12_un';...
-    'Q_14';'M_14';'R_14';'T_14';'F_14';'Q_14_un';'M_14_un';'R_14_un';'T_14_un';'F_14_un';...
-    'Q_16';'M_16';'R_16';'T_16';'F_16';'Q_16_un';'M_16_un';'R_16_un';'T_16_un';'F_16_un';...
-    'Q_18';'M_18';'R_18';'T_18';'F_18';'Q_18_un';'M_18_un';'R_18_un';'T_18_un';'F_18_un';...
-    'Q_20';'M_20';'R_20';'T_20';'F_20';'Q_20_un';'M_20_un';'R_20_un';'T_20_un';'F_20_un';...
-    'e1s1';'e1s1s2';'e1act';'e1acts3';'e2p2';'e2act';'e2acts6';'e3s3';'e3acts3';'e3acts3p4';'e4s7';'e6s8';...
-    'e3T_4';'e3actT_4';'e4s7Q_4';'e5M_4';'e5R_4';'e6s8R_4';'e7T_4';'e8T_4';'e8act4';'e8act4p4';'e9M_4';'e9R_4';'e10T_4';'e10act4';'e10act4p4';...
-    'e3T_6';'e3actT_6';'e4s7Q_6';'e5M_6';'e5R_6';'e6s8R_6';'e7T_6';'e8T_6';'e8act6';'e8act6p4';'e9M_6';'e9R_6';'e10T_6';'e10act6';'e10act6p4';...
-    'e3T_8';'e3actT_8';'e4s7Q_8';'e5M_8';'e5R_8';'e6s8R_8';'e7T_8';'e8T_8';'e8act8';'e8act8p4';'e9M_8';'e9R_8';'e10T_8';'e10act8';'e10act8p4';...
-    'e3T_10';'e3actT_10';'e4s7Q_10';'e5M_10';'e5R_10';'e6s8R_10';'e7T_10';'e8T_10';'e8act10';'e8act10p4';'e9M_10';'e9R_10';'e10T_10';'e10act10';'e10act10p4';...
-    'e3T_12';'e3actT_12';'e4s7Q_12';'e5M_12';'e5R_12';'e6s8R_12';'e7T_12';'e8T_12';'e8act12';'e8act12p4';'e9M_12';'e9R_12';'e10T_12';'e10act12';'e10act12p4';...
-    'e3T_14';'e3actT_14';'e4s7Q_14';'e5M_14';'e5R_14';'e6s8R_14';'e7T_14';'e8T_14';'e8act14';'e8act14p4';'e9M_14';'e9R_14';'e10T_14';'e10act14';'e10act14p4';...
-    'e3T_16';'e3actT_16';'e4s7Q_16';'e5M_16';'e5R_16';'e6s8R_16';'e7T_16';'e8T_16';'e8act16';'e8act16p4';'e9M_16';'e9R_16';'e10T_16';'e10act16';'e10act16p4';...
-    'e3T_18';'e3actT_18';'e4s7Q_18';'e5M_18';'e5R_18';'e6s8R_18';'e7T_18';'e8T_18';'e8act18';'e8act18p4';'e9M_18';'e9R_18';'e10T_18';'e10act18';'e10act18p4';...
-    'e3T_20';'e3actT_20';'e4s7Q_20';'e5M_20';'e5R_20';'e6s8R_20';'e7T_20';'e9M_20';'e9R_20';...
-    'e3T_12_un';'e3actT_12_un';'e4s7Q_12_un';'e5M_12_un';'e5R_12_un';'e6s8R_12_un';'e7T_12_un';'e8T_12_un';'e8act12_un';'e8act12_unp4';'e9M_12_un';'e9R_12_un';'e10T_12_un';'e10act12_un';'e10act12_unp4';...
-    'e3T_14_un';'e3actT_14_un';'e4s7Q_14_un';'e5M_14_un';'e5R_14_un';'e6s8R_14_un';'e7T_14_un';'e8T_14_un';'e8act14_un';'e8act14_unp4';'e9M_14_un';'e9R_14_un';'e10T_14_un';'e10act14_un';'e10act14_unp4';...
-    'e3T_16_un';'e3actT_16_un';'e4s7Q_16_un';'e5M_16_un';'e5R_16_un';'e6s8R_16_un';'e7T_16_un';'e8T_16_un';'e8act16_un';'e8act16_unp4';'e9M_16_un';'e9R_16_un';'e10T_16_un';'e10act16_un';'e10act16_unp4';...
-    'e3T_18_un';'e3actT_18_un';'e4s7Q_18_un';'e5M_18_un';'e5R_18_un';'e6s8R_18_un';'e7T_18_un';'e8T_18_un';'e8act18_un';'e8act18_unp4';'e9M_18_un';'e9R_18_un';'e10T_18_un';'e10act18_un';'e10act18_unp4';...
-    'e3T_20_un';'e3actT_20_un';'e4s7Q_20_un';'e5M_20_un';'e5R_20_un';'e6s8R_20_un';'e7T_20_un';'e9M_20_un';'e9R_20_un';'e3s6';'e4s6';'e5s6';'e6s6';'e7s6';'e8s6';'e9s6';'e10s6';...
-    'e9R_10_un';'e10R_10_un';'e10act10_un';'e10act10_unp4';...
-    'e10s3';'e10act2';'e10act2p4';'e8s3';'e8act2';'e8act2p4';...
-    'e10p4';'T_2';'e10T_2';'e8p4';'e8T_2';...
-    's9';'s10';'s11';'s12';'s13';'s14';'s15';'s16';...
-    'e3s9';'e3s10';'e3s11';'e3s12';'e3s13';'e3s14';'e3s15';'e3s16';...
-    'e3acts9';'e3acts10';'e3acts11';'e3acts12';'e3acts13';'e3acts14';'e3acts15';'e3acts16';...
-    'e3acts9p4';'e3acts10p4';'e3acts11p4';'e3acts12p4';'e3acts13p4';'e3acts14p4';'e3acts15p4';'e3acts16p4';...
-};
+%NO NAD+ NADP+ right now
+S.labels = {'c_ATP', 'c_C1_Bicarbonate', 'c_C2_AcCoA', 'c_C4_SucCoA', 'c_C6_HexCoA', 'c_C8_OcCoA', 'c_C10_DecCoA', 'c_C12_LauCoA', 'c_C14_EthCoA', 'c_C16_PalCoA', 'c_C18_OcDecCoA', 'c_ACP', 'c_NADPH', 'c_NADH', 'c_ADP',...
+    'c_C3_MalCoA', 'c_CoA', 'c_MalACP', 'c_C1_CO2', 'c_C4_BKeACP', 'c_C6_BKeACP', 'c_C8_BKeACP', 'c_C10_BKeACP', 'c_C12_BKeACP', 'c_C14_BKeACP', 'c_C16_BKeACP', 'c_C18_BKeACP',...
+    'c_C20_BKeACP', 'c_C12_BKeACP_un', 'c_C14_BKeACP_un', 'c_C16_BKeACP_un', 'c_C18_BKeACP_un', 'c_C20_BKeACP_un', 'c_C4_BHyAcACP', 'c_C6_BHyAcACP', 'c_C8_BHyAcACP',...
+    'c_C10_BHyAcACP', 'c_C12_BHyAcACP', 'c_C14_BHyAcACP', 'c_C16_BHyAcACP', 'c_C18_BHyAcACP', 'c_C20_BHyAcACP', 'c_C12_BHyAcACP_un', 'c_C14_BHyAcACP_un',...
+    'c_C16_BHyAcACP_un', 'c_C18_BHyAcACP_un', 'c_C20_BHyAcACP_un', 'c_C4_EnAcACP', 'c_C6_EnAcACP', 'c_C8_EnAcACP', 'c_C10_EnAcACP', 'c_C12_EnAcACP', 'c_C14_EnAcACP',...
+    'c_C16_EnAcACP', 'c_C18_EnAcACP', 'c_C20_EnAcACP', 'c_C10_cis3EnAcACP', 'c_C12_EnAcACP_un', 'c_C14_EnAcACP_un', 'c_C16_EnAcACP_un', 'c_C18_EnAcACP_un',...
+    'c_C20_EnAcACP_un', 'c_C4_AcACP', 'c_C6_AcACP', 'c_C8_AcACP', 'c_C10_AcACP', 'c_C12_AcACP', 'c_C14_AcACP', 'c_C16_AcACP', 'c_C18_AcACP', 'c_C20_AcACP',...
+    'c_C12_AcACP_un', 'c_C14_AcACP_un', 'c_C16_AcACP_un', 'c_C18_AcACP_un', 'c_C20_AcACP_un', 'c_C4_FA', 'c_C6_FA', 'c_C8_FA', 'c_C10_FA', 'c_C12_FA', 'c_C14_FA',...
+    'c_C16_FA', 'c_C18_FA', 'c_C20_FA', 'c_C12_FA_un', 'c_C14_FA_un', 'c_C16_FA_un', 'c_C18_FA_un', 'c_C20_FA_un', 'c_ACC_s1', 'c_C1_ACC_s2', 'c_C1_ACC_s3', 'c_C3_ACC_s4', 'c_C3_FabD_MalCoA',...
+    'c_C3_FabD_Act', 'c_C3_FabD_Act_ACP', 'c_C2_FabH_CoA', 'c_C4_FabH_CoA', 'c_C6_FabH_CoA', 'c_C8_FabH_CoA', 'c_C10_FabH_CoA', 'c_C12_FabH_CoA', 'c_C14_FabH_CoA',...
+    'c_C16_FabH_CoA', 'c_C18_FabH_CoA', 'c_C2_FabH_Act', 'c_C4_FabH_Act', 'c_C6_FabH_Act', 'c_C8_FabH_Act', 'c_C10_FabH_Act', 'c_C12_FabH_Act', 'c_C14_FabH_Act',...
+    'c_C16_FabH_Act', 'c_C18_FabH_Act', 'c_C2_FabH_Act_MalACP', 'c_C4_FabH_Act_MalACP', 'c_C6_FabH_Act_MalACP', 'c_C8_FabH_Act_MalACP', 'c_C10_FabH_Act_MalACP',...
+    'c_C12_FabH_Act_MalACP', 'c_C14_FabH_Act_MalACP', 'c_C16_FabH_Act_MalACP', 'c_C18_FabH_Act_MalACP', 'c_FabG_NADPH', 'c_C4_FabG_NADPH_BKeACP',...
+    'c_C6_FabG_NADPH_BKeACP', 'c_C8_FabG_NADPH_BKeACP', 'c_C10_FabG_NADPH_BKeACP', 'c_C12_FabG_NADPH_BKeACP', 'c_C14_FabG_NADPH_BKeACP',...
+    'c_C16_FabG_NADPH_BKeACP', 'c_C18_FabG_NADPH_BKeACP', 'c_C20_FabG_NADPH_BKeACP', 'c_C12_FabG_NADPH_BKeACP_un', 'c_C14_FabG_NADPH_BKeACP_un',...
+    'c_C16_FabG_NADPH_BKeACP_un', 'c_C18_FabG_NADPH_BKeACP_un', 'c_C20_FabG_NADPH_BKeACP_un', 'c_C4_FabZ_BHyAcACP', 'c_C6_FabZ_BHyAcACP',...
+    'c_C8_FabZ_BHyAcACP', 'c_C10_FabZ_BHyAcACP', 'c_C12_FabZ_BHyAcACP', 'c_C14_FabZ_BHyAcACP', 'c_C16_FabZ_BHyAcACP', 'c_C18_FabZ_BHyAcACP',...
+    'c_C20_FabZ_BHyAcACP', 'c_C12_FabZ_BHyAcACP_un', 'c_C14_FabZ_BHyAcACP_un', 'c_C16_FabZ_BHyAcACP_un', 'c_C18_FabZ_BHyAcACP_un', 'c_C20_FabZ_BHyAcACP_un',...
+    'c_C4_FabZ_EnAcACP', 'c_C6_FabZ_EnAcACP', 'c_C8_FabZ_EnAcACP', 'c_C10_FabZ_EnAcACP', 'c_C12_FabZ_EnAcACP', 'c_C14_FabZ_EnAcACP', 'c_C16_FabZ_EnAcACP',...
+    'c_C18_FabZ_EnAcACP', 'c_C20_FabZ_EnAcACP', 'c_C12_FabZ_EnAcACP_un', 'c_C14_FabZ_EnAcACP_un', 'c_C16_FabZ_EnAcACP_un', 'c_C18_FabZ_EnAcACP_un',...
+    'c_C20_FabZ_EnAcACP_un', 'c_C4_FabA_BHyAcACP', 'c_C6_FabA_BHyAcACP', 'c_C8_FabA_BHyAcACP', 'c_C10_FabA_BHyAcACP', 'c_C12_FabA_BHyAcACP',...
+    'c_C14_FabA_BHyAcACP', 'c_C16_FabA_BHyAcACP', 'c_C18_FabA_BHyAcACP', 'c_C20_FabA_BHyAcACP', 'c_C12_FabA_BHyAcACP_un', 'c_C14_FabA_BHyAcACP_un',...
+    'c_C16_FabA_BHyAcACP_un', 'c_C18_FabA_BHyAcACP_un', 'c_C20_FabA_BHyAcACP_un', 'c_C4_FabA_EnAcACP', 'c_C6_FabA_EnAcACP', 'c_C8_FabA_EnAcACP', 'c_C10_FabA_EnAcACP',...
+    'c_C12_FabA_EnAcACP', 'c_C14_FabA_EnAcACP', 'c_C16_FabA_EnAcACP', 'c_C18_FabA_EnAcACP', 'c_C20_FabA_EnAcACP', 'c_C10_FabA_cis3EnAcACP', 'c_C12_FabA_EnAcACP_un',...
+    'c_C14_FabA_EnAcACP_un', 'c_C16_FabA_EnAcACP_un', 'c_C18_FabA_EnAcACP_un', 'c_C20_FabA_EnAcACP_un', 'c_FabI_NADH', 'c_C4_FabI_NADH_EnAcACP',...
+    'c_C6_FabI_NADH_EnAcACP', 'c_C8_FabI_NADH_EnAcACP', 'c_C10_FabI_NADH_EnAcACP', 'c_C12_FabI_NADH_EnAcACP', 'c_C14_FabI_NADH_EnAcACP',...
+    'c_C16_FabI_NADH_EnAcACP', 'c_C18_FabI_NADH_EnAcACP', 'c_C20_FabI_NADH_EnAcACP', 'c_C12_FabI_NADH_EnAcACP_un', 'c_C14_FabI_NADH_EnAcACP_un',...
+    'c_C16_FabI_NADH_EnAcACP_un', 'c_C18_FabI_NADH_EnAcACP_un', 'c_C20_FabI_NADH_EnAcACP_un', 'c_C4_TesA_AcACP', 'c_C6_TesA_AcACP', 'c_C8_TesA_AcACP',...
+    'c_C10_TesA_AcACP', 'c_C12_TesA_AcACP', 'c_C14_TesA_AcACP', 'c_C16_TesA_AcACP', 'c_C18_TesA_AcACP', 'c_C20_TesA_AcACP', 'c_C12_TesA_AcACP_un', 'c_C14_TesA_AcACP_un',...
+    'c_C16_TesA_AcACP_un', 'c_C18_TesA_AcACP_un', 'c_C20_TesA_AcACP_un', 'c_C4_FabF_AcACP', 'c_C6_FabF_AcACP', 'c_C8_FabF_AcACP', 'c_C10_FabF_AcACP',...
+    'c_C12_FabF_AcACP', 'c_C14_FabF_AcACP', 'c_C16_FabF_AcACP', 'c_C18_FabF_AcACP', 'c_C12_FabF_AcACP_un', 'c_C14_FabF_AcACP_un', 'c_C16_FabF_AcACP_un',...
+    'c_C18_FabF_AcACP_un', 'c_C4_FabF_Act', 'c_C6_FabF_Act', 'c_C8_FabF_Act', 'c_C10_FabF_Act', 'c_C12_FabF_Act', 'c_C14_FabF_Act', 'c_C16_FabF_Act', 'c_C18_FabF_Act',...
+    'c_C12_FabF_Act_un', 'c_C14_FabF_Act_un', 'c_C16_FabF_Act_un', 'c_C18_FabF_Act_un', 'c_C4_FabF_Act_MalACP', 'c_C6_FabF_Act_MalACP', 'c_C8_FabF_Act_MalACP',...
+    'c_C10_FabF_Act_MalACP', 'c_C12_FabF_Act_MalACP', 'c_C14_FabF_Act_MalACP', 'c_C16_FabF_Act_MalACP', 'c_C18_FabF_Act_MalACP', 'c_C12_FabF_Act_MalACP_un',...
+    'c_C14_FabF_Act_MalACP_un', 'c_C16_FabF_Act_MalACP_un', 'c_C18_FabF_Act_MalACP_un', 'c_C4_FabB_AcACP', 'c_C6_FabB_AcACP', 'c_C8_FabB_AcACP', 'c_C10_FabB_AcACP',...
+    'c_C12_FabB_AcACP', 'c_C14_FabB_AcACP', 'c_C16_FabB_AcACP', 'c_C18_FabB_AcACP', 'c_C12_FabB_AcACP_un', 'c_C14_FabB_AcACP_un', 'c_C16_FabB_AcACP_un',...
+    'c_C18_FabB_AcACP_un', 'c_C4_FabB_Act', 'c_C6_FabB_Act', 'c_C8_FabB_Act', 'c_C10_FabB_Act', 'c_C12_FabB_Act', 'c_C14_FabB_Act', 'c_C16_FabB_Act', 'c_C18_FabB_Act',...
+    'c_C12_FabB_Act_un', 'c_C14_FabB_Act_un', 'c_C16_FabB_Act_un', 'c_C18_FabB_Act_un', 'c_C4_FabB_Act_MalACP', 'c_C6_FabB_Act_MalACP', 'c_C8_FabB_Act_MalACP',...
+    'c_C10_FabB_Act_MalACP', 'c_C12_FabB_Act_MalACP', 'c_C14_FabB_Act_MalACP', 'c_C16_FabB_Act_MalACP', 'c_C18_FabB_Act_MalACP', 'c_C12_FabB_Act_MalACP_un',...
+    'c_C14_FabB_Act_MalACP_un', 'c_C16_FabB_Act_MalACP_un', 'c_C18_FabB_Act_MalACP_un', 'c_C10_FabB_cis3EnAcACP', 'c_C10_FabB_Act_cis3', 'c_C10_FabB_Act_cis3MalACP',...
+    'c_C4_FabH_AcACP', 'c_C6_FabH_AcACP', 'c_C8_FabH_AcACP', 'c_C10_FabH_AcACP', 'c_C12_FabH_AcACP', 'c_C14_FabH_AcACP', 'c_C16_FabH_AcACP', 'c_C18_FabH_AcACP',...
+    'c_C20_FabH_AcACP', 'c_C12_FabH_AcACP_un', 'c_C14_FabH_AcACP_un', 'c_C16_FabH_AcACP_un', 'c_C18_FabH_AcACP_un', 'c_C20_FabH_AcACP_un', 'c_C4_FabH_Act_AcACP',...
+    'c_C6_FabH_Act_AcACP', 'c_C8_FabH_Act_AcACP', 'c_C10_FabH_Act_AcACP', 'c_C12_FabH_Act_AcACP', 'c_C14_FabH_Act_AcACP', 'c_C16_FabH_Act_AcACP', 'c_C18_FabH_Act_AcACP',...
+    'c_C20_FabH_Act_AcACP', 'c_C12_FabH_Act_AcACP_un', 'c_C14_FabH_Act_AcACP_un', 'c_C16_FabH_Act_AcACP_un', 'c_C18_FabH_Act_AcACP_un', 'c_C20_FabH_Act_AcACP_un',...
+    'c_TesA_ACP', 'c_FabH_ACP', 'c_FabG_ACP', 'c_FabZ_ACP', 'c_FabI_ACP', 'c_FabF_ACP', 'c_FabA_ACP', 'c_FabB_ACP', 'c_C2_FabB_AcCoA', 'c_C2_FabB_Act', 'c_C5_FabB_Act_MalACP', 'c_C2_FabF_AcCoA',...
+    'c_C2_FabF_Act', 'c_C2_FabF_Act_MalACP', 'c_C3_FabB_MalACP', 'c_C2_AcACP', 'c_C2_FabB_AcACP', 'c_C3_FabF_MalACP', 'c_C2_FabF_AcACP'};
+
 S.num = length(S.labels); %how many diff eqs there are
 
 % Set thioesterase fitting source
@@ -114,31 +131,30 @@ S.R3M1_kd_est = [56.91208755 35.36250007 0.92358933 1.779555549 0.093940844 0.52
 S.R3M4_kcat_scaling = [0.0568 0.0509 1 0.0158 0.25256 0.45819 0.25256 1.221 1.5368];
 S.R3M4_kd_est = [56.91208755 35.36250007 0.294555191 1.779555549 0.92358933 0.521582239 0.92358933 0.166345313 0.093940844];
 
-%% Figure D EC_FabH AcCoA
 EC_kcat3_scaling = [1,0,0,0,0,0,0,0,0];
 PP_H1_kcat3_scaling = [0.5,0,0,0,0,0,0,0,0];
 PP_H2_kcat3_scaling = [0,0,0,0.4,0,0,0,0,0];
-
-S.kcat_scaling_fabH = EC_kcat3_scaling;
 
 EC_kcat4_scaling = [1,1,1,1,1,1,1,1,1];
 PP_1914_kcat4_scaling = [.1,.1,.1,.1,.1,.1,.1,.1,.1];
 PP_2783_kcat4_scaling = [0,0,0,.025,.025,.025,.025,.025,.025];
 
-load('JpMat.mat','JpMatPrime')
-%ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'JPattern',JpMatPrime,'Vectorized','on');
 ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
+
+%% Figure D EC_FabH AcCoA
+S.kcat_scaling_fabH = EC_kcat3_scaling;
 
 S.range = [0 150]; %2.5 mins (initial rate)
 
 rel_rate_D = zeros(1,4);
 
+% New order from var_name code
 S.init_cond = zeros(S.num,1);
-S.init_cond(3) = 100; %s3 (Acetyl-CoA)
-S.init_cond(4) = 10; %s6 (holo ACP)
-S.init_cond(5) = 1300; %s7 (NADPH)
-S.init_cond(6) = 1300; %s8 (NADH) not in figure description
-S.init_cond(8) = 500; %p2 (malonyl-CoA)
+S.init_cond(3) = 100; % Acetyl-CoA
+S.init_cond(12) = 10; % holo ACP
+S.init_cond(13) = 1300; % NADPH
+S.init_cond(14) = 1300; % NADH
+S.init_cond(16) = 500; % malonyl-CoA
 
 % FabG parameters for reference
 % S.km_table{'k4_1f','parameter_values'} = 10;
@@ -159,12 +175,11 @@ S.enzyme_conc = enz_conc(1,:);
 
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Td1,Cd1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
 [~, rel_rate_D(1)] = Calc_Function(Td1,Cd1,S);
-
 
 % EC FabG
 S.kcat_scaling_fabG = EC_kcat4_scaling;
@@ -173,12 +188,11 @@ S.enzyme_conc = enz_conc(2,:);
 
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Td2,Cd2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
 [~, rel_rate_D(2)] = Calc_Function(Td2,Cd2,S);
-
 
 % PP 1914
 S.kcat_scaling_fabG = PP_1914_kcat4_scaling;
@@ -187,7 +201,7 @@ S.enzyme_conc = enz_conc(2,:);
     
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Td3,Cd3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
@@ -201,14 +215,14 @@ S.enzyme_conc = enz_conc(2,:);
  
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Td4,Cd4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
 [~, rel_rate_D(4)] = Calc_Function(Td4,Cd4,S);
 
 
-%% Plot
+% Plot
 figure('Position',[500 200 382 340])
 bar(rel_rate_D,'cyan')
 ylabel('Initial Rate (uM C16/m)')
@@ -226,12 +240,13 @@ S.range = [0 150]; %2.5 mins (initial rate)
 
 rel_rate_E = zeros(1,4);
 
+% New order from var_name code
 S.init_cond = zeros(S.num,1);
-S.init_cond(318) = 100; % (OcCoA)
-S.init_cond(4) = 10; %s6 (holo ACP)
-S.init_cond(5) = 1300; %s7 (NADPH)
-S.init_cond(6) = 1300; %s8 (NADH) not in figure description
-S.init_cond(8) = 500; %p2 (malonyl-CoA)
+S.init_cond(6) = 100; % Octanoyl-CoA
+S.init_cond(12) = 10; % holo ACP
+S.init_cond(13) = 1300; % NADPH
+S.init_cond(14) = 1300; % NADH
+S.init_cond(16) = 500; % malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [0 1 10 0 1 1 10 1 1 1;
@@ -242,7 +257,7 @@ S.enzyme_conc = enz_conc(1,:);
 
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Te1,Ce1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
@@ -256,7 +271,7 @@ S.enzyme_conc = enz_conc(2,:);
 
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Te2,Ce2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
@@ -270,7 +285,7 @@ S.enzyme_conc = enz_conc(2,:);
     
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Te3,Ce3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
@@ -284,13 +299,13 @@ S.enzyme_conc = enz_conc(2,:);
  
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Te4,Ce4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
 [~, rel_rate_E(4)] = Calc_Function(Te4,Ce4,S);
 
-%% Plot
+% Plot
 figure('Position',[500 200 382 340])
 bar(rel_rate_E,'cyan')
 ylabel('Initial Rate (uM C16/m)')
@@ -304,16 +319,15 @@ text(0.1, 12.5, '10 uM PP FabH2','FontSize',18)
 %% Figure F PP_FabH2 OcCoA
 S.kcat_scaling_fabH = PP_H2_kcat3_scaling;
 
-S.range = [0 720]; %12 mins (total production)
+S.range = [0 7200]; %2 hours (total production)
 
-rel_rate_E = zeros(1,4);
-
+% New order from var_name code
 S.init_cond = zeros(S.num,1);
-S.init_cond(318) = 100; % (OcCoA)
-S.init_cond(4) = 10; %s6 (holo ACP)
-S.init_cond(5) = 1300; %s7 (NADPH)
-S.init_cond(6) = 1300; %s8 (NADH) not in figure description
-S.init_cond(8) = 500; %p2 (malonyl-CoA)
+S.init_cond(6) = 100; % Octanoyl-CoA
+S.init_cond(12) = 10; % holo ACP
+S.init_cond(13) = 1300; % NADPH
+S.init_cond(14) = 1300; % NADH
+S.init_cond(16) = 500; % malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [0 1 10 1 1 1 10 1 1 1]; 
@@ -325,7 +339,7 @@ S.enzyme_conc = enz_conc;
 
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Tf1,Cf1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
@@ -339,7 +353,7 @@ S.enzyme_conc = enz_conc;
     
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Tf2,Cf2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
@@ -353,7 +367,7 @@ S.enzyme_conc = enz_conc;
  
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Tf3,Cf3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
@@ -367,10 +381,10 @@ for i=[5 7 9 11 13]
 end
 F_raw_F_plot = F_raw_F_new(:,4:8);
 
-%% Plot
+% Plot
 figure('Position',[500 200 382 340])
 stack_labels = {'C10','C12','C14','C16','C18'};
-bh = bar(F_raw_F_plot,.9,'stacked');
+bh = bar(F_raw_F_plot, .9, 'stacked');
 xticklabels(['EC FabG';'PP 1914';'PP 2783'])
 xtickangle(30)
 legend(stack_labels)
@@ -388,9 +402,130 @@ set(bh, {'CData'}, colors)
 ax = gca;
 ax.FontSize = 18; 
 
-%% Plotting EC FabG Intermediates Separately
+%% Plotting carbon/reactants and products EC
+% figure()
+% for i=[90, 326]
+%     plot(Tf1(1:1028)/60,Cf1(1:1028,i),"LineWidth",2)
+%     hold on
+% end
+% legend('FabH-AcCoA', 'FabH-OcCoA')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
 % 
-% label = {'FabG-NADPH', 'C4 FabG-NADPH-B-ketoacyl-ACPs', 'C6 FabG-NADPH-B-ketoacyl-ACPs', 'C8 FabG-NADPH-B-ketoacyl-ACPs', 'C10 FabG-NADPH-B-ketoacyl-ACPs', 'C12 FabG-NADPH-B-ketoacyl-ACPs', 'C14 FabG-NADPH-B-ketoacyl-ACPs', 'C16 FabG-NADPH-B-ketoacyl-ACPs', 'C18 FabG-NADPH-B-ketoacyl-ACPs', 'C20 FabG-NADPH-B-ketoacyl-ACPs', 'C12 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C14 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C16 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C18 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C20 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'FabG-ACP'};
+% figure()
+% for i=[3 4 8 11 318]
+%     plot(Tf1(1:1028)/60,Cf1(1:1028,i),"LineWidth",2)
+%     hold on
+% end
+% legend('AcCoA','ACP','MalCoA','CO2','OcCoA')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% 
+% figure()
+% for i=[16 21 26 67 77]
+%     plot(Tf1(1:1028)/60,Cf1(1:1028,i),"LineWidth",2)
+%     hold on
+% end
+% legend('C4','C6','C8','C18','C20')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% ylim([0 0.5])
+% 
+% figure()
+% for i=[31 37 47 57 42 52 62 72 82]
+%     plot(Tf1(1:1028)/60,Cf1(1:1028,i),"LineWidth",2)
+%     hold on
+% end
+% legend('C10','C12','C14','C16','C12 unsat','C14 unsat','C16 unsat','C18 unsat','C20 unsat')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% 
+% %% Plotting reactants and products 1914
+% figure()
+% for i=[3 4 8 11 318]
+%     plot(Tf2(1:1071)/60,Cf2(1:1071,i),"LineWidth",2)
+%     hold on
+% end
+% legend('AcCoA','ACP','MalCoA','CO2','OcCoA')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% 
+% figure()
+% for i=[16 21 26 67 77]
+%     plot(Tf2(1:1071)/60,Cf2(1:1071,i),"LineWidth",2)
+%     hold on
+% end
+% legend('C4','C6','C8','C18','C20')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% ylim([0 0.5])
+% 
+% figure()
+% for i=[31 37 47 57 42 52 62 72 82]
+%     plot(Tf2(1:1071)/60,Cf2(1:1071,i),"LineWidth",2)
+%     hold on
+% end
+% legend('C10','C12','C14','C16','C12 unsat','C14 unsat','C16 unsat','C18 unsat','C20 unsat')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% 
+% %% Plotting reactants and products 2783
+% figure()
+% for i=[3 4 8 11 318]
+%     plot(Tf3(1:925)/60,Cf3(1:925,i),"LineWidth",2)
+%     hold on
+% end
+% legend('AcCoA','ACP','MalCoA','CO2','OcCoA')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% 
+% figure()
+% for i=[16 21 26]
+%     plot(Tf3(1:925)/60,Cf3(1:925,i),"LineWidth",2)
+%     hold on
+% end
+% legend('C4','C6','C8')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% 
+% figure()
+% for i=[67 77]
+%     plot(Tf3(1:925)/60,Cf3(1:925,i),"LineWidth",2)
+%     hold on
+% end
+% legend('C18','C20')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% ylim([0 0.5])
+% 
+% figure()
+% for i=[31 37 47 57 42 52 62 72 82]
+%     plot(Tf3(1:925)/60,Cf3(1:925,i),"LineWidth",2)
+%     hold on
+% end
+% legend('C10','C12','C14','C16','C12 unsat','C14 unsat','C16 unsat','C18 unsat','C20 unsat')
+% ylabel('Concentration (uM)')
+% xlabel('Time (min)')
+% xlim([0 120])
+% 
+% %% Plotting EC FabG Intermediates Separately
+% 
+% label = {'FabG-NADPH', 'C4 FabG-NADPH-B-ketoacyl-ACPs', 'C6 FabG-NADPH-B-ketoacyl-ACPs',...
+% 'C8 FabG-NADPH-B-ketoacyl-ACPs', 'C10 FabG-NADPH-B-ketoacyl-ACPs', 'C12 FabG-NADPH-B-ketoacyl-ACPs',...
+% 'C14 FabG-NADPH-B-ketoacyl-ACPs', 'C16 FabG-NADPH-B-ketoacyl-ACPs', 'C18 FabG-NADPH-B-ketoacyl-ACPs',...
+% 'C20 FabG-NADPH-B-ketoacyl-ACPs', 'C12 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C14 FabG-NADPH-B-ketoacyl-ACPs Unsat',...
+% 'C16 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C18 FabG-NADPH-B-ketoacyl-ACPs Unsat', 'C20 FabG-NADPH-B-ketoacyl-ACPs Unsat',...
+% FabG-ACP'};
 % j=1;
 % for i=[93 97 112 127 142 157 172 187 202 217 226 241 256 271 286 294]
 %     figure()
@@ -472,9 +607,9 @@ ax.FontSize = 18;
 % xlabel('Time (seconds)')
 % ylabel('Concentration (uM)')
 % axis("padded")
-
-%% Testing what params affect the rate
-
+% 
+% %% Testing what params affect the rate
+% 
 % % PP 1914
 % 
 % x = linspace(-5,5,11);
@@ -498,7 +633,7 @@ ax.FontSize = 18;
 % 
 %     P = Param_Function(S);
 % 
-%     parameterized_ODEs = @(t,c) ODE_Function(t,c,P,S.num);
+%     parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 % 
 %     [T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 % 
