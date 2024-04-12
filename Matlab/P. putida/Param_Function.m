@@ -213,9 +213,9 @@ end
 P.k2_4f = P.k2_4r/S.kd_fits(2);%b3
  
 % FabB and FabF parameters for FabH-like activity
-P.k10_4f = S.param_table{'k10_4f','parameter_values'}*S.scaling_factor_fabB_init;
+P.k10_4f = S.param_table{'k10_4f','parameter_values'};
 P.k10_4r = S.param_table{'k10_4r','parameter_values'};
-P.k8_4f = S.param_table{'k8_4f','parameter_values'}*S.scaling_factor_fabF_init;
+P.k8_4f = S.param_table{'k8_4f','parameter_values'};
 P.k8_4r = S.param_table{'k8_4r','parameter_values'};
 P.k10_9f = S.param_table{'k10_9f','parameter_values'};
 P.k10_9r = S.param_table{'k10_9r','parameter_values'};
@@ -315,43 +315,43 @@ P.k10_3r = P.k10_3r.*ones(1,num_elong_steps);
 % Other params
 
 % ACC (not used)
-P.e1tot = S.enzyme_conc(1);
+P.ACCtot = S.enzyme_conc(1);
 
 % FabD
-P.e2tot = S.enzyme_conc(2);
+P.FabDtot = S.enzyme_conc(2);
 
 % FabH
 P.k3_inh_f = S.ACP_inh(1);
 P.k3_inh_r = S.ACP_inh(2);
-P.e3tot = S.enzyme_conc(3);
+P.FabHtot = S.enzyme_conc(3);
 
 % FabG
 P.k4_inh_f = S.ACP_inh(3);
 P.k4_inh_r = S.ACP_inh(4);
-P.e4tot = S.enzyme_conc(4);
+P.FabGtot = S.enzyme_conc(4);
 
 % FabZ
 P.k5_3f = P.k5_1r;
 P.k5_3r = P.k5_1f;
 P.k5_inh_f = S.ACP_inh(5);
 P.k5_inh_r = S.ACP_inh(6);
-P.e5tot = S.enzyme_conc(5);
+P.FabZtot = S.enzyme_conc(5);
 
 % FabI
 P.k6_inh_f = S.ACP_inh(7);
 P.k6_inh_r = S.ACP_inh(8);
-P.e6tot = S.enzyme_conc(6);
+P.FabItot = S.enzyme_conc(6);
 
 % TesA
 P.k7_inh_f = S.ACP_inh(9);
 P.k7_inh_r = S.ACP_inh(10);
-P.e7tot = S.enzyme_conc(7);
+P.TesAtot = S.enzyme_conc(7);
 
 % FabF
 P.kcat8_un = P.kcat8(4).*S.kcat_scaling_fabF_unsat;%specificity of reaction with unsaturated acyl chains
 P.k8_inh_f = S.ACP_inh(11);
 P.k8_inh_r = S.ACP_inh(12);
-P.e8tot = S.enzyme_conc(8);
+P.FabFtot = S.enzyme_conc(8);
 
 % FabA
 P.k9_3f = P.k9_1r;
@@ -364,10 +364,10 @@ P.k9_3f_un = P.k9_3f;
 P.k9_3r_un = P.k9_3r;
 P.k9_inh_f = S.ACP_inh(13);
 P.k9_inh_r = S.ACP_inh(14);
-P.e9tot = S.enzyme_conc(9);
+P.FabAtot = S.enzyme_conc(9);
 
 % FabB
 P.kcat10_un = P.kcat10(5).*S.kcat_scaling_fabB_unsat;%specificity of reaction with unsaturated acyl chains
 P.k10_inh_f = S.ACP_inh(15);
 P.k10_inh_r = S.ACP_inh(16);
-P.e10tot = S.enzyme_conc(10);
+P.FabBtot = S.enzyme_conc(10);
