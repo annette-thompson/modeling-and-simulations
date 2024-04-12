@@ -101,23 +101,35 @@ frac_FA_C8_0(9) = dist(end,13)+dist(end,14);
 frac_FA_C8_0 = frac_FA_C8_0./sum(frac_FA_C8_0);
 
 %% Plots
-
-%x values for bar chart
 x = 4:2:20;
+barwidth =1;
+figure('Position',[500 200 400 200])
+bh = bar(x,[frac_FA_WT; frac_FA_C8_1], barwidth, 'FaceColor', 'flat','CData',[0,0,0]);
+for i = 1:length(x)
+    bh(1,2).CData(i,:) = [1 0 0];
+end
+ylim([0, 0.8])
+xlim([3, 19])
+xlabel('Fatty Acid Chain Length')
+ylabel('Mole Fraction')
+legend('WT', 'C8 Mutant','Location','northwest')
+ax = gca;
+ax.FontSize = 16; 
+text(12, 0.7, '[FabB] (um) = 1','FontSize',16)
 
-figure;
-bar(x,[frac_FA_WT;frac_FA_C8_1])
+%%
+figure('Position',[500 200 400 200])
+bh = bar(x,[frac_FA_C8_1;frac_FA_C8_25;frac_FA_C8_0], barwidth, 'FaceColor', 'flat','CData',[1,0,0]);
+for i = 1:length(x)
+    bh(1,3).CData(i,:) = [0 0.4470 0.7410];
+    bh(1,2).CData(i,:) = [0.4940 0.1840 0.5560];
+end
 ylim([0,0.8])
+xlim([3, 19])
 legend('WT','C8 Mutant')
 xlabel('Fatty Acid Chain Length')
 ylabel('Mole Fraction')
-legend('WT','C8 Mutant')
-
-
-figure;
-bar(x,[frac_FA_C8_1;frac_FA_C8_25;frac_FA_C8_0])
-ylim([0,0.8])
-legend('WT','C8 Mutant')
-xlabel('Fatty Acid Chain Length')
-ylabel('Mole Fraction')
-legend('FabB = 1 um','FabB = 0.25 um','FabB = 0 um')
+legend('1','0.25','0')
+ax = gca;
+ax.FontSize = 16; 
+text(10, 0.7, '[FabB] (um):','FontSize',16)
