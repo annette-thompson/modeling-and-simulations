@@ -38,7 +38,7 @@ for i=1:numel(balance_search)
     % species
     conc_index = zeros(1,numel(balance_conc{i}));
     for j=1:numel(balance_conc{i})
-        conc_index(j) = strcmp(P.labels, balance_conc{i}{j});
+        conc_index(j) = find(ismember(P.labels, balance_conc{i}{j}), 1);
     end
 
     % Calculate difference between end and start (should be as close to 0

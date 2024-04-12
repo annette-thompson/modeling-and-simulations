@@ -1,16 +1,19 @@
-% List of variable names
-var_names = {'ATP', 'C1_Bicarbonate', 'C2_AcCoA', 'C4_SucCoA', 'C6_HexCoA', ...
-    'C8_OcCoA', 'C10_DecCoA', 'C12_LauCoA', 'C14_EthCoA', 'C16_PalCoA', 'C18_OcDecCoA'};
+C=Cd2;
+T=Td2;
 
-% Assuming 'c' is your data array
-c = rand(11, 10);  % Example data, replace with your actual data
-
-% Loop to assign variables
-for i = 1:numel(var_names)
-    var_name = ['c_' var_names{i}];
-    eval([var_name ' = c(i, :);']);
+F_weighted = zeros(length(T),1);
+F_saved = zeros(1,length(S.FA_dist));
+F_raw = zeros(1,length(S.FA_dist));
+weight_vec = S.FA_dist/16; %Palmitic Acid equivalents (C16)
+count = 1;
+for ind = 1:length(S.labels)
+    label_val = char(S.labels(ind));
+    if contains(label_val, '_FA','IgnoreCase',false)
+        F_saved(count) = weight_vec(count)*(C(end,ind));
+        F_raw(count) = C(end,ind);
+        F_weighted = weight_vec(count)*(C(:,ind)) + F_weighted;
+        count = count + 1;
+    end
 end
 
-% Testing the assignment
-disp(c_ATP);
-disp(c_C1_Bicarbonate);
+rel_rate = F_weighted(end,1)/150*60;
