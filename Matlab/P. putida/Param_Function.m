@@ -215,9 +215,9 @@ end
 P.k2_4f = P.k2_4r/S.kd_fits(2);%b3
  
 % FabB and FabF parameters for FabH-like activity
-P.k10_4f = S.param_table{'k10_4f','parameter_values'};
+P.k10_4f = S.param_table{'k10_4f','parameter_values'}*S.scaling_factor_fabB_init;
 P.k10_4r = S.param_table{'k10_4r','parameter_values'};
-P.k8_4f = S.param_table{'k8_4f','parameter_values'};
+P.k8_4f = S.param_table{'k8_4f','parameter_values'}*S.scaling_factor_fabF_init;
 P.k8_4r = S.param_table{'k8_4r','parameter_values'};
 P.k10_9f = S.param_table{'k10_9f','parameter_values'};
 P.k10_9r = S.param_table{'k10_9r','parameter_values'};
