@@ -1,6 +1,6 @@
-clear all
-close all
-clc
+% clear all
+% close all
+% clc
 
 %% Variables
 
@@ -14,11 +14,13 @@ S.p_vec = [142473.7238 7597.676912 4.276689943 40213.92919 88.88525384 0.0053882
 
 % Potential FA lengths for calculating production profile
 % Numbers repeated are saturated and unsaturated
-S.FA_dist = [4,6,8,10,12,12,14,14,16,16,18,18,20,20];
+% changed
+S.FA_dist = [4,6,8,10,12,14,16,18,20,12,14,16,18,20];
 
-%NO NAD+ NADP+ right now
+% NO NAD+ NADP+ right now
+% changed
 S.labels = {'c_ATP', 'c_C1_Bicarbonate', 'c_C2_AcCoA', 'c_C4_SucCoA', 'c_C6_HexCoA', 'c_C8_OcCoA', 'c_C10_DecCoA', 'c_C12_LauCoA', 'c_C14_EthCoA', 'c_C16_PalCoA', 'c_C18_OcDecCoA', 'c_ACP', 'c_NADPH', 'c_NADH', 'c_ADP',...
-    'c_C3_MalCoA', 'c_CoA', 'c_MalACP', 'c_C1_CO2', 'c_C4_BKeACP', 'c_C6_BKeACP', 'c_C8_BKeACP', 'c_C10_BKeACP', 'c_C12_BKeACP', 'c_C14_BKeACP', 'c_C16_BKeACP', 'c_C18_BKeACP',...
+    'c_C3_MalCoA', 'c_CoA', 'c_C3_MalACP', 'c_C1_CO2', 'c_C4_BKeACP', 'c_C6_BKeACP', 'c_C8_BKeACP', 'c_C10_BKeACP', 'c_C12_BKeACP', 'c_C14_BKeACP', 'c_C16_BKeACP', 'c_C18_BKeACP',...
     'c_C20_BKeACP', 'c_C12_BKeACP_un', 'c_C14_BKeACP_un', 'c_C16_BKeACP_un', 'c_C18_BKeACP_un', 'c_C20_BKeACP_un', 'c_C4_BHyAcACP', 'c_C6_BHyAcACP', 'c_C8_BHyAcACP',...
     'c_C10_BHyAcACP', 'c_C12_BHyAcACP', 'c_C14_BHyAcACP', 'c_C16_BHyAcACP', 'c_C18_BHyAcACP', 'c_C20_BHyAcACP', 'c_C12_BHyAcACP_un', 'c_C14_BHyAcACP_un',...
     'c_C16_BHyAcACP_un', 'c_C18_BHyAcACP_un', 'c_C20_BHyAcACP_un', 'c_C4_EnAcACP', 'c_C6_EnAcACP', 'c_C8_EnAcACP', 'c_C10_EnAcACP', 'c_C12_EnAcACP', 'c_C14_EnAcACP',...
@@ -28,8 +30,8 @@ S.labels = {'c_ATP', 'c_C1_Bicarbonate', 'c_C2_AcCoA', 'c_C4_SucCoA', 'c_C6_HexC
     'c_C16_FA', 'c_C18_FA', 'c_C20_FA', 'c_C12_FA_un', 'c_C14_FA_un', 'c_C16_FA_un', 'c_C18_FA_un', 'c_C20_FA_un', 'c_ACC_s1', 'c_C1_ACC_s2', 'c_C1_ACC_s3', 'c_C3_ACC_s4', 'c_C3_FabD_MalCoA',...
     'c_C3_FabD_Act', 'c_C3_FabD_Act_ACP', 'c_C2_FabH_CoA', 'c_C4_FabH_CoA', 'c_C6_FabH_CoA', 'c_C8_FabH_CoA', 'c_C10_FabH_CoA', 'c_C12_FabH_CoA', 'c_C14_FabH_CoA',...
     'c_C16_FabH_CoA', 'c_C18_FabH_CoA', 'c_C2_FabH_Act', 'c_C4_FabH_Act', 'c_C6_FabH_Act', 'c_C8_FabH_Act', 'c_C10_FabH_Act', 'c_C12_FabH_Act', 'c_C14_FabH_Act',...
-    'c_C16_FabH_Act', 'c_C18_FabH_Act', 'c_C2_FabH_Act_MalACP', 'c_C4_FabH_Act_MalACP', 'c_C6_FabH_Act_MalACP', 'c_C8_FabH_Act_MalACP', 'c_C10_FabH_Act_MalACP',...
-    'c_C12_FabH_Act_MalACP', 'c_C14_FabH_Act_MalACP', 'c_C16_FabH_Act_MalACP', 'c_C18_FabH_Act_MalACP', 'c_FabG_NADPH', 'c_C4_FabG_NADPH_BKeACP',...
+    'c_C16_FabH_Act', 'c_C18_FabH_Act', 'c_C5_FabH_Act_MalACP', 'c_C7_FabH_Act_MalACP', 'c_C9_FabH_Act_MalACP', 'c_C11_FabH_Act_MalACP', 'c_C13_FabH_Act_MalACP',...
+    'c_C15_FabH_Act_MalACP', 'c_C17_FabH_Act_MalACP', 'c_C19_FabH_Act_MalACP', 'c_C21_FabH_Act_MalACP', 'c_FabG_NADPH', 'c_C4_FabG_NADPH_BKeACP',...
     'c_C6_FabG_NADPH_BKeACP', 'c_C8_FabG_NADPH_BKeACP', 'c_C10_FabG_NADPH_BKeACP', 'c_C12_FabG_NADPH_BKeACP', 'c_C14_FabG_NADPH_BKeACP',...
     'c_C16_FabG_NADPH_BKeACP', 'c_C18_FabG_NADPH_BKeACP', 'c_C20_FabG_NADPH_BKeACP', 'c_C12_FabG_NADPH_BKeACP_un', 'c_C14_FabG_NADPH_BKeACP_un',...
     'c_C16_FabG_NADPH_BKeACP_un', 'c_C18_FabG_NADPH_BKeACP_un', 'c_C20_FabG_NADPH_BKeACP_un', 'c_C4_FabZ_BHyAcACP', 'c_C6_FabZ_BHyAcACP',...
@@ -49,20 +51,20 @@ S.labels = {'c_ATP', 'c_C1_Bicarbonate', 'c_C2_AcCoA', 'c_C4_SucCoA', 'c_C6_HexC
     'c_C16_TesA_AcACP_un', 'c_C18_TesA_AcACP_un', 'c_C20_TesA_AcACP_un', 'c_C4_FabF_AcACP', 'c_C6_FabF_AcACP', 'c_C8_FabF_AcACP', 'c_C10_FabF_AcACP',...
     'c_C12_FabF_AcACP', 'c_C14_FabF_AcACP', 'c_C16_FabF_AcACP', 'c_C18_FabF_AcACP', 'c_C12_FabF_AcACP_un', 'c_C14_FabF_AcACP_un', 'c_C16_FabF_AcACP_un',...
     'c_C18_FabF_AcACP_un', 'c_C4_FabF_Act', 'c_C6_FabF_Act', 'c_C8_FabF_Act', 'c_C10_FabF_Act', 'c_C12_FabF_Act', 'c_C14_FabF_Act', 'c_C16_FabF_Act', 'c_C18_FabF_Act',...
-    'c_C12_FabF_Act_un', 'c_C14_FabF_Act_un', 'c_C16_FabF_Act_un', 'c_C18_FabF_Act_un', 'c_C4_FabF_Act_MalACP', 'c_C6_FabF_Act_MalACP', 'c_C8_FabF_Act_MalACP',...
-    'c_C10_FabF_Act_MalACP', 'c_C12_FabF_Act_MalACP', 'c_C14_FabF_Act_MalACP', 'c_C16_FabF_Act_MalACP', 'c_C18_FabF_Act_MalACP', 'c_C12_FabF_Act_MalACP_un',...
-    'c_C14_FabF_Act_MalACP_un', 'c_C16_FabF_Act_MalACP_un', 'c_C18_FabF_Act_MalACP_un', 'c_C4_FabB_AcACP', 'c_C6_FabB_AcACP', 'c_C8_FabB_AcACP', 'c_C10_FabB_AcACP',...
+    'c_C12_FabF_Act_un', 'c_C14_FabF_Act_un', 'c_C16_FabF_Act_un', 'c_C18_FabF_Act_un', 'c_C7_FabF_Act_MalACP', 'c_C9_FabF_Act_MalACP', 'c_C11_FabF_Act_MalACP',...
+    'c_C13_FabF_Act_MalACP', 'c_C15_FabF_Act_MalACP', 'c_C17_FabF_Act_MalACP', 'c_C19_FabF_Act_MalACP', 'c_C21_FabF_Act_MalACP', 'c_C15_FabF_Act_MalACP_un',...
+    'c_C17_FabF_Act_MalACP_un', 'c_C19_FabF_Act_MalACP_un', 'c_C21_FabF_Act_MalACP_un', 'c_C4_FabB_AcACP', 'c_C6_FabB_AcACP', 'c_C8_FabB_AcACP', 'c_C10_FabB_AcACP',...
     'c_C12_FabB_AcACP', 'c_C14_FabB_AcACP', 'c_C16_FabB_AcACP', 'c_C18_FabB_AcACP', 'c_C12_FabB_AcACP_un', 'c_C14_FabB_AcACP_un', 'c_C16_FabB_AcACP_un',...
     'c_C18_FabB_AcACP_un', 'c_C4_FabB_Act', 'c_C6_FabB_Act', 'c_C8_FabB_Act', 'c_C10_FabB_Act', 'c_C12_FabB_Act', 'c_C14_FabB_Act', 'c_C16_FabB_Act', 'c_C18_FabB_Act',...
-    'c_C12_FabB_Act_un', 'c_C14_FabB_Act_un', 'c_C16_FabB_Act_un', 'c_C18_FabB_Act_un', 'c_C4_FabB_Act_MalACP', 'c_C6_FabB_Act_MalACP', 'c_C8_FabB_Act_MalACP',...
-    'c_C10_FabB_Act_MalACP', 'c_C12_FabB_Act_MalACP', 'c_C14_FabB_Act_MalACP', 'c_C16_FabB_Act_MalACP', 'c_C18_FabB_Act_MalACP', 'c_C12_FabB_Act_MalACP_un',...
-    'c_C14_FabB_Act_MalACP_un', 'c_C16_FabB_Act_MalACP_un', 'c_C18_FabB_Act_MalACP_un', 'c_C10_FabB_cis3EnAcACP', 'c_C10_FabB_Act_cis3', 'c_C10_FabB_Act_cis3MalACP',...
+    'c_C12_FabB_Act_un', 'c_C14_FabB_Act_un', 'c_C16_FabB_Act_un', 'c_C18_FabB_Act_un', 'c_C7_FabB_Act_MalACP', 'c_C9_FabB_Act_MalACP', 'c_C11_FabB_Act_MalACP',...
+    'c_C13_FabB_Act_MalACP', 'c_C15_FabB_Act_MalACP', 'c_C17_FabB_Act_MalACP', 'c_C19_FabB_Act_MalACP', 'c_C21_FabB_Act_MalACP', 'c_C15_FabB_Act_MalACP_un',...
+    'c_C17_FabB_Act_MalACP_un', 'c_C19_FabB_Act_MalACP_un', 'c_C21_FabB_Act_MalACP_un', 'c_C10_FabB_cis3EnAcACP', 'c_C10_FabB_Act_cis3', 'c_C10_FabB_Act_cis3MalACP',...
     'c_C4_FabH_AcACP', 'c_C6_FabH_AcACP', 'c_C8_FabH_AcACP', 'c_C10_FabH_AcACP', 'c_C12_FabH_AcACP', 'c_C14_FabH_AcACP', 'c_C16_FabH_AcACP', 'c_C18_FabH_AcACP',...
-    'c_C20_FabH_AcACP', 'c_C12_FabH_AcACP_un', 'c_C14_FabH_AcACP_un', 'c_C16_FabH_AcACP_un', 'c_C18_FabH_AcACP_un', 'c_C20_FabH_AcACP_un', 'c_C4_FabH_Act_AcACP',...
-    'c_C6_FabH_Act_AcACP', 'c_C8_FabH_Act_AcACP', 'c_C10_FabH_Act_AcACP', 'c_C12_FabH_Act_AcACP', 'c_C14_FabH_Act_AcACP', 'c_C16_FabH_Act_AcACP', 'c_C18_FabH_Act_AcACP',...
-    'c_C20_FabH_Act_AcACP', 'c_C12_FabH_Act_AcACP_un', 'c_C14_FabH_Act_AcACP_un', 'c_C16_FabH_Act_AcACP_un', 'c_C18_FabH_Act_AcACP_un', 'c_C20_FabH_Act_AcACP_un',...
+    'c_C20_FabH_AcACP', 'c_C12_FabH_AcACP_un', 'c_C14_FabH_AcACP_un', 'c_C16_FabH_AcACP_un', 'c_C18_FabH_AcACP_un', 'c_C20_FabH_AcACP_un', 'c_C6_FabH_Act_AcACP',...
+    'c_C8_FabH_Act_AcACP', 'c_C10_FabH_Act_AcACP', 'c_C12_FabH_Act_AcACP', 'c_C14_FabH_Act_AcACP', 'c_C16_FabH_Act_AcACP', 'c_C18_FabH_Act_AcACP', 'c_C20_FabH_Act_AcACP',...
+    'c_C22_FabH_Act_AcACP', 'c_C14_FabH_Act_AcACP_un', 'c_C16_FabH_Act_AcACP_un', 'c_C18_FabH_Act_AcACP_un', 'c_C20_FabH_Act_AcACP_un', 'c_C22_FabH_Act_AcACP_un',...
     'c_TesA_ACP', 'c_FabH_ACP', 'c_FabG_ACP', 'c_FabZ_ACP', 'c_FabI_ACP', 'c_FabF_ACP', 'c_FabA_ACP', 'c_FabB_ACP', 'c_C2_FabB_AcCoA', 'c_C2_FabB_Act', 'c_C5_FabB_Act_MalACP', 'c_C2_FabF_AcCoA',...
-    'c_C2_FabF_Act', 'c_C2_FabF_Act_MalACP', 'c_C3_FabB_MalACP', 'c_C2_AcACP', 'c_C2_FabB_AcACP', 'c_C3_FabF_MalACP', 'c_C2_FabF_AcACP'};
+    'c_C2_FabF_Act', 'c_C5_FabF_Act_MalACP', 'c_C3_FabB_MalACP', 'c_C2_AcACP', 'c_C2_FabB_AcACP', 'c_C3_FabF_MalACP', 'c_C2_FabF_AcACP'};
 
 S.num = length(S.labels); %how many diff eqs there are
 
@@ -110,7 +112,7 @@ S.kcat_scaling_fabF_unsat = [1,1,1,1,0.9,0.289,0.34,0.34,0.34];%specificity of r
 S.scaling_factor_fabF = S.p_vec(2);%parameter "a2" (option here to modify FabF scaling seperately)
 S.kcat_scaling_fabZ = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabZ = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105];
-S.scaling_factor_fabB_init = 0.1;
+S.scaling_factor_fabB_init = 1; % changed
 S.scaling_factor_fabF_init = 1;
 
 S.scaling_factor_kcat8_CO2 = S.p_vec(15);
@@ -132,12 +134,12 @@ S.R3M4_kcat_scaling = [0.0568 0.0509 1 0.0158 0.25256 0.45819 0.25256 1.221 1.53
 S.R3M4_kd_est = [56.91208755 35.36250007 0.294555191 1.779555549 0.92358933 0.521582239 0.92358933 0.166345313 0.093940844];
 
 EC_kcat3_scaling = [1,0,0,0,0,0,0,0,0];
-PP_H1_kcat3_scaling = [0.5,0,0,0,0,0,0,0,0];
-PP_H2_kcat3_scaling = [0,0,0,0.4,0,0,0,0,0];
+PP_H1_kcat3_scaling = [0.5,0,0,0,0,0,0,0,0]; % changed
+PP_H2_kcat3_scaling = [0,0,0,0.4,0,0,0,0,0]; % changed
 
 EC_kcat4_scaling = [1,1,1,1,1,1,1,1,1];
-PP_1914_kcat4_scaling = [.1,.1,.1,.1,.1,.1,.1,.1,.1];
-PP_2783_kcat4_scaling = [0,0,0,.025,.025,.025,.025,.025,.025];
+PP_1914_kcat4_scaling = [.1,.1,.1,.1,.1,.1,.1,.1,.1]; % changed
+PP_2783_kcat4_scaling = [0,0,0,.025,.025,.025,.025,.025,.025]; % changed
 
 ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 
@@ -156,16 +158,6 @@ S.init_cond(13) = 1300; % NADPH
 S.init_cond(14) = 1300; % NADH
 S.init_cond(16) = 500; % malonyl-CoA
 
-% FabG parameters for reference
-% S.km_table{'k4_1f','parameter_values'} = 10;
-% S.km_table{'k4_2f','parameter_values'} = 17;
-% S.param_table{'k4_1f','parameter_values'} = 0.0079;
-% S.param_table{'k4_1r','parameter_values'} = 0.0793;
-% S.param_table{'k4_2f','parameter_values'} = 0.0013;
-% S.param_table{'k4_2r','parameter_values'} = 0.0217;
-% S.param_table{'kcat4','parameter_values'} = 0.59;
-% S.ACP_inh(3:4) = [0.0024,0.0916];
-
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [0 1 1 0 1 1 10 1 1 1;
             0 1 1 1 1 1 10 1 1 1]; 
@@ -181,6 +173,8 @@ tic
 toc
 [~, rel_rate_D(1)] = Calc_Function(Td1,Cd1,S);
 
+[balance_conc_d1, balances_d1, total_conc_d1, carbon_d1] = mass_balance(Cd1,P);
+
 % EC FabG
 S.kcat_scaling_fabG = EC_kcat4_scaling;
 
@@ -193,6 +187,8 @@ tic
 [Td2,Cd2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
 [~, rel_rate_D(2)] = Calc_Function(Td2,Cd2,S);
+
+[balance_conc_d2, balances_d2, total_conc_d2, carbon_d2] = mass_balance(Cd2,P);
 
 % PP 1914
 S.kcat_scaling_fabG = PP_1914_kcat4_scaling;
@@ -207,6 +203,7 @@ tic
 toc
 [~, rel_rate_D(3)] = Calc_Function(Td3,Cd3,S);
 
+[balance_conc_d3, balances_d3, total_conc_d3, carbon_d3] = mass_balance(Cd3,P);
 
 % PP 2783
 S.kcat_scaling_fabG = PP_2783_kcat4_scaling;
@@ -221,6 +218,7 @@ tic
 toc
 [~, rel_rate_D(4)] = Calc_Function(Td4,Cd4,S);
 
+[balance_conc_d4, balances_d4, total_conc_d4, carbon_d4] = mass_balance(Cd4,P);
 
 % Plot
 figure('Position',[500 200 382 340])
@@ -263,6 +261,7 @@ tic
 toc
 [~, rel_rate_E(1)] = Calc_Function(Te1,Ce1,S);
 
+[balance_conc_e1, balances_e1, total_conc_e1, carbon_e1] = mass_balance(Ce1,P);
 
 % EC FabG
 S.kcat_scaling_fabG = EC_kcat4_scaling;
@@ -277,6 +276,7 @@ tic
 toc
 [~, rel_rate_E(2)] = Calc_Function(Te2,Ce2,S);
 
+[balance_conc_e2, balances_e2, total_conc_e2, carbon_e2] = mass_balance(Ce2,P);
 
 % PP 1914
 S.kcat_scaling_fabG = PP_1914_kcat4_scaling;
@@ -291,6 +291,7 @@ tic
 toc
 [~, rel_rate_E(3)] = Calc_Function(Te3,Ce3,S);
 
+[balance_conc_e3, balances_e3, total_conc_e3, carbon_e3] = mass_balance(Ce3,P);
 
 % PP 2783
 S.kcat_scaling_fabG = PP_2783_kcat4_scaling;
@@ -304,6 +305,8 @@ tic
 [Te4,Ce4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
 [~, rel_rate_E(4)] = Calc_Function(Te4,Ce4,S);
+
+[balance_conc_e4, balances_e4, total_conc_e4, carbon_e4] = mass_balance(Ce4,P);
 
 % Plot
 figure('Position',[500 200 382 340])
@@ -319,6 +322,7 @@ text(0.1, 12.5, '10 uM PP FabH2','FontSize',18)
 %% Figure F PP_FabH2 OcCoA
 S.kcat_scaling_fabH = PP_H2_kcat3_scaling;
 
+% changed
 S.range = [0 7200]; %2 hours (total production)
 
 % New order from var_name code
@@ -345,6 +349,7 @@ tic
 toc
 [F_raw_F(1,:),~] = Calc_Function(Tf1,Cf1,S);
 
+[balance_conc_f1, balances_f1, total_conc_f1, carbon_f1] = mass_balance(Cf1,P);
 
 % PP 1914
 S.kcat_scaling_fabG = PP_1914_kcat4_scaling;
@@ -359,6 +364,7 @@ tic
 toc
 [F_raw_F(2,:),~] = Calc_Function(Tf2,Cf2,S);
 
+[balance_conc_f2, balances_f2, total_conc_f2, carbon_f2] = mass_balance(Cf2,P);
 
 % PP 2783
 S.kcat_scaling_fabG = PP_2783_kcat4_scaling;
@@ -373,11 +379,11 @@ tic
 toc
 [F_raw_F(3,:),~] = Calc_Function(Tf3,Cf3,S);
 
-F_raw_F_new(:,1:4) = F_raw_F(:,1:4);
-j=5;
-for i=[5 7 9 11 13]
-    F_raw_F_new(:,j) = F_raw_F(:,i)+F_raw_F(:,i+1);
-    j=j+1;
+[balance_conc_f3, balances_f3, total_conc_f3, carbon_f3] = mass_balance(Cf3,P);
+
+F_raw_F_new(:,1:9) = F_raw_F(:,1:9);
+for i=10:14
+    F_raw_F_new(:,i-5) = F_raw_F(:,i-5)+F_raw_F(:,i);
 end
 F_raw_F_plot = F_raw_F_new(:,4:8);
 
