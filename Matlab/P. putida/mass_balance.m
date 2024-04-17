@@ -1,5 +1,5 @@
 % Mass Balance
-function [balance_conc, balances, total_conc] = mass_balance(C,P)
+function [balance_conc, balances, total_conc, carbon] = mass_balance(C,P)
 
 %Currently does not include NAD+ and NADP+
 
@@ -59,6 +59,7 @@ for i=1:numel(balance_search)
             for k=1:numel(conc_index)
                 if strcmp(balance_search{i},'_C(\d+)_')
                     sum = sum +C(j,conc_index(k))*carbon_length(k);
+                    carbon(j,k) = C(j,conc_index(k))*carbon_length(k);
                 else
                     sum = sum +C(j,conc_index(k));
                 end
