@@ -6,6 +6,8 @@ num_elong_steps = S.num_elong_steps; %number of elongation steps
 
 P = struct;
 
+P.labels = S.labels;
+
 % if the parameter is kcat, then scale each estimated kcat value from the 
 % table using the appropriate kcat scaling terms
 
