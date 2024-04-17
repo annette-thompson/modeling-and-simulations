@@ -1,4 +1,4 @@
-function param = param_func_new_init(name,index,opt_struct,tables)
+function param = param_func(name,index,opt_struct,tables)
 %Returns the kinetic parameters for each label in param_names
 %The kinetic parameters are specified as a single
 %value for the initiation steps, and as a vector for the elongation and
