@@ -58,7 +58,7 @@ S.labels = {'c_ATP', 'c_C1_Bicarbonate', 'c_C2_AcCoA', 'c_C4_SucCoA', 'c_C6_HexC
     'c_C18_FabB_AcACP_un', 'c_C4_FabB_Act', 'c_C6_FabB_Act', 'c_C8_FabB_Act', 'c_C10_FabB_Act', 'c_C12_FabB_Act', 'c_C14_FabB_Act', 'c_C16_FabB_Act', 'c_C18_FabB_Act',...
     'c_C12_FabB_Act_un', 'c_C14_FabB_Act_un', 'c_C16_FabB_Act_un', 'c_C18_FabB_Act_un', 'c_C7_FabB_Act_MalACP', 'c_C9_FabB_Act_MalACP', 'c_C11_FabB_Act_MalACP',...
     'c_C13_FabB_Act_MalACP', 'c_C15_FabB_Act_MalACP', 'c_C17_FabB_Act_MalACP', 'c_C19_FabB_Act_MalACP', 'c_C21_FabB_Act_MalACP', 'c_C15_FabB_Act_MalACP_un',...
-    'c_C17_FabB_Act_MalACP_un', 'c_C19_FabB_Act_MalACP_un', 'c_C21_FabB_Act_MalACP_un', 'c_C10_FabB_cis3EnAcACP', 'c_C10_FabB_Act_cis3', 'c_C10_FabB_Act_cis3MalACP',...
+    'c_C17_FabB_Act_MalACP_un', 'c_C19_FabB_Act_MalACP_un', 'c_C21_FabB_Act_MalACP_un', 'c_C10_FabB_cis3EnAcACP', 'c_C10_FabB_Act_cis3', 'c_C13_FabB_Act_cis3MalACP',...
     'c_C4_FabH_AcACP', 'c_C6_FabH_AcACP', 'c_C8_FabH_AcACP', 'c_C10_FabH_AcACP', 'c_C12_FabH_AcACP', 'c_C14_FabH_AcACP', 'c_C16_FabH_AcACP', 'c_C18_FabH_AcACP',...
     'c_C20_FabH_AcACP', 'c_C12_FabH_AcACP_un', 'c_C14_FabH_AcACP_un', 'c_C16_FabH_AcACP_un', 'c_C18_FabH_AcACP_un', 'c_C20_FabH_AcACP_un', 'c_C6_FabH_Act_AcACP',...
     'c_C8_FabH_Act_AcACP', 'c_C10_FabH_Act_AcACP', 'c_C12_FabH_Act_AcACP', 'c_C14_FabH_Act_AcACP', 'c_C16_FabH_Act_AcACP', 'c_C18_FabH_Act_AcACP', 'c_C20_FabH_Act_AcACP',...
@@ -112,7 +112,7 @@ S.kcat_scaling_fabF_unsat = [1,1,1,1,0.9,0.289,0.34,0.34,0.34];%specificity of r
 S.scaling_factor_fabF = S.p_vec(2);%parameter "a2" (option here to modify FabF scaling seperately)
 S.kcat_scaling_fabZ = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabZ = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105];
-S.scaling_factor_fabB_init = 1; % changed
+S.scaling_factor_fabB_init = 0.1; % changed
 S.scaling_factor_fabF_init = 1;
 
 S.scaling_factor_kcat8_CO2 = S.p_vec(15);
@@ -144,7 +144,7 @@ PP_2783_kcat4_scaling = [0,0,0,.025,.025,.025,.025,.025,.025]; % changed
 ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 
 %% Figure D EC_FabH AcCoA
-S.kcat_scaling_fabH = EC_kcat3_scaling;
+S.kcat_scaling_fabH = EC_kcat3_scaling;  % Using E. coli FabH
 
 S.range = [0 150]; %2.5 mins (initial rate)
 
@@ -156,11 +156,11 @@ S.init_cond(3) = 100; % Acetyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
 S.init_cond(14) = 1300; % NADH
-S.init_cond(16) = 500; % malonyl-CoA
+S.init_cond(16) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [0 1 1 0 1 1 10 1 1 1;
-            0 1 1 1 1 1 10 1 1 1]; 
+                   0 1 1 1 1 1 10 1 1 1]; 
 
 % No FabG
 S.enzyme_conc = enz_conc(1,:);
@@ -176,7 +176,7 @@ toc
 [balance_conc_d1, balances_d1, total_conc_d1, carbon_d1] = mass_balance(Cd1,P);
 
 % EC FabG
-S.kcat_scaling_fabG = EC_kcat4_scaling;
+S.kcat_scaling_fabG = EC_kcat4_scaling;  % Using E. coli FabG
 
 S.enzyme_conc = enz_conc(2,:);
 
@@ -191,7 +191,7 @@ toc
 [balance_conc_d2, balances_d2, total_conc_d2, carbon_d2] = mass_balance(Cd2,P);
 
 % PP 1914
-S.kcat_scaling_fabG = PP_1914_kcat4_scaling;
+S.kcat_scaling_fabG = PP_1914_kcat4_scaling; % Using PP 1914 FabG
 
 S.enzyme_conc = enz_conc(2,:);
     
@@ -206,7 +206,7 @@ toc
 [balance_conc_d3, balances_d3, total_conc_d3, carbon_d3] = mass_balance(Cd3,P);
 
 % PP 2783
-S.kcat_scaling_fabG = PP_2783_kcat4_scaling;
+S.kcat_scaling_fabG = PP_2783_kcat4_scaling; % Using PP 2783 FabG
 
 S.enzyme_conc = enz_conc(2,:);
  
@@ -232,7 +232,7 @@ text(0.1, 14, 'Acetyl-CoA','FontSize',18)
 text(0.1, 12.5, '1 uM EC FabH','FontSize',18)
 
 %% Figure E PP_FabH2 OcCoA
-S.kcat_scaling_fabH = PP_H2_kcat3_scaling;
+S.kcat_scaling_fabH = PP_H2_kcat3_scaling;  % Using PP FabH2
 
 S.range = [0 150]; %2.5 mins (initial rate)
 
@@ -248,7 +248,7 @@ S.init_cond(16) = 500; % malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [0 1 10 0 1 1 10 1 1 1;
-            0 1 10 1 1 1 10 1 1 1]; 
+                   0 1 10 1 1 1 10 1 1 1]; 
 
 % No FabG
 S.enzyme_conc = enz_conc(1,:);
@@ -264,7 +264,7 @@ toc
 [balance_conc_e1, balances_e1, total_conc_e1, carbon_e1] = mass_balance(Ce1,P);
 
 % EC FabG
-S.kcat_scaling_fabG = EC_kcat4_scaling;
+S.kcat_scaling_fabG = EC_kcat4_scaling; % Using E. coli FabG
 
 S.enzyme_conc = enz_conc(2,:);
 
@@ -279,7 +279,7 @@ toc
 [balance_conc_e2, balances_e2, total_conc_e2, carbon_e2] = mass_balance(Ce2,P);
 
 % PP 1914
-S.kcat_scaling_fabG = PP_1914_kcat4_scaling;
+S.kcat_scaling_fabG = PP_1914_kcat4_scaling; % Using PP 1914 FabG
 
 S.enzyme_conc = enz_conc(2,:);
     
@@ -294,7 +294,7 @@ toc
 [balance_conc_e3, balances_e3, total_conc_e3, carbon_e3] = mass_balance(Ce3,P);
 
 % PP 2783
-S.kcat_scaling_fabG = PP_2783_kcat4_scaling;
+S.kcat_scaling_fabG = PP_2783_kcat4_scaling; % Using PP 2783 FabG
 
 S.enzyme_conc = enz_conc(2,:);
  
@@ -320,7 +320,7 @@ text(0.1, 14, 'Octanoyl-CoA','FontSize',18)
 text(0.1, 12.5, '10 uM PP FabH2','FontSize',18)
 
 %% Figure F PP_FabH2 OcCoA
-S.kcat_scaling_fabH = PP_H2_kcat3_scaling;
+S.kcat_scaling_fabH = PP_H2_kcat3_scaling; % Using PP FabH2
 
 % changed
 S.range = [0 7200]; %2 hours (total production)
@@ -337,7 +337,7 @@ S.init_cond(16) = 500; % malonyl-CoA
 enz_conc = [0 1 10 1 1 1 10 1 1 1]; 
 
 % EC FabG
-S.kcat_scaling_fabG = EC_kcat4_scaling;
+S.kcat_scaling_fabG = EC_kcat4_scaling; % Using PP FabH2
 
 S.enzyme_conc = enz_conc;
 
@@ -351,8 +351,8 @@ toc
 
 [balance_conc_f1, balances_f1, total_conc_f1, carbon_f1] = mass_balance(Cf1,P);
 
-% PP 1914
-S.kcat_scaling_fabG = PP_1914_kcat4_scaling;
+%% PP 1914
+S.kcat_scaling_fabG = PP_1914_kcat4_scaling; % Using PP 1914 FabG
 
 S.enzyme_conc = enz_conc;
     
@@ -367,7 +367,7 @@ toc
 [balance_conc_f2, balances_f2, total_conc_f2, carbon_f2] = mass_balance(Cf2,P);
 
 % PP 2783
-S.kcat_scaling_fabG = PP_2783_kcat4_scaling;
+S.kcat_scaling_fabG = PP_2783_kcat4_scaling; % Using PP 2783 FabG
 
 S.enzyme_conc = enz_conc;
  
@@ -405,6 +405,20 @@ colors =  [106/255, 173/255, 138/255;...
                5/255, 84/255, 117/255];
 colors = mat2cell(colors,ones(5,1),3);
 set(bh, {'CData'}, colors)
+ax = gca;
+ax.FontSize = 18; 
+
+% Plot production vs time
+figure()
+x = find(endsWith(S.labels, '_FA') | endsWith(S.labels, '_FA_un'));
+colors = distinguishable_colors(length(x));
+plot(Tf1/60,Cf1(:,x),'LineWidth',1);
+lineHandles = findobj(gca, 'Type', 'Line');
+set(lineHandles, {'Color'}, num2cell(colors, 2));
+legend(cellfun(@(str) strrep(str(3:end), '_', ' '), {S.labels{x}}, 'UniformOutput', false),'Location','bestoutside')
+ylabel('Production (uM)')
+xlabel('Time (min)')
+axis('tight')
 ax = gca;
 ax.FontSize = 18; 
 
