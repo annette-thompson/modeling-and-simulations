@@ -33,7 +33,7 @@ function dcdt = ODE_Function_troubleshoot(t,c,P)
 for var = 1:numel(P.labels)
     % Get the variable name
     var_name = P.labels{var};
-    
+
     % Assign the value to the variable in the workspace
     eval([var_name ' = c(var, :);']);
 end
@@ -45,3 +45,15 @@ end
 dcdt = [];
 
 end
+
+
+%% Listing var names and values
+fields = fieldnames(P);
+for i = 1:numel(fields)
+    fieldName = fields{i};
+    if ~isempty(regexp(fieldName, '^k(cat10|10|cat8|8)', 'once'))
+        value = P.(fieldName);
+        disp(['Variable: ', fieldName, ', Value: ', num2str(value)]);
+    end
+end
+
