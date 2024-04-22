@@ -49,10 +49,10 @@ init_cond = zeros(304,1);
 
 init_cond(1) = 0;%s1 (ATP, not used)
 init_cond(2) = 0;%s2 (Bicarbonate, not used)
-init_cond(3) = 500;%s3 (Acetyl-CoA)
+init_cond(3) = 100;%s3 (Acetyl-CoA)
 init_cond(4) = 10;%s6 (holo ACP)
-init_cond(5) = 1000;%s7 (NADPH)
-init_cond(6) = 1000;%s8 (NADH)
+init_cond(5) = 1300;%s7 (NADPH)
+init_cond(6) = 1300;%s8 (NADH)
 
 init_cond(7) = 0;%p1 (ADP, not generated)
 init_cond(8) = 500;%p2 (malonyl-CoA)
@@ -271,7 +271,15 @@ end
 total_FA = sum(F_raw);%total fatty acid (concentration)
 frac_FA = F_raw./total_FA;%fraction of each chain length fatty acid
 
-%experimental distribution of fatty acids (Grisewood, M.; Hernández-Lozada,
+%% Plotting can be done below.
+bar(F_raw)
+xticklabels([' 4  ';' 6  ';' 8  ';' 10 ';' 12 ';'12:1';' 14 ';'14:1';' 16 ';'16:1';' 18 ';'18:1';' 20 ';'20:1'])
+ylabel('Production (uM)')
+title("Katie's ME1 Model 12 mins")
+xlabel('Chain Length')
+ylim([0 20])
+
+%% experimental distribution of fatty acids (Grisewood, M.; Hernández-Lozada,
 %N.; Thoden, J.; Gifford, N.; Mendez-Perez, D.;Lai, R.; Holden, H.; Pfleger, Et. al. ACS Catalysis 2017, 7, 3837-3849.)
 norm_pdf_val = [0,0,0.059771046,0.011042448,0.202613717,0.075980144,0.29378989,0.07192787,0.143855739,0.117515956,0.002228751,0.02127444,0,0];
 
