@@ -1,3 +1,17 @@
+% Give access to all necessary folders
+
+my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects';
+cd(my_dir)
+addpath(genpath(my_dir))
+
+%% Variables
+
+% Run variable code
+S = set_vars();
+
+% Set ODE solver options
+ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
+
 %% TesA Balance
 % Need to have ran the beginning of the real code
 
