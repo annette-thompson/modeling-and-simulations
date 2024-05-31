@@ -1,0 +1,59 @@
+% Trying to see if parameters run for ACC
+
+% Give access to all necessary folders
+
+my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects';
+cd(my_dir)
+addpath(genpath(my_dir))
+
+%% Variables
+
+% Run variable code
+S = set_vars();
+
+% Set ODE solver options
+ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
+
+
+P.k1_1r = x;
+P.k1_1f = x/170;
+P.k1_2r = x;
+P.k1_2f = x/370;
+P.kcat1_1 = 73.8/60;
+P.k1_3r = x;
+P.k1_3f = x/160;
+P.kcat1_2 = 1000.8/60;
+P.k1_4r = x;
+P.k1_4f = x/450;
+P.kcat1_3 = 2031.8/60;
+P.k1_5r = x/40;
+P.k1_5f = x;
+P.kcat1_4 = 
+
+%% Simulation
+
+% Time
+S.range = [0 150]; %2.5 mins (initial rate)
+
+% Initial conditions
+S.init_cond = zeros(S.num,1);
+S.init_cond(1) = 0; % ATP
+S.init_cond(2) = 0; % Bicarbonate
+S.init_cond(3) = 100; % Acetyl-CoA
+S.init_cond(12) = 10; % holo ACP
+S.init_cond(13) = 1300; % NADPH
+S.init_cond(15) = 1300; % NADH
+S.init_cond(18) = 500; % Malonyl-CoA
+
+% (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
+S.enz_conc = [1 0 0 0 0 0 0 0 0 0];
+
+P = Param_Function(S);
+
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+tic
+[T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+toc
+[F_raw, rel_rate] = Calc_Function(Td1,Cd1,S);
+
+[balance_conc, balances, total_conc, carbon] = mass_balance(C,P);

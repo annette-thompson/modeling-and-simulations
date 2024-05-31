@@ -1,8 +1,7 @@
 function P = Param_Function(S)
 %% Parameters
-% Includes FabG kcat scaling option
 
-num_elong_steps = S.num_elong_steps; %number of elongation steps
+num_elong_steps = S.num_elong_steps; % number of elongation steps
 
 P = struct;
 
@@ -11,20 +10,18 @@ P.labels = S.labels;
 % if the parameter is kcat, then scale each estimated kcat value from the 
 % table using the appropriate kcat scaling terms
 
-P.kcat7 = S.param_table{'kcat7','parameter_values'}*S.scaling_factor_kcat_term; %termination scaling for TesA
+P.kcat7 = S.param_table{'kcat7','parameter_values'}*S.scaling_factor_kcat_term; % termination scaling for TesA
 
-% elongation scaling for FabG,FabI,FabF,FabA,FabB
+% Elongation scaling for FabG,FabI,FabF,FabA,FabB
 P.kcat4 = S.param_table{'kcat4','parameter_values'}*S.scaling_factor_kcat;
 P.kcat6 = S.param_table{'kcat6','parameter_values'}*S.scaling_factor_kcat;
 P.kcat8 = S.param_table{'kcat8','parameter_values'}*S.scaling_factor_kcat;
 P.kcat9 = S.param_table{'kcat9','parameter_values'}*S.scaling_factor_kcat;
 P.kcat10 = S.param_table{'kcat10','parameter_values'}*S.scaling_factor_kcat;
 
-P.kcat5 = S.param_table{'kcat5','parameter_values'}*S.scaling_factor_fabAZ_kcat;%FabZ (c4) scaling
+P.kcat5 = S.param_table{'kcat5','parameter_values'}*S.scaling_factor_fabAZ_kcat; % FabZ (c4) scaling
 
-% initiation scaling for ACC, FabH
-P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'}*S.scaling_factor_kcat_init;
-P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'}*S.scaling_factor_kcat_init;
+% Initiation scaling for FabH
 P.kcat3 = S.param_table{'kcat3','parameter_values'}*S.scaling_factor_kcat_init;
  
 % if the parameter is kon or koff, then scale both using the appropriate 
@@ -91,13 +88,37 @@ P.k8_3f = P.k8_3r/S.km_table{'k8_3f','parameter_values'};
 P.k9_1f = P.k9_1r/S.km_table{'k9_1f','parameter_values'};
 P.k10_3f = P.k10_3r/S.km_table{'k10_3f','parameter_values'};
 
-% ACC and FabH
-P.k1_1f = S.param_table{'k1_1f','parameter_values'}*S.scaling_factor_elon;
-P.k1_1r = S.param_table{'k1_1r','parameter_values'}*S.scaling_factor_elon;
-P.k1_2f = S.param_table{'k1_2f','parameter_values'}*S.scaling_factor_elon;
-P.k1_2r = S.param_table{'k1_2r','parameter_values'}*S.scaling_factor_elon;
-P.k1_3f = S.param_table{'k1_3f','parameter_values'}*S.scaling_factor_elon;
-P.k1_3r = S.param_table{'k1_3r','parameter_values'}*S.scaling_factor_elon;
+% ACC
+% P.k1_1f = S.param_table{'k1_1f','parameter_values'}*S.scaling_factor_init;
+% P.k1_1r = S.param_table{'k1_1r','parameter_values'}*S.scaling_factor_init;
+% P.k1_2f = S.param_table{'k1_2f','parameter_values'}*S.scaling_factor_init;
+% P.k1_2r = S.param_table{'k1_2r','parameter_values'}*S.scaling_factor_init;
+% P.k1_3f = S.param_table{'k1_3f','parameter_values'}*S.scaling_factor_init;
+% P.k1_3r = S.param_table{'k1_3r','parameter_values'}*S.scaling_factor_init;
+% P.k1_4f = S.param_table{'k1_4f','parameter_values'}*S.scaling_factor_init;
+% P.k1_4r = S.param_table{'k1_4r','parameter_values'}*S.scaling_factor_init;
+% P.k1_5f = S.param_table{'k1_5f','parameter_values'}*S.scaling_factor_init;
+% P.k1_5r = S.param_table{'k1_5r','parameter_values'}*S.scaling_factor_init;
+% P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'}*S.scaling_factor_kcat_init;
+% P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'}*S.scaling_factor_kcat_init;
+% P.kcat1_3 = S.param_table{'kcat1_3','parameter_values'}*S.scaling_factor_kcat_init;
+% P.kcat1_4 = S.param_table{'kcat1_4','parameter_values'}*S.scaling_factor_kcat_init;
+x = 1000;
+y = 1000;
+P.k1_1r = x;
+P.k1_1f = x/170;
+P.k1_2r = x;
+P.k1_2f = x/370;
+P.kcat1_1 = 73.8/60*y;
+P.k1_3r = x;
+P.k1_3f = x/160;
+P.kcat1_2 = 1000.8/60*y;
+P.k1_4r = x;
+P.k1_4f = x/450;
+P.kcat1_3 = 2031.8/60*y;
+P.k1_5r = x;
+P.k1_5f = x/40;
+P.kcat1_4 = 40;
 
 % After the initial parameter assignment, additional parameters are
 % assigned, and modified (for example incorporating substrate specificity)
@@ -112,8 +133,8 @@ P.k3_4r = zeros(1,num_elong_steps);
 
 for i = 1:num_elong_steps
     if i <= 5
-        P.k3_4f(i) = S.inhibition_on_rates(1); %inhibition for acyl-ACPs of 4-12 has the same value
-        P.k3_4r(i) = S.inhibition_kds(1,1)*S.inhibition_on_rates(1);%on rate calculation from Kds are same value for all chain lengths)
+        P.k3_4f(i) = S.inhibition_on_rates(1); % inhibition for acyl-ACPs of 4-12 has the same value
+        P.k3_4r(i) = S.inhibition_kds(1,1)*S.inhibition_on_rates(1); % on rate calculation from Kds are same value for all chain lengths)
     else
         P.k3_4f(i) = S.inhibition_on_rates(1);
         P.k3_4r(i) = S.inhibition_kds(i-4,1)*S.inhibition_on_rates(1);
@@ -126,8 +147,8 @@ P.k3_5r = zeros(1,num_elong_steps);
 
 for i = 1:num_elong_steps
     if i <= 5
-        P.k3_5f(i) = S.inhibition_on_rates(2);%inhibition for acyl-ACPs of 4-12 has the same value
-        P.k3_5r(i) = S.inhibition_kds(1,2)*S.inhibition_on_rates(2);%inhibition for acyl-ACPs of 4-12 has the same value
+        P.k3_5f(i) = S.inhibition_on_rates(2); % inhibition for acyl-ACPs of 4-12 has the same value
+        P.k3_5r(i) = S.inhibition_kds(1,2)*S.inhibition_on_rates(2); % inhibition for acyl-ACPs of 4-12 has the same value
     else
         P.k3_5f(i) = S.inhibition_on_rates(2);
         P.k3_5r(i) = S.inhibition_kds(i-4,2)*S.inhibition_on_rates(2);
@@ -143,9 +164,9 @@ P.kcat7 = zeros(1,num_elong_steps);
 % Implements TesA kcat chain length dependence as relative scaling (of base 
 % value which is fit)
 if strcmp(S.TesA_fitting_source,'Pf')
-    kd_12 = exp(S.lin_slope*(12) + S.lin_int);%kd estimated from linear free energy relationship for chain lengths 12-20
-    ratio_val = kd_12/S.Pf_scaling;%ratio used to match kd at chain length 12
-    kd_est = (ratio_val).*S.Pf_kd_est_scaling;%Kds for 4,6 and 8-12, estimated Kd is scaled to match linear free energy values
+    kd_12 = exp(S.lin_slope*(12) + S.lin_int); % kd estimated from linear free energy relationship for chain lengths 12-20
+    ratio_val = kd_12/S.Pf_scaling; % ratio used to match kd at chain length 12
+    kd_est = (ratio_val).*S.Pf_kd_est_scaling; % Kds for 4,6 and 8-12, estimated Kd is scaled to match linear free energy values
     kcat_scaling = S.Pf_kcat_scaling;
 elseif strcmp(S.TesA_fitting_source,'Fox')
     kd_12 = exp(S.lin_slope*(12) + S.lin_int);
@@ -167,11 +188,11 @@ for i = 1:num_elong_steps
     kd_long = exp(S.lin_slope*(i*2+2) + S.lin_int);
     P.kcat7(i) = kcat70*kcat_scaling(i);
     if i < 5
-        P.k7_1f(i) = P.k7_1r/kd_est(i);%for 4-12 use linear free energy values
+        P.k7_1f(i) = P.k7_1r/kd_est(i); % for 4-12 use linear free energy values
     elseif strcmp(S.TesA_fitting_source,'Non-native') || strcmp(S.TesA_fitting_source,'R3M1') || strcmp(S.TesA_fitting_source,'R3M4')
         P.k7_1f(i) = P.k7_1r/kd_est(i);
     else
-        P.k7_1f(i) = P.k7_1r/kd_long;%for 12-20 use scaled estimates
+        P.k7_1f(i) = P.k7_1r/kd_long; % for 12-20 use scaled estimates
     end
 end
 
@@ -187,8 +208,8 @@ for i = 1:num_elong_steps
         P.k8_1f(i) = k8_1f0;
         P.k10_1f(i) = k10_1f0;
     else
-        P.k8_1f(i) = k8_1f0;%change if using restricted elongation mutant
-        P.k10_1f(i) = k10_1f0;%change if using restricted elongation mutant
+        P.k8_1f(i) = k8_1f0; % change if using restricted elongation mutant
+        P.k10_1f(i) = k10_1f0; % change if using restricted elongation mutant
     end
 end
  
@@ -198,21 +219,21 @@ end
 % b3 is Keq for FabD (second step), FabH, FabF, and FabB
 
 % FabD first transfer step
-P.k2_2f = P.k2_2r/S.kd_fits(1);%b2
+P.k2_2f = P.k2_2r/S.kd_fits(1); % b2
 
 % FabH transfer step
-P.k3_2f = P.k3_2r/S.kd_fits(2);%b3
+P.k3_2f = P.k3_2r/S.kd_fits(2); % b3
 
 % FabF transfer step and FabB transfer step
 P.k8_2f = zeros(1,num_elong_steps);
 P.k10_2f = zeros(1,num_elong_steps);
 for i = 1:num_elong_steps
-    P.k8_2f(i) = P.k8_2r/S.kd_fits(2);%b3
-    P.k10_2f(i) = P.k10_2r/S.kd_fits(2);%b3
+    P.k8_2f(i) = P.k8_2r/S.kd_fits(2); % b3
+    P.k10_2f(i) = P.k10_2r/S.kd_fits(2); % b3
 end
  
 % FabD second transfer step
-P.k2_4f = P.k2_4r/S.kd_fits(2);%b3
+P.k2_4f = P.k2_4r/S.kd_fits(2); % b3
  
 % FabB and FabF parameters for FabH-like activity
 P.k10_4f = S.param_table{'k10_4f','parameter_values'}*S.scaling_factor_fabB_init;
@@ -260,17 +281,17 @@ P.kcat9 = zeros(1,num_elong_steps);
 kcat100 = P.kcat10;
 P.kcat10 = zeros(1,num_elong_steps);
 for i = 1:num_elong_steps
-    P.kcat3(i) = kcat30*S.kcat_scaling_fabH(i);% FabH chain length kcat scaling
-    P.kcat4(i) = kcat40*S.kcat_scaling_fabG(i);% FabG chain length kcat scaling
-    P.kcat5(i) = kcat50*S.kcat_scaling_fabZ(i);% FabZ chain length kcat scaling
-    P.kcat6(i) = kcat60*S.kcat_scaling_fabI(i);% FabI chain length kcat scaling
-    P.kcat8(i) = kcat80*S.kcat_scaling_fabF(i);% FabF chain length kcat scaling
-    P.kcat9(i) = kcat90*S.kcat_scaling_fabA(i);% FabA chain length kcat scaling
-    P.kcat10(i) = kcat100*S.kcat_scaling_fabB(i);% FabB chain length kcat scaling
+    P.kcat3(i) = kcat30*S.kcat_scaling_fabH(i); % FabH chain length kcat scaling
+    P.kcat4(i) = kcat40*S.kcat_scaling_fabG(i); % FabG chain length kcat scaling
+    P.kcat5(i) = kcat50*S.kcat_scaling_fabZ(i); % FabZ chain length kcat scaling
+    P.kcat6(i) = kcat60*S.kcat_scaling_fabI(i); % FabI chain length kcat scaling
+    P.kcat8(i) = kcat80*S.kcat_scaling_fabF(i); % FabF chain length kcat scaling
+    P.kcat9(i) = kcat90*S.kcat_scaling_fabA(i); % FabA chain length kcat scaling
+    P.kcat10(i) = kcat100*S.kcat_scaling_fabB(i); % FabB chain length kcat scaling
 end
 
-%For FabZ and FabA chain length specificities of k_rvs (reverse reaction
-%rate 'k5_2r' and 'k9_2r') and kon
+% For FabZ and FabA chain length specificities of k_rvs (reverse reaction
+% rate 'k5_2r' and 'k9_2r') and kon
 k5_2r0 = P.k5_2r;
 P.k5_2r = zeros(1,num_elong_steps);
 k9_2r0 = P.k9_2r;
@@ -280,10 +301,10 @@ P.k5_1f = zeros(1,num_elong_steps);
 k9_1f0 = P.k9_1f;
 P.k9_1f = zeros(1,num_elong_steps);
 for i = 1:num_elong_steps
-    P.k5_2r(i) = k5_2r0*S.kcat_scaling_fabZ(i);%FabZ chain length k_rvs scaling
-    P.k9_2r(i) = k9_2r0*S.kcat_scaling_fabA(i);%FabA chain length k_rvs scaling
-    P.k5_1f(i) = k5_1f0*S.kon_scaling_fabZ(i);%FabZ chain length kon scaling
-    P.k9_1f(i) = k9_1f0*S.kon_scaling_fabA(i);%FabA chain length kon scaling
+    P.k5_2r(i) = k5_2r0*S.kcat_scaling_fabZ(i); % FabZ chain length k_rvs scaling
+    P.k9_2r(i) = k9_2r0*S.kcat_scaling_fabA(i); % FabA chain length k_rvs scaling
+    P.k5_1f(i) = k5_1f0*S.kon_scaling_fabZ(i); % FabZ chain length kon scaling
+    P.k9_1f(i) = k9_1f0*S.kon_scaling_fabA(i); % FabA chain length kon scaling
 end
 
 % Remaining parameters that need to be vectors for elongation
@@ -316,8 +337,10 @@ P.k10_3r = P.k10_3r.*ones(1,num_elong_steps);
 
 % Other params
 
-% ACC (not used)
-P.ACCtot = S.enzyme_conc(1);
+% ACC
+P.ACC_Ctot = S.enzyme_conc(1);
+P.ACC_Btot = S.enzyme_conc(1);
+P.ACC_ADtot = S.enzyme_conc(1);
 
 % FabD
 P.FabDtot = S.enzyme_conc(2);
@@ -350,7 +373,7 @@ P.k7_inh_r = S.ACP_inh(10);
 P.TesAtot = S.enzyme_conc(7);
 
 % FabF
-P.kcat8_un = P.kcat8(4).*S.kcat_scaling_fabF_unsat;%specificity of reaction with unsaturated acyl chains
+P.kcat8_un = P.kcat8(4).*S.kcat_scaling_fabF_unsat; % specificity of reaction with unsaturated acyl chains
 P.k8_inh_f = S.ACP_inh(11);
 P.k8_inh_r = S.ACP_inh(12);
 P.FabFtot = S.enzyme_conc(8);
@@ -358,7 +381,7 @@ P.FabFtot = S.enzyme_conc(8);
 % FabA
 P.k9_3f = P.k9_1r;
 P.k9_3r = P.k9_1f;
-P.k9_1f_un = P.k9_1f.*S.scaling_vector_fabA_unsat;%specificity of reaction with unsaturated acyl chains
+P.k9_1f_un = P.k9_1f.*S.scaling_vector_fabA_unsat; % specificity of reaction with unsaturated acyl chains
 P.k9_1r_un = P.k9_1r;
 P.kcat9_un = P.kcat9.*S.kcat_scaling_fabA_unsat;
 P.k9_2r_un = P.k9_2r;
@@ -369,7 +392,7 @@ P.k9_inh_r = S.ACP_inh(14);
 P.FabAtot = S.enzyme_conc(9);
 
 % FabB
-P.kcat10_un = P.kcat10(5).*S.kcat_scaling_fabB_unsat;%specificity of reaction with unsaturated acyl chains
+P.kcat10_un = P.kcat10(5).*S.kcat_scaling_fabB_unsat; % specificity of reaction with unsaturated acyl chains
 P.k10_inh_f = S.ACP_inh(15);
 P.k10_inh_r = S.ACP_inh(16);
 P.FabBtot = S.enzyme_conc(10);

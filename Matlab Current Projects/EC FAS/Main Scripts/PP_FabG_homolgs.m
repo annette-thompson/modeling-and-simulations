@@ -1,10 +1,10 @@
 % Give access to all necessary folders
 
-my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab';
+my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects';
 cd(my_dir)
 addpath(genpath(my_dir))
 
-%% Variables
+% Variables
 
 % Run variable code
 S = set_vars();
@@ -18,22 +18,26 @@ EC_kcat4_scaling = [1,1,1,1,1,1,1,1,1];
 PP_1914_kcat4_scaling = [.1,.1,.1,.1,.1,.1,.1,.1,.1]; % changed
 PP_2783_kcat4_scaling = [0,0,0,.025,.025,.025,.025,.025,.025]; % changed
 
+% Set ODE solver options
 ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 
-%% Figure D EC_FabH AcCoA
+% Figure D EC_FabH AcCoA
 S.kcat_scaling_fabH = EC_kcat3_scaling;  % Using E. coli FabH
 
-S.range = [0 150]; %2.5 mins (initial rate)
+S.range = [0 150]; % 2.5 mins (initial rate)
 
 rel_rate_D = zeros(1,4);
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
+S.init_cond(1) = 1000; % ATP
+S.init_cond(2) = 1000; % Bicarbonate
 S.init_cond(3) = 100; % Acetyl-CoA
+S.init_cond(6) = 0; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
-S.init_cond(14) = 1300; % NADH
-S.init_cond(16) = 500; % Malonyl-CoA
+S.init_cond(15) = 1300; % NADH
+S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [0 1 1 0 1 1 10 1 1 1;
@@ -68,14 +72,18 @@ toc
 [balance_conc_d2, balances_d2, total_conc_d2, carbon_d2] = mass_balance(Cd2,P);
 
 % Profile plot - normal EC setup
-figure()
-new_order = [1,2,3,4,5,10,6,11,7,12,8,13,9,14];
-bar(F_raw_D(2,new_order))
-xticklabels([' 4  ';' 6  ';' 8  ';' 10 ';' 12 ';'12:1';' 14 ';'14:1';' 16 ';'16:1';' 18 ';'18:1';' 20 ';'20:1'])
-ylabel('Production (uM)')
-title("New Model 2.5 mins")
-xlabel('Chain Length')
-ylim([0 20])
+% figure()
+% F_raw_D_new(1,1:9) = F_raw_D(2,1:9);
+% for i=10:14
+%     F_raw_D_new(1,i-5) = F_raw_D(2,i-5)+F_raw_D(2,i);
+% end
+% total = sum(F_raw_D_new);
+% bar(F_raw_D_new/total)
+% xticklabels([' 4  ';' 6  ';' 8  ';' 10 ';' 12 ';' 14 ';' 16 ';' 18 ';' 20 ';])
+% ylabel('Production (mole frac)')
+% title("No ACC 2.5 mins")
+% xlabel('Chain Length')
+% ylim([0 1])
 
 % PP 1914
 S.kcat_scaling_fabG = PP_1914_kcat4_scaling; % Using PP 1914 FabG
@@ -108,15 +116,15 @@ toc
 [balance_conc_d4, balances_d4, total_conc_d4, carbon_d4] = mass_balance(Cd4,P);
 
 % Plot
-figure('Position',[500 200 382 340])
+figure('Position',[500 600 250 175])
 bar(rel_rate_D,'cyan')
 ylabel('Initial Rate (uM C16/m)')
 xticklabels(['No FabG';'EC FabG';'PP 1914';'PP 2783'])
 ylim([0 15])
 ax = gca;
-ax.FontSize = 18; 
-text(0.1, 14, 'Acetyl-CoA','FontSize',18)
-text(0.1, 12.5, '1 uM EC FabH','FontSize',18)
+ax.FontSize = 8; 
+text(0.1, 14, 'Acetyl-CoA','FontSize',10)
+text(0.1, 12.5, '1 uM EC FabH','FontSize',10)
 
 %% Figure E PP_FabH2 OcCoA
 S.kcat_scaling_fabH = PP_H2_kcat3_scaling;  % Using PP FabH2
@@ -127,15 +135,18 @@ rel_rate_E = zeros(1,4);
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
+S.init_cond(1) = 1000; % ATP
+S.init_cond(2) = 1000; % Bicarbonate
+S.init_cond(3) = 500; % Acetyl-CoA
 S.init_cond(6) = 100; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
-S.init_cond(14) = 1300; % NADH
-S.init_cond(16) = 500; % malonyl-CoA
+S.init_cond(15) = 1300; % NADH
+S.init_cond(18) = 0; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [0 1 10 0 1 1 10 1 1 1;
-                   0 1 10 1 1 1 10 1 1 1]; 
+enz_conc = [1 1 10 0 1 1 10 1 1 1;
+                   1 1 10 1 1 1 10 1 1 1]; 
 
 % No FabG
 S.enzyme_conc = enz_conc(1,:);
@@ -196,32 +207,35 @@ toc
 [balance_conc_e4, balances_e4, total_conc_e4, carbon_e4] = mass_balance(Ce4,P);
 
 % Plot
-figure('Position',[500 200 382 340])
+figure('Position',[500 350 250 175])
 bar(rel_rate_E,'cyan')
 ylabel('Initial Rate (uM C16/m)')
 xticklabels(['No FabG';'EC FabG';'PP 1914';'PP 2783'])
 ylim([0 15])
 ax = gca;
-ax.FontSize = 18; 
-text(0.1, 14, 'Octanoyl-CoA','FontSize',18)
-text(0.1, 12.5, '10 uM PP FabH2','FontSize',18)
+ax.FontSize = 8; 
+text(0.1, 14, 'Octanoyl-CoA','FontSize',10)
+text(0.1, 12.5, '10 uM PP FabH2','FontSize',10)
 
 %% Figure F PP_FabH2 OcCoA
 S.kcat_scaling_fabH = PP_H2_kcat3_scaling; % Using PP FabH2
 
 % changed
-S.range = [0 7200]; %2 hours (total production)
+S.range = [0 720]; % 12 mins (total production)
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
+S.init_cond(1) = 1000; % ATP
+S.init_cond(2) = 1000; % Bicarbonate
+S.init_cond(3) = 500; % Acetyl-CoA
 S.init_cond(6) = 100; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
-S.init_cond(14) = 1300; % NADH
-S.init_cond(16) = 500; % malonyl-CoA
+S.init_cond(15) = 1300; % NADH
+S.init_cond(18) = 0; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [0 1 10 1 1 1 10 1 1 1]; 
+enz_conc = [1 1 10 1 1 1 10 1 1 1]; 
 
 % EC FabG
 S.kcat_scaling_fabG = EC_kcat4_scaling; % Using PP FabH2
@@ -264,10 +278,10 @@ parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [Tf3,Cf3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
-%%
+
 [F_raw_F(3,:),~] = Calc_Function(Tf3,Cf3,S);
 
-%%
+
 [balance_conc_f3, balances_f3, total_conc_f3, carbon_f3] = mass_balance(Cf3,P);
 
 F_raw_F_new(:,1:9) = F_raw_F(:,1:9);
@@ -277,7 +291,7 @@ end
 F_raw_F_plot = F_raw_F_new(:,4:8);
 
 % Plot
-figure('Position',[500 200 382 340])
+figure('Position',[500 100 250 175])
 stack_labels = {'C10','C12','C14','C16','C18'};
 bh = bar(F_raw_F_plot, .9, 'stacked');
 xticklabels(['EC FabG';'PP 1914';'PP 2783'])
@@ -295,18 +309,18 @@ colors =  [106/255, 173/255, 138/255;...
 colors = mat2cell(colors,ones(5,1),3);
 set(bh, {'CData'}, colors)
 ax = gca;
-ax.FontSize = 18; 
+ax.FontSize = 8; 
 
 % Plot production vs time
-figure()
-x = find(endsWith(S.labels, '_FA') | endsWith(S.labels, '_FA_un'));
-colors = distinguishable_colors(length(x));
-plot(Tf1/60,Cf1(:,x),'LineWidth',1);
-lineHandles = findobj(gca, 'Type', 'Line');
-set(lineHandles, {'Color'}, num2cell(colors, 2));
-legend(cellfun(@(str) strrep(str(3:end), '_', ' '), {S.labels{x}}, 'UniformOutput', false),'Location','bestoutside')
-ylabel('Production (uM)')
-xlabel('Time (min)')
-axis('tight')
-ax = gca;
-ax.FontSize = 18; 
+% figure()
+% x = find(endsWith(S.labels, '_FA') | endsWith(S.labels, '_FA_un'));
+% colors = distinguishable_colors(length(x));
+% plot(Tf1/60,Cf1(:,x),'LineWidth',1);
+% lineHandles = findobj(gca, 'Type', 'Line');
+% set(lineHandles, {'Color'}, num2cell(colors, 2));
+% legend(cellfun(@(str) strrep(str(3:end), '_', ' '), {S.labels{x}}, 'UniformOutput', false),'Location','bestoutside')
+% ylabel('Production (uM)')
+% xlabel('Time (min)')
+% axis('tight')
+% ax = gca;
+% ax.FontSize = 18; 

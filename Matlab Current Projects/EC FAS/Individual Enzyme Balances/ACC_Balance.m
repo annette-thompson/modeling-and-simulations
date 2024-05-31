@@ -15,7 +15,8 @@ ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 %% ACC Balance
 % Need to have ran the beginning of the real code
 
-S.labels = {'c_ATP', 'c_C1_Bicarbonate', 'c_C2_AcCoA', 'c_ADP', 'c_C3_MalCoA', 'c_ACC_s1', 'c_C1_ACC_s2', 'c_C1_ACC_s3', 'c_C3_ACC_s4'};
+S.labels = {'c_ATP','c_C1_Bicarbonate','c_C2_AcCoA','c_ADP','c_C3_MalCoA','c_BC_ATP','c_C1_BC_ATP_HCO3','c_C1_BC_Pi_HCO3',...
+    'c_C1_BC_Pi_HCO3_BCCP_Biotin','c_C1_BCCP_Biotin_CO2','c_C1_CT_BCCP_Biotin_CO2','c_C1_CT_Act','c_C3_CT_Act_AcCoA'};
 
 S.range = [0 150]; %2.5 mins (initial rate)
 
@@ -54,36 +55,55 @@ for var = 1:numel(P.labels)
     eval([var_name ' = c(var, :);']);
 end
 
-c_ACC = P.ACCtot - c_ACC_s1 - c_C1_ACC_s2 - c_C1_ACC_s3 - c_C3_ACC_s4;
+% ACC
+% BC (AccC)
+c_ACC_C = P.ACC_Ctot - c_BC_ATP - c_C1_BC_ATP_HCO3 - c_C1_BC_Pi_HCO3 - c_C1_BC_Pi_HCO3_BCCP_Biotin;
+% BCCP-Biotin (AccB-Biotin)
+c_ACC_B = P.ACC_Btot - c_C1_BC_Pi_HCO3_BCCP_Biotin - c_C1_BCCP_Biotin_CO2 - c_C1_CT_BCCP_Biotin_CO2;
+% CT (AccAD)
+c_ACC_AD = P.ACC_ADtot - c_C1_CT_BCCP_Biotin_CO2 - c_C1_CT_Act - c_C3_CT_Act_AcCoA;
 
 % Set of differential equations
 % ATP
-d_ATP = P.k1_1r.*c_ACC_s1 - P.k1_1f.*c_ACC.*c_ATP;
+d_ATP = P.k1_1r.*c_BC_ATP - P.k1_1f.*c_ACC_C.*c_ATP;
 
 % Bicarbonate
-d_C1_Bicarbonate = P.k1_2r.*c_C1_ACC_s2 - P.k1_2f.*c_ACC_s1.*c_C1_Bicarbonate;
+d_C1_Bicarbonate = P.k1_2r.*c_C1_BC_ATP_HCO3 - P.k1_2f.*c_BC_ATP.*c_C1_Bicarbonate;
 
-% C2n (n=1:9)-CoA % changed 
-d_C2_AcCoA = P.k1_3r.*c_C3_ACC_s4 - P.k1_3f.*c_C1_ACC_s3.*c_C2_AcCoA;
+% C2n (n=1:9)-CoA
+d_C2_AcCoA = P.k1_5r.*c_C3_CT_Act_AcCoA - P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA;
 
 % ADP
-d_ADP = P.kcat1_2.*c_C3_ACC_s4;
+d_ADP = P.kcat1_1.*c_C1_BC_ATP_HCO3;
 
-% Malonyl-CoA
-d_C3_MalCoA = P.kcat1_2.*c_C3_ACC_s4;
+% Malonyl-CoA kcat1_4
+d_C3_MalCoA = P.kcat1_4.*c_C3_CT_Act_AcCoA; 
 
-% ACC Step 1
-d_ACC_s1 = P.k1_1f.*c_ACC.*c_ATP - P.k1_1r.*c_ACC_s1 + P.k1_2r.*c_C1_ACC_s2 - P.k1_2f.*c_ACC_s1.*c_C1_Bicarbonate;
+% BC-ATP k1_1
+d_BC_ATP = P.k1_1f.*c_ACC_C.*c_ATP - P.k1_1r.*c_BC_ATP + P.k1_2r.*c_C1_BC_ATP_HCO3 - P.k1_2f.*c_BC_ATP.*c_C1_Bicarbonate;
 
-% ACC Step 2
-d_C1_ACC_s2 = P.k1_2f.*c_ACC_s1.*c_C1_Bicarbonate - P.k1_2r.*c_C1_ACC_s2 - P.kcat1_1.*c_C1_ACC_s2;
+% BC-ATP-HCO3 k1_2
+d_C1_BC_ATP_HCO3 = P.k1_2f.*c_BC_ATP.*c_C1_Bicarbonate - P.k1_2r.*c_C1_BC_ATP_HCO3 - P.kcat1_1.*c_C1_BC_ATP_HCO3;
 
-% ACC Step 3
-d_C1_ACC_s3 = P.kcat1_1.*c_C1_ACC_s2 + P.k1_3r.*c_C3_ACC_s4 - P.k1_3f.*c_C1_ACC_s3.*c_C2_AcCoA;
+% BC-Pi-HCO3 kcat1_1
+d_C1_BC_Pi_HCO3 = P.kcat1_1.*c_C1_BC_ATP_HCO3 + P.k1_3r.*c_C1_BC_Pi_HCO3_BCCP_Biotin - P.k1_3f.*c_ACC_B.*c_C1_BC_Pi_HCO3;
 
-% ACC Step 4
-d_C3_ACC_s4 = P.k1_3f.*c_C1_ACC_s3.*c_C2_AcCoA - P.k1_3r.*c_C3_ACC_s4 - P.kcat1_2.*c_C3_ACC_s4;
+% BC-Pi-HCO3-BCCP-Biotin k1_3
+d_C1_BC_Pi_HCO3_BCCP_Biotin = P.k1_3f.*c_ACC_B.*c_C1_BC_Pi_HCO3 - P.k1_3r.*c_C1_BC_Pi_HCO3_BCCP_Biotin - P.kcat1_2.*c_C1_BC_Pi_HCO3_BCCP_Biotin;
 
-dcdt = [d_ATP;d_C1_Bicarbonate;d_C2_AcCoA;d_ADP;d_C3_MalCoA;d_ACC_s1;d_C1_ACC_s2;d_C1_ACC_s3;d_C3_ACC_s4];
+% BCCP-Biotin-CO2 kcat1_2
+d_C1_BCCP_Biotin_CO2 = P.kcat1_2.*c_C1_BC_Pi_HCO3_BCCP_Biotin + P.k1_4r.*c_C1_CT_BCCP_Biotin_CO2 - P.k1_4f.*c_ACC_AD.*c_C1_BCCP_Biotin_CO2;
+
+% CT-BCCP-Biotin-CO2 k1_4
+d_C1_CT_BCCP_Biotin_CO2 = P.k1_4f.*c_ACC_AD.*c_C1_BCCP_Biotin_CO2 - P.k1_4r.*c_C1_CT_BCCP_Biotin_CO2 - P.kcat1_3.*c_C1_CT_BCCP_Biotin_CO2;
+
+% CT* kcat1_3
+d_C1_CT_Act = P.kcat1_3.*c_C1_CT_BCCP_Biotin_CO2 + P.k1_5r.*c_C3_CT_Act_AcCoA - P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA;
+
+% CT*-AcCoA k1_5
+d_C3_CT_Act_AcCoA = P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA - P.k1_5r.*c_C3_CT_Act_AcCoA - P.kcat1_4.*c_C3_CT_Act_AcCoA;
+
+dcdt = [d_ATP;d_C1_Bicarbonate;d_C2_AcCoA;d_ADP;d_C3_MalCoA;d_BC_ATP;d_C1_BC_ATP_HCO3;d_C1_BC_Pi_HCO3;...
+    d_C1_BC_Pi_HCO3_BCCP_Biotin;d_C1_BCCP_Biotin_CO2;d_C1_CT_BCCP_Biotin_CO2;d_C1_CT_Act;d_C3_CT_Act_AcCoA];
 
 end

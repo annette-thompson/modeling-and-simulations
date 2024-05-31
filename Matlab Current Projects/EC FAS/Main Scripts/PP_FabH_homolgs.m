@@ -1,10 +1,10 @@
 % Give access to all necessary folders
 
-my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab';
+my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects';
 cd(my_dir)
 addpath(genpath(my_dir))
 
-%% Variables
+% Variables
 
 % Run variable code
 S = set_vars();
@@ -18,9 +18,10 @@ EC_kcat4_scaling = [1,1,1,1,1,1,1,1,1];
 PP_1914_kcat4_scaling = [.1,.1,.1,.1,.1,.1,.1,.1,.1]; % changed
 PP_2783_kcat4_scaling = [0,0,0,.025,.025,.025,.025,.025,.025]; % changed
 
+% Set ODE solver options
 ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 
-%% Figure A AcCoA
+% Figure A AcCoA
 S.kcat_scaling_fabG = EC_kcat4_scaling; % Using E. coli FabG
 
 S.range = [0 150]; %2.5 mins (initial rate)
@@ -29,15 +30,18 @@ rel_rate_A = zeros(1,4);
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
-S.init_cond(3) = 100; % Acetyl-CoA
+S.init_cond(1) = 1000; % ATP
+S.init_cond(2) = 1000; % Bicarbonate
+S.init_cond(3) = 600; % Acetyl-CoA
+S.init_cond(6) = 0; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
-S.init_cond(14) = 1300; % NADH
-S.init_cond(16) = 500; % Malonyl-CoA
+S.init_cond(15) = 1300; % NADH
+S.init_cond(18) = 0; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [0 1 0 1 1 1 10 1 1 1;
-                   0 1 1 1 1 1 10 1 1 1]; 
+enz_conc = [1 1 0 1 1 1 10 1 1 1;
+                   1 1 1 1 1 1 10 1 1 1]; 
 
 % No FabH
 S.enzyme_conc = enz_conc(1,:);
@@ -98,14 +102,14 @@ toc
 [balance_conc_a4, balances_a4, total_conc_a4, carbon_a4] = mass_balance(Ca4,P);
 
 % Plot
-figure('Position',[500 200 382 340])
+figure('Position',[500 600 250 175])
 bar(rel_rate_A,'magenta')
 ylabel('Initial Rate (uM C16/m)')
 xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
 ylim([0 15])
 ax = gca;
-ax.FontSize = 18; 
-text(0.1, 14, 'Acetyl-CoA','FontSize',18)
+ax.FontSize = 10; 
+text(0.1, 14, 'Acetyl-CoA','FontSize',10)
 
 
 %% Figure B OcCoA
@@ -117,15 +121,18 @@ rel_rate_B = zeros(1,4);
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
+S.init_cond(1) = 1000; % ATP
+S.init_cond(2) = 1000; % Bicarbonate
+S.init_cond(3) = 500; % Acetyl-CoA
 S.init_cond(6) = 100; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
-S.init_cond(14) = 1300; % NADH
-S.init_cond(16) = 500; % malonyl-CoA
+S.init_cond(15) = 1300; % NADH
+S.init_cond(18) = 0; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [0 1 0 1 1 1 10 1 1 1;
-                   0 1 1 1 1 1 10 1 1 1]; 
+enz_conc = [1 1 0 1 1 1 10 1 1 1;
+                   1 1 1 1 1 1 10 1 1 1]; 
 
 % No FabH
 S.enzyme_conc = enz_conc(1,:);
@@ -186,14 +193,14 @@ toc
 [balance_conc_b4, balances_b4, total_conc_b4, carbon_b4] = mass_balance(Cb4,P);
 
 % Plot
-figure('Position',[500 200 382 340])
+figure('Position',[500 350 250 175])
 bar(rel_rate_B,'magenta')
 ylabel('Initial Rate (uM C16/m)')
 xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
 ylim([0 15])
 ax = gca;
-ax.FontSize = 18; 
-text(0.1, 14, 'Octanoyl-CoA','FontSize',18)
+ax.FontSize = 10; 
+text(0.1, 14, 'Octanoyl-CoA','FontSize',10)
 
 
 %% Figure C No Acyl-CoA
@@ -205,14 +212,18 @@ rel_rate_C = zeros(1,4);
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
+S.init_cond(1) = 1000; % ATP
+S.init_cond(2) = 1000; % Bicarbonate
+S.init_cond(3) = 500; % Acetyl-CoA
+S.init_cond(6) = 0; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
-S.init_cond(14) = 1300; % NADH
-S.init_cond(16) = 500; % Malonyl-CoA
+S.init_cond(15) = 1300; % NADH
+S.init_cond(18) = 0; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [0 1 0 1 1 1 10 1 1 1;
-                   0 1 1 1 1 1 10 1 1 1]; 
+enz_conc = [1 1 0 1 1 1 10 1 1 1;
+                   1 1 1 1 1 1 10 1 1 1]; 
 
 % No FabH
 S.enzyme_conc = enz_conc(1,:);
@@ -273,11 +284,11 @@ toc
 [balance_conc_c4, balances_c4, total_conc_c4, carbon_c4] = mass_balance(Cc4,P);
 
 % Plot
-figure('Position',[500 200 382 340])
+figure('Position',[500 100 250 175])
 bar(rel_rate_C,'magenta')
 ylabel('Initial Rate (uM C16/m)')
 xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
 ylim([0 15])
 ax = gca;
-ax.FontSize = 18; 
-text(0.1, 14, 'No acyl-CoA','FontSize',18)
+ax.FontSize = 10; 
+text(0.1, 14, 'No acyl-CoA','FontSize',10)
