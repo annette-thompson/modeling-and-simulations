@@ -1,0 +1,55 @@
+;
+;	File 'topol.top' was generated
+;	By user: Annette (502)
+;	On host: cu-biot-6-10.203.151.21.int.colorado.edu
+;	At date: Fri May 10 16:04:04 2024
+;
+;	This is a standalone topology file
+;
+;	Created by:
+;	                    :-) GROMACS - gmx pdb2gmx, 2024.1 (-:
+;	
+;	Executable:   /usr/local/gromacs/bin/gmx
+;	Data prefix:  /usr/local/gromacs
+;	Working dir:  /Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/MD/KS Mutants/FabF_WT_C4
+;	Command line:
+;	  gmx pdb2gmx -f FabF_WT_dimer_C4.pdb -o FabF_WT_dimer_C4.gro
+;	Force field was read from current directory or a relative path - path added.
+;
+
+; Include forcefield parameters
+#include "./amber14sb_FabF.ff/forcefield.itp"
+
+; Include chain topologies
+#include "topol_Protein.itp"
+#include "topol_Other_chain_A.itp"
+#include "topol_Protein_chain_B.itp"
+#include "topol_Protein2.itp"
+#include "topol_Other_chain_A2.itp"
+#include "topol_Protein_chain_B2.itp"
+
+; Include water topology
+#include "./amber14sb_FabF.ff/tip3p.itp"
+
+#ifdef POSRES_WATER
+; Position restraint for each water oxygen
+[ position_restraints ]
+;  i funct       fcx        fcy        fcz
+   1    1       1000       1000       1000
+#endif
+
+; Include topology for ions
+#include "./amber14sb_FabF.ff/ions.itp"
+
+[ system ]
+; Name
+Good ROcking Metal Altar for Chronical Sinners
+
+[ molecules ]
+; Compound        #mols
+Protein             1
+Other_chain_A       1
+Protein_chain_B     1
+Protein2            1
+Other_chain_A2      1
+Protein_chain_B2     1

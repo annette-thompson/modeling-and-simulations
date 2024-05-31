@@ -4,8 +4,8 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=32
 #SBATCH --time=48:00:00
-#SBATCH --job-name=FabF_WT_dimer_C4_0
-#SBATCH --output=FabF_WT_C4_dimer_0.%j.out
+#SBATCH --job-name=FabF_WT_dimer_C4_1
+#SBATCH --output=FabF_WT_C4_dimer_1.%j.out
 #SBATCH --mail-type=ALL
 
 # Load gromacs
@@ -22,31 +22,31 @@ gmx editconf -f FabF_WT_dimer_C4.gro -o box.gro -bt dodecahedron -d 1.0
 gmx solvate -cp box.gro -cs spc216.gro -p topol.top -o solv.gro
 
 # Make ions tpr file
-gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr
+gmx grompp -f ions.mdp -c solv.gro -p topol.top -o ions.tpr -maxwarn 2
 
-# Add ions
-gmx genion -s ions.tpr -o solv_ions.gro -p topol.top -pname NA -nname CL -neutral -conc 0.15
+# Add ions, choose solvent group
+echo SOL | gmx genion -s ions.tpr -o solv_ions.gro -p topol.top -pname NA -nname CL -neutral -conc 0.15
 
 # Make energy minimization tpr file
-gmx grompp -f em.mdp -c solv_ions.gro -p topol.top -o em.tpr
+gmx grompp -f em.mdp -c solv_ions.gro -p topol.top -o em.tpr -maxwarn 1
 
 # Run energy minimization
 gmx mdrun -deffnm em
 
 # Preprocessing for NVT equilibration
-gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
+gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr -maxwarn 1
 
 # Run NVT equilibration
 gmx mdrun -deffnm nvt
 
 # Preprocessing for NPT equilibration
-gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -r nvt.gro -p topol.top -o npt.tpr
+gmx grompp -f npt.mdp -c nvt.gro -t nvt.cpt -r nvt.gro -p topol.top -o npt.tpr -maxwarn 1
 
 # Run NPT equilibration
 gmx mdrun -deffnm npt
 
 # Preprocessing for production run
-gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md_0_50.tpr
+gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md.tpr -maxwarn 2
 
 # Run production run
-gmx mdrun -deffnm md_0_50
+gmx mdrun -deffnm md -ntomp 16 -ntmpi 2
