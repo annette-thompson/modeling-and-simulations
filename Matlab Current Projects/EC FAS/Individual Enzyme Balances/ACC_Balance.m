@@ -24,9 +24,9 @@ S.num = length(S.labels); %how many diff eqs there are
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
-S.init_cond(1) = 100; % ATP
-S.init_cond(2) = 100; % Bicarbonate
-S.init_cond(3) = 100; % Acetyl-CoA
+S.init_cond(1) = 1000; % ATP
+S.init_cond(2) = 1000; % Bicarbonate
+S.init_cond(3) = 600; % Acetyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [1 0 0 0 0 0 0 0 0 0]; 
@@ -43,6 +43,9 @@ toc
 
 [balance_conc_ACC, balances_ACC, total_conc_ACC, carbon_ACC] = mass_balance(C_ACC,P);
 
+figure()
+plot(T_ACC,C_ACC)
+legend(S.labels)
 
 function dcdt = ODE_Function_ACC(t,c,P)
 

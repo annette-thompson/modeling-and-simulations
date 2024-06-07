@@ -89,36 +89,20 @@ P.k9_1f = P.k9_1r/S.km_table{'k9_1f','parameter_values'};
 P.k10_3f = P.k10_3r/S.km_table{'k10_3f','parameter_values'};
 
 % ACC
-% P.k1_1f = S.param_table{'k1_1f','parameter_values'}*S.scaling_factor_init;
-% P.k1_1r = S.param_table{'k1_1r','parameter_values'}*S.scaling_factor_init;
-% P.k1_2f = S.param_table{'k1_2f','parameter_values'}*S.scaling_factor_init;
-% P.k1_2r = S.param_table{'k1_2r','parameter_values'}*S.scaling_factor_init;
-% P.k1_3f = S.param_table{'k1_3f','parameter_values'}*S.scaling_factor_init;
-% P.k1_3r = S.param_table{'k1_3r','parameter_values'}*S.scaling_factor_init;
-% P.k1_4f = S.param_table{'k1_4f','parameter_values'}*S.scaling_factor_init;
-% P.k1_4r = S.param_table{'k1_4r','parameter_values'}*S.scaling_factor_init;
-% P.k1_5f = S.param_table{'k1_5f','parameter_values'}*S.scaling_factor_init;
-% P.k1_5r = S.param_table{'k1_5r','parameter_values'}*S.scaling_factor_init;
-% P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'}*S.scaling_factor_kcat_init;
-% P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'}*S.scaling_factor_kcat_init;
-% P.kcat1_3 = S.param_table{'kcat1_3','parameter_values'}*S.scaling_factor_kcat_init;
-% P.kcat1_4 = S.param_table{'kcat1_4','parameter_values'}*S.scaling_factor_kcat_init;
-x = 1000;
-y = 1000;
-P.k1_1r = x;
-P.k1_1f = x/170;
-P.k1_2r = x;
-P.k1_2f = x/370;
-P.kcat1_1 = 73.8/60*y;
-P.k1_3r = x;
-P.k1_3f = x/160;
-P.kcat1_2 = 1000.8/60*y;
-P.k1_4r = x;
-P.k1_4f = x/450;
-P.kcat1_3 = 2031.8/60*y;
-P.k1_5r = x;
-P.k1_5f = x/40;
-P.kcat1_4 = 40;
+P.k1_1f = S.param_table{'k1_1f','parameter_values'}*S.scaling_factor_init;
+P.k1_1r = S.param_table{'k1_1r','parameter_values'}*S.scaling_factor_init;
+P.k1_2f = S.param_table{'k1_2f','parameter_values'}*S.scaling_factor_init;
+P.k1_2r = S.param_table{'k1_2r','parameter_values'}*S.scaling_factor_init;
+P.k1_3f = S.param_table{'k1_3f','parameter_values'}*S.scaling_factor_init;
+P.k1_3r = S.param_table{'k1_3r','parameter_values'}*S.scaling_factor_init;
+P.k1_4f = S.param_table{'k1_4f','parameter_values'}*S.scaling_factor_init;
+P.k1_4r = S.param_table{'k1_4r','parameter_values'}*S.scaling_factor_init;
+P.k1_5f = S.param_table{'k1_5f','parameter_values'}*S.scaling_factor_init;
+P.k1_5r = S.param_table{'k1_5r','parameter_values'}*S.scaling_factor_init;
+P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'}*S.scaling_factor_kcat_init;
+P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'}*S.scaling_factor_kcat_init;
+P.kcat1_3 = S.param_table{'kcat1_3','parameter_values'}*S.scaling_factor_kcat_init;
+P.kcat1_4 = S.param_table{'kcat1_4','parameter_values'}*S.scaling_factor_kcat_init;
 
 % After the initial parameter assignment, additional parameters are
 % assigned, and modified (for example incorporating substrate specificity)

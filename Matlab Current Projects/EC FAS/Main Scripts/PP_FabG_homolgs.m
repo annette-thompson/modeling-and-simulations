@@ -1,6 +1,6 @@
 % Give access to all necessary folders
 
-my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects';
+my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects/EC FAS';
 cd(my_dir)
 addpath(genpath(my_dir))
 
