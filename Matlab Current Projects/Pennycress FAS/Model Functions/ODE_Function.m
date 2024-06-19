@@ -74,11 +74,8 @@ c_KASI = P.KASItot - c_KASI_ACP - c_C2_KASI_AcCoA - c_C2_KASI_Act - c_C3_KASI_Ma
     - c_C15_KASI_Act_MalACP_un - c_C17_KASI_Act_MalACP_un - c_C19_KASI_Act_MalACP_un - c_C21_KASI_Act_MalACP_un;
 
 % SAD
-c_SAD = P.SADtot - c_SAD_ACP - c_C10_SAD_cis3EnAcACP...
-    - c_C4_SAD_BHyAcACP - c_C6_SAD_BHyAcACP - c_C8_SAD_BHyAcACP - c_C10_SAD_BHyAcACP - c_C12_SAD_BHyAcACP - c_C14_SAD_BHyAcACP - c_C16_SAD_BHyAcACP - c_C18_SAD_BHyAcACP - c_C20_SAD_BHyAcACP...
-    - c_C12_SAD_BHyAcACP_un - c_C14_SAD_BHyAcACP_un - c_C16_SAD_BHyAcACP_un - c_C18_SAD_BHyAcACP_un - c_C20_SAD_BHyAcACP_un...
-    - c_C4_SAD_EnAcACP - c_C6_SAD_EnAcACP - c_C8_SAD_EnAcACP - c_C10_SAD_EnAcACP - c_C12_SAD_EnAcACP - c_C14_SAD_EnAcACP - c_C16_SAD_EnAcACP - c_C18_SAD_EnAcACP - c_C20_SAD_EnAcACP...
-    - c_C12_SAD_EnAcACP_un - c_C14_SAD_EnAcACP_un - c_C16_SAD_EnAcACP_un - c_C18_SAD_EnAcACP_un - c_C20_SAD_EnAcACP_un;
+c_SAD = P.SADtot - c_SAD_ACP...
+    - c_SAD_Fd - c_C12_SAD_Fd_AcACP - c_C14_SAD_Fd_AcACP - c_C16_SAD_Fd_AcACP - c_C18_SAD_Fd_AcACP - c_C20_SAD_Fd_AcACP;
 
 % KASII
 c_KASII = P.KASIItot - c_KASII_ACP - c_C2_KASII_AcCoA - c_C2_KASII_Act - c_C5_KASII_Act_MalACP - c_C3_KASII_MalACP - c_C2_KASII_AcACP...
@@ -147,10 +144,10 @@ d_ACP = P.k2_3r.*c_C3_MCMT_Act_ACP - P.k2_3f.*c_C3_MCMT_Act.*c_ACP...
     + P.k9_inh_r.*c_SAD_ACP - P.k9_inh_f.*c_SAD.*c_ACP...
     + P.k10_inh_r.*c_KASII_ACP - P.k10_inh_f.*c_KASII.*c_ACP...
     + P.k8_9f.*c_C2_KASI_AcACP - P.k8_9r.*c_C2_KASI_Act.*c_ACP...
-    + P.k10_9f.*c_C2_KASII_AcACP - P.k10_9r.*c_C2_KASII_Act.*c_ACP; 
+    + P.k10_9f.*c_C2_KASII_AcACP - P.k10_9r.*c_C2_KASII_Act.*c_ACP;
 
 % NADPH
-d_NADPH = P.k4_1r(1).*c_KAR_NADPH - P.k4_1f(1).*c_KAR.*c_NADPH; 
+d_NADPH = P.k4_1r(1).*c_KAR_NADPH - P.k4_1f(1).*c_KAR.*c_NADPH;
 
 % NADP+
 d_NADP = P.kcat4(1).*c_C4_KAR_NADPH_BKeACP + P.kcat4(2).*c_C6_KAR_NADPH_BKeACP + P.kcat4(3).*c_C8_KAR_NADPH_BKeACP + P.kcat4(4).*c_C10_KAR_NADPH_BKeACP...
@@ -158,18 +155,24 @@ d_NADP = P.kcat4(1).*c_C4_KAR_NADPH_BKeACP + P.kcat4(2).*c_C6_KAR_NADPH_BKeACP +
     + P.kcat4(5).*c_C12_KAR_NADPH_BKeACP_un + P.kcat4(6).*c_C14_KAR_NADPH_BKeACP_un + P.kcat4(7).*c_C16_KAR_NADPH_BKeACP_un + P.kcat4(8).*c_C18_KAR_NADPH_BKeACP_un + P.kcat4(9).*c_C20_KAR_NADPH_BKeACP_un;
 
 % NADH
-d_NADH = P.k6_1r(1).*c_ER_NADH - P.k6_1f(1).*c_ER.*c_NADH; 
+d_NADH = P.k6_1r(1).*c_ER_NADH - P.k6_1f(1).*c_ER.*c_NADH;
 
 % NAD+
 d_NAD = P.kcat6(1).*c_C4_ER_NADH_EnAcACP + P.kcat6(2).*c_C6_ER_NADH_EnAcACP + P.kcat6(3).*c_C8_ER_NADH_EnAcACP + P.kcat6(4).*c_C10_ER_NADH_EnAcACP...
     + P.kcat6(5).*c_C12_ER_NADH_EnAcACP + P.kcat6(6).*c_C14_ER_NADH_EnAcACP + P.kcat6(7).*c_C16_ER_NADH_EnAcACP + P.kcat6(8).*c_C18_ER_NADH_EnAcACP + P.kcat6(9).*c_C20_ER_NADH_EnAcACP...
-    + P.kcat6(5).*c_C12_ER_NADH_EnAcACP_un + P.kcat6(6).*c_C14_ER_NADH_EnAcACP_un + P.kcat6(7).*c_C16_ER_NADH_EnAcACP_un + P.kcat6(8).*c_C18_ER_NADH_EnAcACP_un + P.kcat6(9).*c_C20_ER_NADH_EnAcACP_un; 
+    + P.kcat6(5).*c_C12_ER_NADH_EnAcACP_un + P.kcat6(6).*c_C14_ER_NADH_EnAcACP_un + P.kcat6(7).*c_C16_ER_NADH_EnAcACP_un + P.kcat6(8).*c_C18_ER_NADH_EnAcACP_un + P.kcat6(9).*c_C20_ER_NADH_EnAcACP_un;
+
+% Fd+
+d_Fd = P.k9_1r.*c_SAD_Fd - P.k9_1f.*c_SAD.*c_Fd;
+
+% Fd2+
+d_Fd2 = P.kcat9(5).*c_C12_SAD_Fd_AcACP + P.kcat9(6).*c_C14_SAD_Fd_AcACP + P.kcat9(7).*c_C16_SAD_Fd_AcACP + P.kcat9(8).*c_C18_SAD_Fd_AcACP + P.kcat9(9).*c_C20_SAD_Fd_AcACP;
 
 % ADP % changed for ACC
 d_ADP = P.kcat1_1.*c_C1_BC_ATP_HCO3;
 
 % Malonyl-CoA % changed for ACC
-d_C3_MalCoA = P.kcat1_4.*c_C3_CT_Act_AcCoA + P.k2_1r.*c_C3_MCMT_MalCoA - P.k2_1f.*c_MCMT.*c_C3_MalCoA; 
+d_C3_MalCoA = P.kcat1_4.*c_C3_CT_Act_AcCoA + P.k2_1r.*c_C3_MCMT_MalCoA - P.k2_1f.*c_MCMT.*c_C3_MalCoA;
 
 
 % CoA
@@ -183,7 +186,7 @@ d_CoA = P.k2_2f.*c_C3_MCMT_MalCoA - P.k2_2r.*c_C3_MCMT_Act.*c_CoA...
     + P.k3_2f(7).*c_C14_KASIII_CoA - P.k3_2r(7).*c_C14_KASIII_Act.*c_CoA...
     + P.k3_2f(8).*c_C16_KASIII_CoA - P.k3_2r(8).*c_C16_KASIII_Act.*c_CoA...
     + P.k3_2f(9).*c_C18_KASIII_CoA - P.k3_2r(9).*c_C18_KASIII_Act.*c_CoA...
-    + P.k8_5f.*c_C2_KASI_AcCoA - P.k8_5r*c_C2_KASI_Act.*c_CoA...
+    + P.k8_5f.*c_C2_KASI_AcCoA - P.k8_5r.*c_C2_KASI_Act.*c_CoA...
     + P.k10_5f.*c_C2_KASII_AcCoA - P.k10_5r.*c_C2_KASII_Act.*c_CoA;
 
 % Malonyl-ACP
@@ -257,66 +260,66 @@ d_C16_BKeACP_un = P.kcat8_un(6).*c_C17_KASI_Act_MalACP_un + P.kcat10_un(6).*c_C1
 d_C18_BKeACP_un = P.kcat8_un(7).*c_C19_KASI_Act_MalACP_un + P.kcat10_un(7).*c_C19_KASII_Act_MalACP_un + P.k4_2r(8).*c_C18_KAR_NADPH_BKeACP_un - P.k4_2f(8).*c_KAR_NADPH.*c_C18_BKeACP_un;
 d_C20_BKeACP_un = P.kcat8_un(8).*c_C21_KASI_Act_MalACP_un + P.kcat10_un(8).*c_C21_KASII_Act_MalACP_un + P.k4_2r(9).*c_C20_KAR_NADPH_BKeACP_un - P.k4_2f(9).*c_KAR_NADPH.*c_C20_BKeACP_un;
 
-% C2n (n=2:10) B-hydroxy-acyl-ACPs (KAR - HAD - SAD)
-d_C4_BHyAcACP = P.kcat4(1).*c_C4_KAR_NADPH_BKeACP + P.k5_1r(1).*c_C4_HAD_BHyAcACP - P.k5_1f(1).*c_HAD.*c_C4_BHyAcACP + P.k9_1r(1).*c_C4_SAD_BHyAcACP - P.k9_1f(1).*c_SAD.*c_C4_BHyAcACP;
-d_C6_BHyAcACP = P.kcat4(2).*c_C6_KAR_NADPH_BKeACP + P.k5_1r(2).*c_C6_HAD_BHyAcACP - P.k5_1f(2).*c_HAD.*c_C6_BHyAcACP + P.k9_1r(2).*c_C6_SAD_BHyAcACP - P.k9_1f(2).*c_SAD.*c_C6_BHyAcACP;
-d_C8_BHyAcACP = P.kcat4(3).*c_C8_KAR_NADPH_BKeACP + P.k5_1r(3).*c_C8_HAD_BHyAcACP - P.k5_1f(3).*c_HAD.*c_C8_BHyAcACP + P.k9_1r(3).*c_C8_SAD_BHyAcACP - P.k9_1f(3).*c_SAD.*c_C8_BHyAcACP;
-d_C10_BHyAcACP = P.kcat4(4).*c_C10_KAR_NADPH_BKeACP + P.k5_1r(4).*c_C10_HAD_BHyAcACP - P.k5_1f(4).*c_HAD.*c_C10_BHyAcACP + P.k9_1r(4).*c_C10_SAD_BHyAcACP - P.k9_1f(4).*c_SAD.*c_C10_BHyAcACP;
-d_C12_BHyAcACP = P.kcat4(5).*c_C12_KAR_NADPH_BKeACP + P.k5_1r(5).*c_C12_HAD_BHyAcACP - P.k5_1f(5).*c_HAD.*c_C12_BHyAcACP + P.k9_1r(5).*c_C12_SAD_BHyAcACP - P.k9_1f(5).*c_SAD.*c_C12_BHyAcACP;
-d_C14_BHyAcACP = P.kcat4(6).*c_C14_KAR_NADPH_BKeACP + P.k5_1r(6).*c_C14_HAD_BHyAcACP - P.k5_1f(6).*c_HAD.*c_C14_BHyAcACP + P.k9_1r(6).*c_C14_SAD_BHyAcACP - P.k9_1f(6).*c_SAD.*c_C14_BHyAcACP;
-d_C16_BHyAcACP = P.kcat4(7).*c_C16_KAR_NADPH_BKeACP + P.k5_1r(7).*c_C16_HAD_BHyAcACP - P.k5_1f(7).*c_HAD.*c_C16_BHyAcACP + P.k9_1r(7).*c_C16_SAD_BHyAcACP - P.k9_1f(7).*c_SAD.*c_C16_BHyAcACP;
-d_C18_BHyAcACP = P.kcat4(8).*c_C18_KAR_NADPH_BKeACP + P.k5_1r(8).*c_C18_HAD_BHyAcACP - P.k5_1f(8).*c_HAD.*c_C18_BHyAcACP + P.k9_1r(8).*c_C18_SAD_BHyAcACP - P.k9_1f(8).*c_SAD.*c_C18_BHyAcACP;
-d_C20_BHyAcACP = P.kcat4(9).*c_C20_KAR_NADPH_BKeACP + P.k5_1r(9).*c_C20_HAD_BHyAcACP - P.k5_1f(9).*c_HAD.*c_C20_BHyAcACP + P.k9_1r(9).*c_C20_SAD_BHyAcACP - P.k9_1f(9).*c_SAD.*c_C20_BHyAcACP;
+% C2n (n=2:10) B-hydroxy-acyl-ACPs (KAR - HAD)
+d_C4_BHyAcACP = P.kcat4(1).*c_C4_KAR_NADPH_BKeACP + P.k5_1r(1).*c_C4_HAD_BHyAcACP - P.k5_1f(1).*c_HAD.*c_C4_BHyAcACP;
+d_C6_BHyAcACP = P.kcat4(2).*c_C6_KAR_NADPH_BKeACP + P.k5_1r(2).*c_C6_HAD_BHyAcACP - P.k5_1f(2).*c_HAD.*c_C6_BHyAcACP;
+d_C8_BHyAcACP = P.kcat4(3).*c_C8_KAR_NADPH_BKeACP + P.k5_1r(3).*c_C8_HAD_BHyAcACP - P.k5_1f(3).*c_HAD.*c_C8_BHyAcACP;
+d_C10_BHyAcACP = P.kcat4(4).*c_C10_KAR_NADPH_BKeACP + P.k5_1r(4).*c_C10_HAD_BHyAcACP - P.k5_1f(4).*c_HAD.*c_C10_BHyAcACP;
+d_C12_BHyAcACP = P.kcat4(5).*c_C12_KAR_NADPH_BKeACP + P.k5_1r(5).*c_C12_HAD_BHyAcACP - P.k5_1f(5).*c_HAD.*c_C12_BHyAcACP;
+d_C14_BHyAcACP = P.kcat4(6).*c_C14_KAR_NADPH_BKeACP + P.k5_1r(6).*c_C14_HAD_BHyAcACP - P.k5_1f(6).*c_HAD.*c_C14_BHyAcACP;
+d_C16_BHyAcACP = P.kcat4(7).*c_C16_KAR_NADPH_BKeACP + P.k5_1r(7).*c_C16_HAD_BHyAcACP - P.k5_1f(7).*c_HAD.*c_C16_BHyAcACP;
+d_C18_BHyAcACP = P.kcat4(8).*c_C18_KAR_NADPH_BKeACP + P.k5_1r(8).*c_C18_HAD_BHyAcACP - P.k5_1f(8).*c_HAD.*c_C18_BHyAcACP;
+d_C20_BHyAcACP = P.kcat4(9).*c_C20_KAR_NADPH_BKeACP + P.k5_1r(9).*c_C20_HAD_BHyAcACP - P.k5_1f(9).*c_HAD.*c_C20_BHyAcACP;
 
-% C2n:1 (n=6:10) B-hydroxy-acyl-ACPs (KAR - HAD - SAD)
-d_C12_BHyAcACP_un = P.kcat4(5).*c_C12_KAR_NADPH_BKeACP_un + P.k5_1r(5).*c_C12_HAD_BHyAcACP_un - P.k5_1f(5).*c_HAD.*c_C12_BHyAcACP_un + P.k9_1r_un(5).*c_C12_SAD_BHyAcACP_un - P.k9_1f_un(5).*c_SAD.*c_C12_BHyAcACP_un;
-d_C14_BHyAcACP_un = P.kcat4(6).*c_C14_KAR_NADPH_BKeACP_un + P.k5_1r(6).*c_C14_HAD_BHyAcACP_un - P.k5_1f(6).*c_HAD.*c_C14_BHyAcACP_un + P.k9_1r_un(6).*c_C14_SAD_BHyAcACP_un - P.k9_1f_un(6).*c_SAD.*c_C14_BHyAcACP_un;
-d_C16_BHyAcACP_un = P.kcat4(7).*c_C16_KAR_NADPH_BKeACP_un + P.k5_1r(7).*c_C16_HAD_BHyAcACP_un - P.k5_1f(7).*c_HAD.*c_C16_BHyAcACP_un + P.k9_1r_un(7).*c_C16_SAD_BHyAcACP_un - P.k9_1f_un(7).*c_SAD.*c_C16_BHyAcACP_un;
-d_C18_BHyAcACP_un = P.kcat4(8).*c_C18_KAR_NADPH_BKeACP_un + P.k5_1r(8).*c_C18_HAD_BHyAcACP_un - P.k5_1f(8).*c_HAD.*c_C18_BHyAcACP_un + P.k9_1r_un(8).*c_C18_SAD_BHyAcACP_un - P.k9_1f_un(8).*c_SAD.*c_C18_BHyAcACP_un;
-d_C20_BHyAcACP_un = P.kcat4(9).*c_C20_KAR_NADPH_BKeACP_un + P.k5_1r(9).*c_C20_HAD_BHyAcACP_un - P.k5_1f(9).*c_HAD.*c_C20_BHyAcACP_un + P.k9_1r_un(9).*c_C20_SAD_BHyAcACP_un - P.k9_1f_un(9).*c_SAD.*c_C20_BHyAcACP_un;
+% C2n:1 (n=6:10) B-hydroxy-acyl-ACPs (KAR - HAD)
+d_C12_BHyAcACP_un = P.kcat4(5).*c_C12_KAR_NADPH_BKeACP_un + P.k5_1r(5).*c_C12_HAD_BHyAcACP_un - P.k5_1f(5).*c_HAD.*c_C12_BHyAcACP_un;
+d_C14_BHyAcACP_un = P.kcat4(6).*c_C14_KAR_NADPH_BKeACP_un + P.k5_1r(6).*c_C14_HAD_BHyAcACP_un - P.k5_1f(6).*c_HAD.*c_C14_BHyAcACP_un;
+d_C16_BHyAcACP_un = P.kcat4(7).*c_C16_KAR_NADPH_BKeACP_un + P.k5_1r(7).*c_C16_HAD_BHyAcACP_un - P.k5_1f(7).*c_HAD.*c_C16_BHyAcACP_un;
+d_C18_BHyAcACP_un = P.kcat4(8).*c_C18_KAR_NADPH_BKeACP_un + P.k5_1r(8).*c_C18_HAD_BHyAcACP_un - P.k5_1f(8).*c_HAD.*c_C18_BHyAcACP_un;
+d_C20_BHyAcACP_un = P.kcat4(9).*c_C20_KAR_NADPH_BKeACP_un + P.k5_1r(9).*c_C20_HAD_BHyAcACP_un - P.k5_1f(9).*c_HAD.*c_C20_BHyAcACP_un;
 
-% C2n (n=2:10) Enoyl-Acyl-ACPs (HAD + SAD - ER) 
-d_C4_EnAcACP = P.k5_3f(1).*c_C4_HAD_EnAcACP - P.k5_3r(1).*c_HAD.*c_C4_EnAcACP + P.k6_2r(1).*c_C4_ER_NADH_EnAcACP - P.k6_2f(1).*c_ER_NADH.*c_C4_EnAcACP + P.k9_3f(1).*c_C4_SAD_EnAcACP - P.k9_3r(1).*c_SAD.*c_C4_EnAcACP;
-d_C6_EnAcACP = P.k5_3f(2).*c_C6_HAD_EnAcACP - P.k5_3r(2).*c_HAD.*c_C6_EnAcACP + P.k6_2r(2).*c_C6_ER_NADH_EnAcACP - P.k6_2f(2).*c_ER_NADH.*c_C6_EnAcACP + P.k9_3f(2).*c_C6_SAD_EnAcACP - P.k9_3r(2).*c_SAD.*c_C6_EnAcACP;
-d_C8_EnAcACP = P.k5_3f(3).*c_C8_HAD_EnAcACP - P.k5_3r(3).*c_HAD.*c_C8_EnAcACP + P.k6_2r(3).*c_C8_ER_NADH_EnAcACP - P.k6_2f(3).*c_ER_NADH.*c_C8_EnAcACP + P.k9_3f(3).*c_C8_SAD_EnAcACP - P.k9_3r(3).*c_SAD.*c_C8_EnAcACP;
-d_C10_EnAcACP = P.k5_3f(4).*c_C10_HAD_EnAcACP - P.k5_3r(4).*c_HAD.*c_C10_EnAcACP + P.k6_2r(4).*c_C10_ER_NADH_EnAcACP - P.k6_2f(4).*c_ER_NADH.*c_C10_EnAcACP + P.k9_3f(4).*c_C10_SAD_EnAcACP - P.k9_3r(4).*c_SAD.*c_C10_EnAcACP;
-d_C12_EnAcACP = P.k5_3f(5).*c_C12_HAD_EnAcACP - P.k5_3r(5).*c_HAD.*c_C12_EnAcACP + P.k6_2r(5).*c_C12_ER_NADH_EnAcACP - P.k6_2f(5).*c_ER_NADH.*c_C12_EnAcACP + P.k9_3f(5).*c_C12_SAD_EnAcACP - P.k9_3r(5).*c_SAD.*c_C12_EnAcACP;
-d_C14_EnAcACP = P.k5_3f(6).*c_C14_HAD_EnAcACP - P.k5_3r(6).*c_HAD.*c_C14_EnAcACP + P.k6_2r(6).*c_C14_ER_NADH_EnAcACP - P.k6_2f(6).*c_ER_NADH.*c_C14_EnAcACP + P.k9_3f(6).*c_C14_SAD_EnAcACP - P.k9_3r(6).*c_SAD.*c_C14_EnAcACP;
-d_C16_EnAcACP = P.k5_3f(7).*c_C16_HAD_EnAcACP - P.k5_3r(7).*c_HAD.*c_C16_EnAcACP + P.k6_2r(7).*c_C16_ER_NADH_EnAcACP - P.k6_2f(7).*c_ER_NADH.*c_C16_EnAcACP + P.k9_3f(7).*c_C16_SAD_EnAcACP - P.k9_3r(7).*c_SAD.*c_C16_EnAcACP;
-d_C18_EnAcACP = P.k5_3f(8).*c_C18_HAD_EnAcACP - P.k5_3r(8).*c_HAD.*c_C18_EnAcACP + P.k6_2r(8).*c_C18_ER_NADH_EnAcACP - P.k6_2f(8).*c_ER_NADH.*c_C18_EnAcACP + P.k9_3f(8).*c_C18_SAD_EnAcACP - P.k9_3r(8).*c_SAD.*c_C18_EnAcACP;
-d_C20_EnAcACP = P.k5_3f(9).*c_C20_HAD_EnAcACP - P.k5_3r(9).*c_HAD.*c_C20_EnAcACP + P.k6_2r(9).*c_C20_ER_NADH_EnAcACP - P.k6_2f(9).*c_ER_NADH.*c_C20_EnAcACP + P.k9_3f(9).*c_C20_SAD_EnAcACP - P.k9_3r(9).*c_SAD.*c_C20_EnAcACP;
+% C2n (n=2:10) Enoyl-Acyl-ACPs (HAD - ER) 
+d_C4_EnAcACP = P.k5_3f(1).*c_C4_HAD_EnAcACP - P.k5_3r(1).*c_HAD.*c_C4_EnAcACP + P.k6_2r(1).*c_C4_ER_NADH_EnAcACP - P.k6_2f(1).*c_ER_NADH.*c_C4_EnAcACP;
+d_C6_EnAcACP = P.k5_3f(2).*c_C6_HAD_EnAcACP - P.k5_3r(2).*c_HAD.*c_C6_EnAcACP + P.k6_2r(2).*c_C6_ER_NADH_EnAcACP - P.k6_2f(2).*c_ER_NADH.*c_C6_EnAcACP;
+d_C8_EnAcACP = P.k5_3f(3).*c_C8_HAD_EnAcACP - P.k5_3r(3).*c_HAD.*c_C8_EnAcACP + P.k6_2r(3).*c_C8_ER_NADH_EnAcACP - P.k6_2f(3).*c_ER_NADH.*c_C8_EnAcACP;
+d_C10_EnAcACP = P.k5_3f(4).*c_C10_HAD_EnAcACP - P.k5_3r(4).*c_HAD.*c_C10_EnAcACP + P.k6_2r(4).*c_C10_ER_NADH_EnAcACP - P.k6_2f(4).*c_ER_NADH.*c_C10_EnAcACP;
+d_C12_EnAcACP = P.k5_3f(5).*c_C12_HAD_EnAcACP - P.k5_3r(5).*c_HAD.*c_C12_EnAcACP + P.k6_2r(5).*c_C12_ER_NADH_EnAcACP - P.k6_2f(5).*c_ER_NADH.*c_C12_EnAcACP;
+d_C14_EnAcACP = P.k5_3f(6).*c_C14_HAD_EnAcACP - P.k5_3r(6).*c_HAD.*c_C14_EnAcACP + P.k6_2r(6).*c_C14_ER_NADH_EnAcACP - P.k6_2f(6).*c_ER_NADH.*c_C14_EnAcACP;
+d_C16_EnAcACP = P.k5_3f(7).*c_C16_HAD_EnAcACP - P.k5_3r(7).*c_HAD.*c_C16_EnAcACP + P.k6_2r(7).*c_C16_ER_NADH_EnAcACP - P.k6_2f(7).*c_ER_NADH.*c_C16_EnAcACP;
+d_C18_EnAcACP = P.k5_3f(8).*c_C18_HAD_EnAcACP - P.k5_3r(8).*c_HAD.*c_C18_EnAcACP + P.k6_2r(8).*c_C18_ER_NADH_EnAcACP - P.k6_2f(8).*c_ER_NADH.*c_C18_EnAcACP;
+d_C20_EnAcACP = P.k5_3f(9).*c_C20_HAD_EnAcACP - P.k5_3r(9).*c_HAD.*c_C20_EnAcACP + P.k6_2r(9).*c_C20_ER_NADH_EnAcACP - P.k6_2f(9).*c_ER_NADH.*c_C20_EnAcACP;
 
-% C10 cis-3-Enoyl-Acyl-ACP (SAD - KASII)
-d_C10_cis3EnAcACP = P.k9_3f_un(4).*c_C10_SAD_cis3EnAcACP - P.k9_3r_un(4).*c_SAD.*c_C10_cis3EnAcACP + P.k10_1r(4).*c_C10_KASII_cis3EnAcACP - P.k10_1f(4).*c_KASII.*c_C10_cis3EnAcACP;
+% C10 cis-3-Enoyl-Acyl-ACP (KASII)
+d_C10_cis3EnAcACP = P.k10_1r(4).*c_C10_KASII_cis3EnAcACP - P.k10_1f(4).*c_KASII.*c_C10_cis3EnAcACP;
 
-% C2n:1 (n=6:10) Enoyl-Acyl-ACPs  (HAD + SAD - ER)
-d_C12_EnAcACP_un = P.k5_3f(5).*c_C12_HAD_EnAcACP_un - P.k5_3r(5).*c_HAD.*c_C12_EnAcACP_un + P.k6_2r(5).*c_C12_ER_NADH_EnAcACP_un - P.k6_2f(5).*c_ER_NADH.*c_C12_EnAcACP_un + P.k9_3f(5).*c_C12_SAD_EnAcACP_un - P.k9_3r(5).*c_SAD.*c_C12_EnAcACP_un;
-d_C14_EnAcACP_un = P.k5_3f(6).*c_C14_HAD_EnAcACP_un - P.k5_3r(6).*c_HAD.*c_C14_EnAcACP_un + P.k6_2r(6).*c_C14_ER_NADH_EnAcACP_un - P.k6_2f(6).*c_ER_NADH.*c_C14_EnAcACP_un + P.k9_3f(6).*c_C14_SAD_EnAcACP_un - P.k9_3r(6).*c_SAD.*c_C14_EnAcACP_un;
-d_C16_EnAcACP_un = P.k5_3f(7).*c_C16_HAD_EnAcACP_un - P.k5_3r(7).*c_HAD.*c_C16_EnAcACP_un + P.k6_2r(7).*c_C16_ER_NADH_EnAcACP_un - P.k6_2f(7).*c_ER_NADH.*c_C16_EnAcACP_un + P.k9_3f(7).*c_C16_SAD_EnAcACP_un - P.k9_3r(7).*c_SAD.*c_C16_EnAcACP_un;
-d_C18_EnAcACP_un = P.k5_3f(8).*c_C18_HAD_EnAcACP_un - P.k5_3r(8).*c_HAD.*c_C18_EnAcACP_un + P.k6_2r(8).*c_C18_ER_NADH_EnAcACP_un - P.k6_2f(8).*c_ER_NADH.*c_C18_EnAcACP_un + P.k9_3f(8).*c_C18_SAD_EnAcACP_un - P.k9_3r(8).*c_SAD.*c_C18_EnAcACP_un;
-d_C20_EnAcACP_un = P.k5_3f(9).*c_C20_HAD_EnAcACP_un - P.k5_3r(9).*c_HAD.*c_C20_EnAcACP_un + P.k6_2r(9).*c_C20_ER_NADH_EnAcACP_un - P.k6_2f(9).*c_ER_NADH.*c_C20_EnAcACP_un + P.k9_3f(9).*c_C20_SAD_EnAcACP_un - P.k9_3r(9).*c_SAD.*c_C20_EnAcACP_un;
+% C2n:1 (n=6:10) Enoyl-Acyl-ACPs  (HAD - ER)
+d_C12_EnAcACP_un = P.k5_3f(5).*c_C12_HAD_EnAcACP_un - P.k5_3r(5).*c_HAD.*c_C12_EnAcACP_un + P.k6_2r(5).*c_C12_ER_NADH_EnAcACP_un - P.k6_2f(5).*c_ER_NADH.*c_C12_EnAcACP_un;
+d_C14_EnAcACP_un = P.k5_3f(6).*c_C14_HAD_EnAcACP_un - P.k5_3r(6).*c_HAD.*c_C14_EnAcACP_un + P.k6_2r(6).*c_C14_ER_NADH_EnAcACP_un - P.k6_2f(6).*c_ER_NADH.*c_C14_EnAcACP_un;
+d_C16_EnAcACP_un = P.k5_3f(7).*c_C16_HAD_EnAcACP_un - P.k5_3r(7).*c_HAD.*c_C16_EnAcACP_un + P.k6_2r(7).*c_C16_ER_NADH_EnAcACP_un - P.k6_2f(7).*c_ER_NADH.*c_C16_EnAcACP_un;
+d_C18_EnAcACP_un = P.k5_3f(8).*c_C18_HAD_EnAcACP_un - P.k5_3r(8).*c_HAD.*c_C18_EnAcACP_un + P.k6_2r(8).*c_C18_ER_NADH_EnAcACP_un - P.k6_2f(8).*c_ER_NADH.*c_C18_EnAcACP_un;
+d_C20_EnAcACP_un = P.k5_3f(9).*c_C20_HAD_EnAcACP_un - P.k5_3r(9).*c_HAD.*c_C20_EnAcACP_un + P.k6_2r(9).*c_C20_ER_NADH_EnAcACP_un - P.k6_2f(9).*c_ER_NADH.*c_C20_EnAcACP_un;
 
-% C2n (n=2:9) Acyl-ACPs (ER - FatA - KASI - KASII - KASIII)
+% C2n (n=2:9) Acyl-ACPs (ER - FatA - KASI - KASII - KASIII - SAD)
 d_C4_AcACP = P.kcat6(1).*c_C4_ER_NADH_EnAcACP + P.k3_4r(1).*c_C4_KASIII_AcACP - P.k3_4f(1).*c_KASIII.*c_C4_AcACP + P.k3_5r(1).*c_C6_KASIII_Act_AcACP - P.k3_5f(1).*c_C2_KASIII_Act.*c_C4_AcACP + P.k7_1r(1).*c_C4_FatA_AcACP + P.k8_1r(1).*c_C4_KASI_AcACP + P.k10_1r(1).*c_C4_KASII_AcACP - P.k7_1f(1).*c_FatA.*c_C4_AcACP - P.k8_1f(1).*c_KASI.*c_C4_AcACP - P.k10_1f(1).*c_KASII.*c_C4_AcACP;
 d_C6_AcACP = P.kcat6(2).*c_C6_ER_NADH_EnAcACP + P.k3_4r(2).*c_C6_KASIII_AcACP - P.k3_4f(2).*c_KASIII.*c_C6_AcACP + P.k3_5r(2).*c_C8_KASIII_Act_AcACP - P.k3_5f(2).*c_C2_KASIII_Act.*c_C6_AcACP + P.k7_1r(2).*c_C6_FatA_AcACP + P.k8_1r(2).*c_C6_KASI_AcACP + P.k10_1r(2).*c_C6_KASII_AcACP - P.k7_1f(2).*c_FatA.*c_C6_AcACP - P.k8_1f(2).*c_KASI.*c_C6_AcACP - P.k10_1f(2).*c_KASII.*c_C6_AcACP;
 d_C8_AcACP = P.kcat6(3).*c_C8_ER_NADH_EnAcACP + P.k3_4r(3).*c_C8_KASIII_AcACP - P.k3_4f(3).*c_KASIII.*c_C8_AcACP + P.k3_5r(3).*c_C10_KASIII_Act_AcACP - P.k3_5f(3).*c_C2_KASIII_Act.*c_C8_AcACP + P.k7_1r(3).*c_C8_FatA_AcACP + P.k8_1r(3).*c_C8_KASI_AcACP + P.k10_1r(3).*c_C8_KASII_AcACP - P.k7_1f(3).*c_FatA.*c_C8_AcACP - P.k8_1f(3).*c_KASI.*c_C8_AcACP - P.k10_1f(3).*c_KASII.*c_C8_AcACP;
 d_C10_AcACP = P.kcat6(4).*c_C10_ER_NADH_EnAcACP + P.k3_4r(4).*c_C10_KASIII_AcACP - P.k3_4f(4).*c_KASIII.*c_C10_AcACP + P.k3_5r(4).*c_C12_KASIII_Act_AcACP - P.k3_5f(4).*c_C2_KASIII_Act.*c_C10_AcACP + P.k7_1r(4).*c_C10_FatA_AcACP + P.k8_1r(4).*c_C10_KASI_AcACP + P.k10_1r(4).*c_C10_KASII_AcACP - P.k7_1f(4).*c_FatA.*c_C10_AcACP - P.k8_1f(4).*c_KASI.*c_C10_AcACP - P.k10_1f(4).*c_KASII.*c_C10_AcACP;
-d_C12_AcACP = P.kcat6(5).*c_C12_ER_NADH_EnAcACP + P.k3_4r(5).*c_C12_KASIII_AcACP - P.k3_4f(5).*c_KASIII.*c_C12_AcACP + P.k3_5r(5).*c_C14_KASIII_Act_AcACP - P.k3_5f(5).*c_C2_KASIII_Act.*c_C12_AcACP + P.k7_1r(5).*c_C12_FatA_AcACP + P.k8_1r(5).*c_C12_KASI_AcACP + P.k10_1r(5).*c_C12_KASII_AcACP - P.k7_1f(5).*c_FatA.*c_C12_AcACP - P.k8_1f(5).*c_KASI.*c_C12_AcACP - P.k10_1f(5).*c_KASII.*c_C12_AcACP;
-d_C14_AcACP = P.kcat6(6).*c_C14_ER_NADH_EnAcACP + P.k3_4r(6).*c_C14_KASIII_AcACP - P.k3_4f(6).*c_KASIII.*c_C14_AcACP + P.k3_5r(6).*c_C16_KASIII_Act_AcACP - P.k3_5f(6).*c_C2_KASIII_Act.*c_C14_AcACP + P.k7_1r(6).*c_C14_FatA_AcACP + P.k8_1r(6).*c_C14_KASI_AcACP + P.k10_1r(6).*c_C14_KASII_AcACP - P.k7_1f(6).*c_FatA.*c_C14_AcACP - P.k8_1f(6).*c_KASI.*c_C14_AcACP - P.k10_1f(6).*c_KASII.*c_C14_AcACP;
-d_C16_AcACP = P.kcat6(7).*c_C16_ER_NADH_EnAcACP + P.k3_4r(7).*c_C16_KASIII_AcACP - P.k3_4f(7).*c_KASIII.*c_C16_AcACP + P.k3_5r(7).*c_C18_KASIII_Act_AcACP - P.k3_5f(7).*c_C2_KASIII_Act.*c_C16_AcACP + P.k7_1r(7).*c_C16_FatA_AcACP + P.k8_1r(7).*c_C16_KASI_AcACP + P.k10_1r(7).*c_C16_KASII_AcACP - P.k7_1f(7).*c_FatA.*c_C16_AcACP - P.k8_1f(7).*c_KASI.*c_C16_AcACP - P.k10_1f(7).*c_KASII.*c_C16_AcACP;
-d_C18_AcACP = P.kcat6(8).*c_C18_ER_NADH_EnAcACP + P.k3_4r(8).*c_C18_KASIII_AcACP - P.k3_4f(8).*c_KASIII.*c_C18_AcACP + P.k3_5r(8).*c_C20_KASIII_Act_AcACP - P.k3_5f(8).*c_C2_KASIII_Act.*c_C18_AcACP + P.k7_1r(8).*c_C18_FatA_AcACP + P.k8_1r(8).*c_C18_KASI_AcACP + P.k10_1r(8).*c_C18_KASII_AcACP - P.k7_1f(8).*c_FatA.*c_C18_AcACP - P.k8_1f(8).*c_KASI.*c_C18_AcACP - P.k10_1f(8).*c_KASII.*c_C18_AcACP;
+d_C12_AcACP = P.kcat6(5).*c_C12_ER_NADH_EnAcACP + P.k3_4r(5).*c_C12_KASIII_AcACP - P.k3_4f(5).*c_KASIII.*c_C12_AcACP + P.k3_5r(5).*c_C14_KASIII_Act_AcACP - P.k3_5f(5).*c_C2_KASIII_Act.*c_C12_AcACP + P.k7_1r(5).*c_C12_FatA_AcACP + P.k8_1r(5).*c_C12_KASI_AcACP + P.k10_1r(5).*c_C12_KASII_AcACP - P.k7_1f(5).*c_FatA.*c_C12_AcACP - P.k8_1f(5).*c_KASI.*c_C12_AcACP - P.k10_1f(5).*c_KASII.*c_C12_AcACP + P.k9_2r(5).*c_C12_SAD_Fd_AcACP - P.k9_2f(5).*c_SAD_Fd.*c_C12_AcACP;
+d_C14_AcACP = P.kcat6(6).*c_C14_ER_NADH_EnAcACP + P.k3_4r(6).*c_C14_KASIII_AcACP - P.k3_4f(6).*c_KASIII.*c_C14_AcACP + P.k3_5r(6).*c_C16_KASIII_Act_AcACP - P.k3_5f(6).*c_C2_KASIII_Act.*c_C14_AcACP + P.k7_1r(6).*c_C14_FatA_AcACP + P.k8_1r(6).*c_C14_KASI_AcACP + P.k10_1r(6).*c_C14_KASII_AcACP - P.k7_1f(6).*c_FatA.*c_C14_AcACP - P.k8_1f(6).*c_KASI.*c_C14_AcACP - P.k10_1f(6).*c_KASII.*c_C14_AcACP + P.k9_2r(6).*c_C14_SAD_Fd_AcACP - P.k9_2f(6).*c_SAD_Fd.*c_C14_AcACP;
+d_C16_AcACP = P.kcat6(7).*c_C16_ER_NADH_EnAcACP + P.k3_4r(7).*c_C16_KASIII_AcACP - P.k3_4f(7).*c_KASIII.*c_C16_AcACP + P.k3_5r(7).*c_C18_KASIII_Act_AcACP - P.k3_5f(7).*c_C2_KASIII_Act.*c_C16_AcACP + P.k7_1r(7).*c_C16_FatA_AcACP + P.k8_1r(7).*c_C16_KASI_AcACP + P.k10_1r(7).*c_C16_KASII_AcACP - P.k7_1f(7).*c_FatA.*c_C16_AcACP - P.k8_1f(7).*c_KASI.*c_C16_AcACP - P.k10_1f(7).*c_KASII.*c_C16_AcACP + P.k9_2r(7).*c_C16_SAD_Fd_AcACP - P.k9_2f(7).*c_SAD_Fd.*c_C16_AcACP;
+d_C18_AcACP = P.kcat6(8).*c_C18_ER_NADH_EnAcACP + P.k3_4r(8).*c_C18_KASIII_AcACP - P.k3_4f(8).*c_KASIII.*c_C18_AcACP + P.k3_5r(8).*c_C20_KASIII_Act_AcACP - P.k3_5f(8).*c_C2_KASIII_Act.*c_C18_AcACP + P.k7_1r(8).*c_C18_FatA_AcACP + P.k8_1r(8).*c_C18_KASI_AcACP + P.k10_1r(8).*c_C18_KASII_AcACP - P.k7_1f(8).*c_FatA.*c_C18_AcACP - P.k8_1f(8).*c_KASI.*c_C18_AcACP - P.k10_1f(8).*c_KASII.*c_C18_AcACP + P.k9_2r(8).*c_C18_SAD_Fd_AcACP - P.k9_2f(8).*c_SAD_Fd.*c_C18_AcACP;
 
-% C2n (n=10) Acyl-ACPs (ER - FatA - KASIII)
-d_C20_AcACP = P.kcat6(9).*c_C20_ER_NADH_EnAcACP + P.k3_4r(9).*c_C20_KASIII_AcACP - P.k3_4f(9).*c_KASIII.*c_C20_AcACP + P.k3_5r(9).*c_C22_KASIII_Act_AcACP - P.k3_5f(9).*c_C2_KASIII_Act.*c_C20_AcACP + P.k7_1r(9).*c_C20_FatA_AcACP - P.k7_1f(9).*c_FatA.*c_C20_AcACP;
+% C2n (n=10) Acyl-ACPs (ER - FatA - KASIII - SAD)
+d_C20_AcACP = P.kcat6(9).*c_C20_ER_NADH_EnAcACP + P.k3_4r(9).*c_C20_KASIII_AcACP - P.k3_4f(9).*c_KASIII.*c_C20_AcACP + P.k3_5r(9).*c_C22_KASIII_Act_AcACP - P.k3_5f(9).*c_C2_KASIII_Act.*c_C20_AcACP + P.k7_1r(9).*c_C20_FatA_AcACP - P.k7_1f(9).*c_FatA.*c_C20_AcACP + P.k9_2r(9).*c_C20_SAD_Fd_AcACP - P.k9_2f(9).*c_SAD_Fd.*c_C20_AcACP;
 
-% C2n:1 (n=6:9) Acyl-ACPs (ER - FatA - KASI - KASII - KASIII)
-d_C12_AcACP_un = P.kcat6(5).*c_C12_ER_NADH_EnAcACP_un + P.k3_4r(5).*c_C12_KASIII_AcACP_un - P.k3_4f(5).*c_KASIII.*c_C12_AcACP_un + P.k3_5r(5).*c_C14_KASIII_Act_AcACP_un - P.k3_5f(5).*c_C2_KASIII_Act.*c_C12_AcACP_un + P.k7_1r(5).*c_C12_FatA_AcACP_un - P.k7_1f(5).*c_FatA.*c_C12_AcACP_un + P.k8_1r(5).*c_C12_KASI_AcACP_un - P.k8_1f(5).*c_KASI.*c_C12_AcACP_un + P.k10_1r(5).*c_C12_KASII_AcACP_un - P.k10_1f(5).*c_KASII.*c_C12_AcACP_un;
-d_C14_AcACP_un = P.kcat6(6).*c_C14_ER_NADH_EnAcACP_un + P.k3_4r(6).*c_C14_KASIII_AcACP_un - P.k3_4f(6).*c_KASIII.*c_C14_AcACP_un + P.k3_5r(6).*c_C16_KASIII_Act_AcACP_un - P.k3_5f(6).*c_C2_KASIII_Act.*c_C14_AcACP_un + P.k7_1r(6).*c_C14_FatA_AcACP_un - P.k7_1f(6).*c_FatA.*c_C14_AcACP_un + P.k8_1r(6).*c_C14_KASI_AcACP_un - P.k8_1f(6).*c_KASI.*c_C14_AcACP_un + P.k10_1r(6).*c_C14_KASII_AcACP_un - P.k10_1f(6).*c_KASII.*c_C14_AcACP_un;
-d_C16_AcACP_un = P.kcat6(7).*c_C16_ER_NADH_EnAcACP_un + P.k3_4r(7).*c_C16_KASIII_AcACP_un - P.k3_4f(7).*c_KASIII.*c_C16_AcACP_un + P.k3_5r(7).*c_C18_KASIII_Act_AcACP_un - P.k3_5f(7).*c_C2_KASIII_Act.*c_C16_AcACP_un + P.k7_1r(7).*c_C16_FatA_AcACP_un - P.k7_1f(7).*c_FatA.*c_C16_AcACP_un + P.k8_1r(7).*c_C16_KASI_AcACP_un - P.k8_1f(7).*c_KASI.*c_C16_AcACP_un + P.k10_1r(7).*c_C16_KASII_AcACP_un - P.k10_1f(7).*c_KASII.*c_C16_AcACP_un;
-d_C18_AcACP_un = P.kcat6(8).*c_C18_ER_NADH_EnAcACP_un + P.k3_4r(8).*c_C18_KASIII_AcACP_un - P.k3_4f(8).*c_KASIII.*c_C18_AcACP_un + P.k3_5r(8).*c_C20_KASIII_Act_AcACP_un - P.k3_5f(8).*c_C2_KASIII_Act.*c_C18_AcACP_un + P.k7_1r(8).*c_C18_FatA_AcACP_un - P.k7_1f(8).*c_FatA.*c_C18_AcACP_un + P.k8_1r(8).*c_C18_KASI_AcACP_un - P.k8_1f(8).*c_KASI.*c_C18_AcACP_un + P.k10_1r(8).*c_C18_KASII_AcACP_un - P.k10_1f(8).*c_KASII.*c_C18_AcACP_un;
+% C2n:1 (n=6:9) Acyl-ACPs (ER + SAD - FatA - KASI - KASII - KASIII)
+d_C12_AcACP_un = P.kcat6(5).*c_C12_ER_NADH_EnAcACP_un + P.k3_4r(5).*c_C12_KASIII_AcACP_un - P.k3_4f(5).*c_KASIII.*c_C12_AcACP_un + P.k3_5r(5).*c_C14_KASIII_Act_AcACP_un - P.k3_5f(5).*c_C2_KASIII_Act.*c_C12_AcACP_un + P.k7_1r(5).*c_C12_FatA_AcACP_un - P.k7_1f(5).*c_FatA.*c_C12_AcACP_un + P.k8_1r(5).*c_C12_KASI_AcACP_un - P.k8_1f(5).*c_KASI.*c_C12_AcACP_un + P.k10_1r(5).*c_C12_KASII_AcACP_un - P.k10_1f(5).*c_KASII.*c_C12_AcACP_un + P.kcat9(5).*c_C12_SAD_Fd_AcACP;
+d_C14_AcACP_un = P.kcat6(6).*c_C14_ER_NADH_EnAcACP_un + P.k3_4r(6).*c_C14_KASIII_AcACP_un - P.k3_4f(6).*c_KASIII.*c_C14_AcACP_un + P.k3_5r(6).*c_C16_KASIII_Act_AcACP_un - P.k3_5f(6).*c_C2_KASIII_Act.*c_C14_AcACP_un + P.k7_1r(6).*c_C14_FatA_AcACP_un - P.k7_1f(6).*c_FatA.*c_C14_AcACP_un + P.k8_1r(6).*c_C14_KASI_AcACP_un - P.k8_1f(6).*c_KASI.*c_C14_AcACP_un + P.k10_1r(6).*c_C14_KASII_AcACP_un - P.k10_1f(6).*c_KASII.*c_C14_AcACP_un + P.kcat9(6).*c_C14_SAD_Fd_AcACP;
+d_C16_AcACP_un = P.kcat6(7).*c_C16_ER_NADH_EnAcACP_un + P.k3_4r(7).*c_C16_KASIII_AcACP_un - P.k3_4f(7).*c_KASIII.*c_C16_AcACP_un + P.k3_5r(7).*c_C18_KASIII_Act_AcACP_un - P.k3_5f(7).*c_C2_KASIII_Act.*c_C16_AcACP_un + P.k7_1r(7).*c_C16_FatA_AcACP_un - P.k7_1f(7).*c_FatA.*c_C16_AcACP_un + P.k8_1r(7).*c_C16_KASI_AcACP_un - P.k8_1f(7).*c_KASI.*c_C16_AcACP_un + P.k10_1r(7).*c_C16_KASII_AcACP_un - P.k10_1f(7).*c_KASII.*c_C16_AcACP_un + P.kcat9(7).*c_C16_SAD_Fd_AcACP;
+d_C18_AcACP_un = P.kcat6(8).*c_C18_ER_NADH_EnAcACP_un + P.k3_4r(8).*c_C18_KASIII_AcACP_un - P.k3_4f(8).*c_KASIII.*c_C18_AcACP_un + P.k3_5r(8).*c_C20_KASIII_Act_AcACP_un - P.k3_5f(8).*c_C2_KASIII_Act.*c_C18_AcACP_un + P.k7_1r(8).*c_C18_FatA_AcACP_un - P.k7_1f(8).*c_FatA.*c_C18_AcACP_un + P.k8_1r(8).*c_C18_KASI_AcACP_un - P.k8_1f(8).*c_KASI.*c_C18_AcACP_un + P.k10_1r(8).*c_C18_KASII_AcACP_un - P.k10_1f(8).*c_KASII.*c_C18_AcACP_un + P.kcat9(8).*c_C18_SAD_Fd_AcACP;
 
-% C2n:1 (n=10) Acyl-ACPs (ER - FatA - KASIII)
-d_C20_AcACP_un = P.kcat6(9).*c_C20_ER_NADH_EnAcACP_un + P.k7_1r(9).*c_C20_FatA_AcACP_un - P.k7_1f(9).*c_FatA.*c_C20_AcACP_un + P.k3_4r(9).*c_C20_KASIII_AcACP_un - P.k3_4f(9).*c_KASIII.*c_C20_AcACP_un + P.k3_5r(9).*c_C22_KASIII_Act_AcACP_un - P.k3_5f(9).*c_C2_KASIII_Act.*c_C20_AcACP_un;
+% C2n:1 (n=10) Acyl-ACPs (ER + SAD - FatA - KASIII)
+d_C20_AcACP_un = P.kcat6(9).*c_C20_ER_NADH_EnAcACP_un + P.k7_1r(9).*c_C20_FatA_AcACP_un - P.k7_1f(9).*c_FatA.*c_C20_AcACP_un + P.k3_4r(9).*c_C20_KASIII_AcACP_un - P.k3_4f(9).*c_KASIII.*c_C20_AcACP_un + P.k3_5r(9).*c_C22_KASIII_Act_AcACP_un - P.k3_5f(9).*c_C2_KASIII_Act.*c_C20_AcACP_un + P.kcat9(9).*c_C20_SAD_Fd_AcACP;
 
 % Fatty Acids
 d_C4_FA = P.kcat7(1).*c_C4_FatA_AcACP;
@@ -361,7 +364,7 @@ d_C1_CT_Act = P.kcat1_3.*c_C1_CT_BCCP_Biotin_CO2 + P.k1_5r.*c_C3_CT_Act_AcCoA - 
 d_C3_CT_Act_AcCoA = P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA - P.k1_5r.*c_C3_CT_Act_AcCoA - P.kcat1_4.*c_C3_CT_Act_AcCoA;
 
 % MCMT-Malonyl-CoA
-d_C3_MCMT_MalCoA = P.k2_1f.*c_MCMT.*c_C3_MalCoA - P.k2_1r.*c_C3_MCMT_MalCoA + P.k2_2r.*c_C3_MCMT_Act.*c_CoA - P.k2_2f.*c_C3_MCMT_MalCoA; 
+d_C3_MCMT_MalCoA = P.k2_1f.*c_MCMT.*c_C3_MalCoA - P.k2_1r.*c_C3_MCMT_MalCoA + P.k2_2r.*c_C3_MCMT_Act.*c_CoA - P.k2_2f.*c_C3_MCMT_MalCoA;
 
 % MCMT*
 d_C3_MCMT_Act = P.k2_2f.*c_C3_MCMT_MalCoA - P.k2_2r.*c_C3_MCMT_Act.*c_CoA + P.k2_3r.*c_C3_MCMT_Act_ACP - P.k2_3f.*c_C3_MCMT_Act.*c_ACP;
@@ -370,15 +373,15 @@ d_C3_MCMT_Act = P.k2_2f.*c_C3_MCMT_MalCoA - P.k2_2r.*c_C3_MCMT_Act.*c_CoA + P.k2
 d_C3_MCMT_Act_ACP = P.k2_3f.*c_C3_MCMT_Act.*c_ACP - P.k2_3r.*c_C3_MCMT_Act_ACP + P.k2_4r.*c_MCMT.*c_C3_MalACP - P.k2_4f.*c_C3_MCMT_Act_ACP;
 
 % C2n (n=1:9) KASIII-CoA
-d_C2_KASIII_CoA = P.k3_1f(1).*c_KASIII.*c_C2_AcCoA - P.k3_1r(1).*c_C2_KASIII_CoA + P.k3_2r(1).*c_C2_KASIII_Act.*c_CoA - P.k3_2f(1).*c_C2_KASIII_CoA; 
-d_C4_KASIII_CoA = P.k3_1f(2).*c_KASIII.*c_C4_SucCoA - P.k3_1r(2).*c_C4_KASIII_CoA + P.k3_2r(2).*c_C4_KASIII_Act.*c_CoA - P.k3_2f(2).*c_C4_KASIII_CoA; 
-d_C6_KASIII_CoA = P.k3_1f(3).*c_KASIII.*c_C6_HexCoA - P.k3_1r(3).*c_C6_KASIII_CoA + P.k3_2r(3).*c_C6_KASIII_Act.*c_CoA - P.k3_2f(3).*c_C6_KASIII_CoA; 
-d_C8_KASIII_CoA = P.k3_1f(4).*c_KASIII.*c_C8_OcCoA - P.k3_1r(4).*c_C8_KASIII_CoA + P.k3_2r(4).*c_C8_KASIII_Act.*c_CoA - P.k3_2f(4).*c_C8_KASIII_CoA; 
-d_C10_KASIII_CoA = P.k3_1f(5).*c_KASIII.*c_C10_DecCoA - P.k3_1r(5).*c_C10_KASIII_CoA + P.k3_2r(5).*c_C10_KASIII_Act.*c_CoA - P.k3_2f(5).*c_C10_KASIII_CoA; 
+d_C2_KASIII_CoA = P.k3_1f(1).*c_KASIII.*c_C2_AcCoA - P.k3_1r(1).*c_C2_KASIII_CoA + P.k3_2r(1).*c_C2_KASIII_Act.*c_CoA - P.k3_2f(1).*c_C2_KASIII_CoA;
+d_C4_KASIII_CoA = P.k3_1f(2).*c_KASIII.*c_C4_SucCoA - P.k3_1r(2).*c_C4_KASIII_CoA + P.k3_2r(2).*c_C4_KASIII_Act.*c_CoA - P.k3_2f(2).*c_C4_KASIII_CoA;
+d_C6_KASIII_CoA = P.k3_1f(3).*c_KASIII.*c_C6_HexCoA - P.k3_1r(3).*c_C6_KASIII_CoA + P.k3_2r(3).*c_C6_KASIII_Act.*c_CoA - P.k3_2f(3).*c_C6_KASIII_CoA;
+d_C8_KASIII_CoA = P.k3_1f(4).*c_KASIII.*c_C8_OcCoA - P.k3_1r(4).*c_C8_KASIII_CoA + P.k3_2r(4).*c_C8_KASIII_Act.*c_CoA - P.k3_2f(4).*c_C8_KASIII_CoA;
+d_C10_KASIII_CoA = P.k3_1f(5).*c_KASIII.*c_C10_DecCoA - P.k3_1r(5).*c_C10_KASIII_CoA + P.k3_2r(5).*c_C10_KASIII_Act.*c_CoA - P.k3_2f(5).*c_C10_KASIII_CoA;
 d_C12_KASIII_CoA = P.k3_1f(6).*c_KASIII.*c_C12_LauCoA - P.k3_1r(6).*c_C12_KASIII_CoA + P.k3_2r(6).*c_C12_KASIII_Act.*c_CoA - P.k3_2f(6).*c_C12_KASIII_CoA;
-d_C14_KASIII_CoA = P.k3_1f(7).*c_KASIII.*c_C14_EthCoA - P.k3_1r(7).*c_C14_KASIII_CoA + P.k3_2r(7).*c_C14_KASIII_Act.*c_CoA - P.k3_2f(7).*c_C14_KASIII_CoA; 
-d_C16_KASIII_CoA = P.k3_1f(8).*c_KASIII.*c_C16_PalCoA - P.k3_1r(8).*c_C16_KASIII_CoA + P.k3_2r(8).*c_C16_KASIII_Act.*c_CoA - P.k3_2f(8).*c_C16_KASIII_CoA; 
-d_C18_KASIII_CoA = P.k3_1f(9).*c_KASIII.*c_C18_OcDecCoA - P.k3_1r(9).*c_C18_KASIII_CoA + P.k3_2r(9).*c_C18_KASIII_Act.*c_CoA - P.k3_2f(9).*c_C18_KASIII_CoA; 
+d_C14_KASIII_CoA = P.k3_1f(7).*c_KASIII.*c_C14_EthCoA - P.k3_1r(7).*c_C14_KASIII_CoA + P.k3_2r(7).*c_C14_KASIII_Act.*c_CoA - P.k3_2f(7).*c_C14_KASIII_CoA;
+d_C16_KASIII_CoA = P.k3_1f(8).*c_KASIII.*c_C16_PalCoA - P.k3_1r(8).*c_C16_KASIII_CoA + P.k3_2r(8).*c_C16_KASIII_Act.*c_CoA - P.k3_2f(8).*c_C16_KASIII_CoA;
+d_C18_KASIII_CoA = P.k3_1f(9).*c_KASIII.*c_C18_OcDecCoA - P.k3_1r(9).*c_C18_KASIII_CoA + P.k3_2r(9).*c_C18_KASIII_Act.*c_CoA - P.k3_2f(9).*c_C18_KASIII_CoA;
 
 % C2n (n=1:9) KASIII*
 % making KASIII* - using KASIII* - inhibition from Acyl ACPs (only Acetyl-CoA derived KASIII*)
@@ -408,15 +411,15 @@ d_C16_KASIII_Act = P.k3_2f(8).*c_C16_KASIII_CoA - P.k3_2r(8).*c_C16_KASIII_Act.*
 d_C18_KASIII_Act = P.k3_2f(9).*c_C18_KASIII_CoA - P.k3_2r(9).*c_C18_KASIII_Act.*c_CoA + P.k3_3r(9).*c_C21_KASIII_Act_MalACP - P.k3_3f(9).*c_C18_KASIII_Act.*c_C3_MalACP;
 
 % C2n (n=1:9) KASIII*-Malonyl-ACP
-d_C5_KASIII_Act_MalACP = P.k3_3f(1).*c_C2_KASIII_Act.*c_C3_MalACP - P.k3_3r(1).*c_C5_KASIII_Act_MalACP - P.kcat3(1).*c_C5_KASIII_Act_MalACP; 
-d_C7_KASIII_Act_MalACP = P.k3_3f(2).*c_C4_KASIII_Act.*c_C3_MalACP - P.k3_3r(2).*c_C7_KASIII_Act_MalACP - P.kcat3(2).*c_C7_KASIII_Act_MalACP; 
-d_C9_KASIII_Act_MalACP = P.k3_3f(3).*c_C6_KASIII_Act.*c_C3_MalACP - P.k3_3r(3).*c_C9_KASIII_Act_MalACP - P.kcat3(3).*c_C9_KASIII_Act_MalACP; 
-d_C11_KASIII_Act_MalACP = P.k3_3f(4).*c_C8_KASIII_Act.*c_C3_MalACP - P.k3_3r(4).*c_C11_KASIII_Act_MalACP - P.kcat3(4).*c_C11_KASIII_Act_MalACP; 
-d_C13_KASIII_Act_MalACP = P.k3_3f(5).*c_C10_KASIII_Act.*c_C3_MalACP - P.k3_3r(5).*c_C13_KASIII_Act_MalACP - P.kcat3(5).*c_C13_KASIII_Act_MalACP; 
-d_C15_KASIII_Act_MalACP = P.k3_3f(6).*c_C12_KASIII_Act.*c_C3_MalACP - P.k3_3r(6).*c_C15_KASIII_Act_MalACP - P.kcat3(6).*c_C15_KASIII_Act_MalACP; 
-d_C17_KASIII_Act_MalACP = P.k3_3f(7).*c_C14_KASIII_Act.*c_C3_MalACP - P.k3_3r(7).*c_C17_KASIII_Act_MalACP - P.kcat3(7).*c_C17_KASIII_Act_MalACP; 
-d_C19_KASIII_Act_MalACP = P.k3_3f(8).*c_C16_KASIII_Act.*c_C3_MalACP - P.k3_3r(8).*c_C19_KASIII_Act_MalACP - P.kcat3(8).*c_C19_KASIII_Act_MalACP; 
-d_C21_KASIII_Act_MalACP = P.k3_3f(9).*c_C18_KASIII_Act.*c_C3_MalACP - P.k3_3r(9).*c_C21_KASIII_Act_MalACP - P.kcat3(9).*c_C21_KASIII_Act_MalACP; 
+d_C5_KASIII_Act_MalACP = P.k3_3f(1).*c_C2_KASIII_Act.*c_C3_MalACP - P.k3_3r(1).*c_C5_KASIII_Act_MalACP - P.kcat3(1).*c_C5_KASIII_Act_MalACP;
+d_C7_KASIII_Act_MalACP = P.k3_3f(2).*c_C4_KASIII_Act.*c_C3_MalACP - P.k3_3r(2).*c_C7_KASIII_Act_MalACP - P.kcat3(2).*c_C7_KASIII_Act_MalACP;
+d_C9_KASIII_Act_MalACP = P.k3_3f(3).*c_C6_KASIII_Act.*c_C3_MalACP - P.k3_3r(3).*c_C9_KASIII_Act_MalACP - P.kcat3(3).*c_C9_KASIII_Act_MalACP;
+d_C11_KASIII_Act_MalACP = P.k3_3f(4).*c_C8_KASIII_Act.*c_C3_MalACP - P.k3_3r(4).*c_C11_KASIII_Act_MalACP - P.kcat3(4).*c_C11_KASIII_Act_MalACP;
+d_C13_KASIII_Act_MalACP = P.k3_3f(5).*c_C10_KASIII_Act.*c_C3_MalACP - P.k3_3r(5).*c_C13_KASIII_Act_MalACP - P.kcat3(5).*c_C13_KASIII_Act_MalACP;
+d_C15_KASIII_Act_MalACP = P.k3_3f(6).*c_C12_KASIII_Act.*c_C3_MalACP - P.k3_3r(6).*c_C15_KASIII_Act_MalACP - P.kcat3(6).*c_C15_KASIII_Act_MalACP;
+d_C17_KASIII_Act_MalACP = P.k3_3f(7).*c_C14_KASIII_Act.*c_C3_MalACP - P.k3_3r(7).*c_C17_KASIII_Act_MalACP - P.kcat3(7).*c_C17_KASIII_Act_MalACP;
+d_C19_KASIII_Act_MalACP = P.k3_3f(8).*c_C16_KASIII_Act.*c_C3_MalACP - P.k3_3r(8).*c_C19_KASIII_Act_MalACP - P.kcat3(8).*c_C19_KASIII_Act_MalACP;
+d_C21_KASIII_Act_MalACP = P.k3_3f(9).*c_C18_KASIII_Act.*c_C3_MalACP - P.k3_3r(9).*c_C21_KASIII_Act_MalACP - P.kcat3(9).*c_C21_KASIII_Act_MalACP;
 
 % KAR-NADPH
 d_KAR_NADPH = P.k4_1f(1).*c_KAR.*c_NADPH - P.k4_1r(1).*c_KAR_NADPH...
@@ -433,7 +436,7 @@ d_KAR_NADPH = P.k4_1f(1).*c_KAR.*c_NADPH - P.k4_1r(1).*c_KAR_NADPH...
  + P.k4_2r(6).*c_C14_KAR_NADPH_BKeACP_un - P.k4_2f(6).*c_KAR_NADPH.*c_C14_BKeACP_un...
  + P.k4_2r(7).*c_C16_KAR_NADPH_BKeACP_un - P.k4_2f(7).*c_KAR_NADPH.*c_C16_BKeACP_un...
  + P.k4_2r(8).*c_C18_KAR_NADPH_BKeACP_un - P.k4_2f(8).*c_KAR_NADPH.*c_C18_BKeACP_un...
- + P.k4_2r(9).*c_C20_KAR_NADPH_BKeACP_un - P.k4_2f(9).*c_KAR_NADPH.*c_C20_BKeACP_un; 
+ + P.k4_2r(9).*c_C20_KAR_NADPH_BKeACP_un - P.k4_2f(9).*c_KAR_NADPH.*c_C20_BKeACP_un;
 
 % C2n (n=2:10) KAR-NADPH-B-ketoacyl-ACPs
 d_C4_KAR_NADPH_BKeACP = P.k4_2f(1).*c_KAR_NADPH.*c_C4_BKeACP - P.k4_2r(1).*c_C4_KAR_NADPH_BKeACP - P.kcat4(1).*c_C4_KAR_NADPH_BKeACP;
@@ -489,44 +492,20 @@ d_C16_HAD_EnAcACP_un = P.kcat5(7).*c_C16_HAD_BHyAcACP_un - P.k5_2r(7).*c_C16_HAD
 d_C18_HAD_EnAcACP_un = P.kcat5(8).*c_C18_HAD_BHyAcACP_un - P.k5_2r(8).*c_C18_HAD_EnAcACP_un + P.k5_3r(8).*c_HAD.*c_C18_EnAcACP_un - P.k5_3f(8).*c_C18_HAD_EnAcACP_un;
 d_C20_HAD_EnAcACP_un = P.kcat5(9).*c_C20_HAD_BHyAcACP_un - P.k5_2r(9).*c_C20_HAD_EnAcACP_un + P.k5_3r(9).*c_HAD.*c_C20_EnAcACP_un - P.k5_3f(9).*c_C20_HAD_EnAcACP_un;
 
-% C2n (n=2:10) SAD-B-hydroxy-acyl-ACPs
-d_C4_SAD_BHyAcACP = P.k9_1f(1).*c_SAD.*c_C4_BHyAcACP - P.k9_1r(1).*c_C4_SAD_BHyAcACP + P.k9_2r(1).*c_C4_SAD_EnAcACP - P.kcat9(1).*c_C4_SAD_BHyAcACP;
-d_C6_SAD_BHyAcACP = P.k9_1f(2).*c_SAD.*c_C6_BHyAcACP - P.k9_1r(2).*c_C6_SAD_BHyAcACP + P.k9_2r(2).*c_C6_SAD_EnAcACP - P.kcat9(2).*c_C6_SAD_BHyAcACP;
-d_C8_SAD_BHyAcACP = P.k9_1f(3).*c_SAD.*c_C8_BHyAcACP - P.k9_1r(3).*c_C8_SAD_BHyAcACP + P.k9_2r(3).*c_C8_SAD_EnAcACP - P.kcat9(3).*c_C8_SAD_BHyAcACP;
-d_C10_SAD_BHyAcACP = P.k9_1f(4).*c_SAD.*c_C10_BHyAcACP - P.k9_1r(4).*c_C10_SAD_BHyAcACP + P.k9_2r(4).*c_C10_SAD_EnAcACP - P.kcat9(4).*c_C10_SAD_BHyAcACP;
-d_C12_SAD_BHyAcACP = P.k9_1f(5).*c_SAD.*c_C12_BHyAcACP - P.k9_1r(5).*c_C12_SAD_BHyAcACP + P.k9_2r(5).*c_C12_SAD_EnAcACP - P.kcat9(5).*c_C12_SAD_BHyAcACP;
-d_C14_SAD_BHyAcACP = P.k9_1f(6).*c_SAD.*c_C14_BHyAcACP - P.k9_1r(6).*c_C14_SAD_BHyAcACP + P.k9_2r(6).*c_C14_SAD_EnAcACP - P.kcat9(6).*c_C14_SAD_BHyAcACP;
-d_C16_SAD_BHyAcACP = P.k9_1f(7).*c_SAD.*c_C16_BHyAcACP - P.k9_1r(7).*c_C16_SAD_BHyAcACP + P.k9_2r(7).*c_C16_SAD_EnAcACP - P.kcat9(7).*c_C16_SAD_BHyAcACP;
-d_C18_SAD_BHyAcACP = P.k9_1f(8).*c_SAD.*c_C18_BHyAcACP - P.k9_1r(8).*c_C18_SAD_BHyAcACP + P.k9_2r(8).*c_C18_SAD_EnAcACP - P.kcat9(8).*c_C18_SAD_BHyAcACP;
-d_C20_SAD_BHyAcACP = P.k9_1f(9).*c_SAD.*c_C20_BHyAcACP - P.k9_1r(9).*c_C20_SAD_BHyAcACP + P.k9_2r(9).*c_C20_SAD_EnAcACP - P.kcat9(9).*c_C20_SAD_BHyAcACP;
+% SAD-Fd+
+d_SAD_Fd = P.k9_1f.*c_SAD.*c_Fd - P.k9_1r.*c_SAD_Fd...
+    + P.k9_2r(5).*c_C12_SAD_Fd_AcACP - P.k9_2f(5).*c_SAD_Fd.*c_C12_AcACP...
+    + P.k9_2r(6).*c_C14_SAD_Fd_AcACP - P.k9_2f(6).*c_SAD_Fd.*c_C14_AcACP...
+    + P.k9_2r(7).*c_C16_SAD_Fd_AcACP - P.k9_2f(7).*c_SAD_Fd.*c_C16_AcACP...
+    + P.k9_2r(8).*c_C18_SAD_Fd_AcACP - P.k9_2f(8).*c_SAD_Fd.*c_C18_AcACP...
+    + P.k9_2r(9).*c_C20_SAD_Fd_AcACP - P.k9_2f(9).*c_SAD_Fd.*c_C20_AcACP;
 
-% C2n:1 (n=6:10) SAD-B-hydroxy-acyl-ACPs
-d_C12_SAD_BHyAcACP_un = P.k9_1f_un(5).*c_SAD.*c_C12_BHyAcACP_un - P.k9_1r_un(5).*c_C12_SAD_BHyAcACP_un + P.k9_2r(5).*c_C12_SAD_EnAcACP_un - P.kcat9(5).*c_C12_SAD_BHyAcACP_un;
-d_C14_SAD_BHyAcACP_un = P.k9_1f_un(6).*c_SAD.*c_C14_BHyAcACP_un - P.k9_1r_un(6).*c_C14_SAD_BHyAcACP_un + P.k9_2r(6).*c_C14_SAD_EnAcACP_un - P.kcat9(6).*c_C14_SAD_BHyAcACP_un;
-d_C16_SAD_BHyAcACP_un = P.k9_1f_un(7).*c_SAD.*c_C16_BHyAcACP_un - P.k9_1r_un(7).*c_C16_SAD_BHyAcACP_un + P.k9_2r(7).*c_C16_SAD_EnAcACP_un - P.kcat9(7).*c_C16_SAD_BHyAcACP_un;
-d_C18_SAD_BHyAcACP_un = P.k9_1f_un(8).*c_SAD.*c_C18_BHyAcACP_un - P.k9_1r_un(8).*c_C18_SAD_BHyAcACP_un + P.k9_2r(8).*c_C18_SAD_EnAcACP_un - P.kcat9(8).*c_C18_SAD_BHyAcACP_un;
-d_C20_SAD_BHyAcACP_un = P.k9_1f_un(9).*c_SAD.*c_C20_BHyAcACP_un - P.k9_1r_un(9).*c_C20_SAD_BHyAcACP_un + P.k9_2r(9).*c_C20_SAD_EnAcACP_un - P.kcat9(9).*c_C20_SAD_BHyAcACP_un;
-
-% C2n (n=2:10) SAD-Enoyl-Acyl-ACPs
-d_C4_SAD_EnAcACP = P.kcat9(1).*c_C4_SAD_BHyAcACP - P.k9_2r(1).*c_C4_SAD_EnAcACP + P.k9_3r(1).*c_SAD.*c_C4_EnAcACP - P.k9_3f(1).*c_C4_SAD_EnAcACP;
-d_C6_SAD_EnAcACP = P.kcat9(2).*c_C6_SAD_BHyAcACP - P.k9_2r(2).*c_C6_SAD_EnAcACP + P.k9_3r(2).*c_SAD.*c_C6_EnAcACP - P.k9_3f(2).*c_C6_SAD_EnAcACP;
-d_C8_SAD_EnAcACP = P.kcat9(3).*c_C8_SAD_BHyAcACP - P.k9_2r(3).*c_C8_SAD_EnAcACP + P.k9_3r(3).*c_SAD.*c_C8_EnAcACP - P.k9_3f(3).*c_C8_SAD_EnAcACP;
-d_C10_SAD_EnAcACP = P.kcat9(4).*c_C10_SAD_BHyAcACP - P.k9_2r(4).*c_C10_SAD_EnAcACP + P.k9_3r(4).*c_SAD.*c_C10_EnAcACP - P.k9_3f(4).*c_C10_SAD_EnAcACP + P.k9_2r_un(4).*c_C10_SAD_cis3EnAcACP - P.kcat9_un(4).*c_C10_SAD_EnAcACP;
-d_C12_SAD_EnAcACP = P.kcat9(5).*c_C12_SAD_BHyAcACP - P.k9_2r(5).*c_C12_SAD_EnAcACP + P.k9_3r(5).*c_SAD.*c_C12_EnAcACP - P.k9_3f(5).*c_C12_SAD_EnAcACP;
-d_C14_SAD_EnAcACP = P.kcat9(6).*c_C14_SAD_BHyAcACP - P.k9_2r(6).*c_C14_SAD_EnAcACP + P.k9_3r(6).*c_SAD.*c_C14_EnAcACP - P.k9_3f(6).*c_C14_SAD_EnAcACP;
-d_C16_SAD_EnAcACP = P.kcat9(7).*c_C16_SAD_BHyAcACP - P.k9_2r(7).*c_C16_SAD_EnAcACP + P.k9_3r(7).*c_SAD.*c_C16_EnAcACP - P.k9_3f(7).*c_C16_SAD_EnAcACP;
-d_C18_SAD_EnAcACP = P.kcat9(8).*c_C18_SAD_BHyAcACP - P.k9_2r(8).*c_C18_SAD_EnAcACP + P.k9_3r(8).*c_SAD.*c_C18_EnAcACP - P.k9_3f(8).*c_C18_SAD_EnAcACP;
-d_C20_SAD_EnAcACP = P.kcat9(9).*c_C20_SAD_BHyAcACP - P.k9_2r(9).*c_C20_SAD_EnAcACP + P.k9_3r(9).*c_SAD.*c_C20_EnAcACP - P.k9_3f(9).*c_C20_SAD_EnAcACP;
-
-% SAD-C10 cis-3-Enoyl-Acyl-ACP
-d_C10_SAD_cis3EnAcACP = P.kcat9_un(4).*c_C10_SAD_EnAcACP - P.k9_2r_un(4).*c_C10_SAD_cis3EnAcACP + P.k9_3r_un(4).*c_SAD.*c_C10_cis3EnAcACP - P.k9_3f_un(4).*c_C10_SAD_cis3EnAcACP;
-
-% C2n:1 (n=6:10) SAD-Enoyl-Acyl-ACPs
-d_C12_SAD_EnAcACP_un = P.kcat9(5).*c_C12_SAD_BHyAcACP_un - P.k9_2r(5).*c_C12_SAD_EnAcACP_un + P.k9_3r(5).*c_SAD.*c_C12_EnAcACP_un - P.k9_3f(5).*c_C12_SAD_EnAcACP_un;
-d_C14_SAD_EnAcACP_un = P.kcat9(6).*c_C14_SAD_BHyAcACP_un - P.k9_2r(6).*c_C14_SAD_EnAcACP_un + P.k9_3r(6).*c_SAD.*c_C14_EnAcACP_un - P.k9_3f(6).*c_C14_SAD_EnAcACP_un;
-d_C16_SAD_EnAcACP_un = P.kcat9(7).*c_C16_SAD_BHyAcACP_un - P.k9_2r(7).*c_C16_SAD_EnAcACP_un + P.k9_3r(7).*c_SAD.*c_C16_EnAcACP_un - P.k9_3f(7).*c_C16_SAD_EnAcACP_un;
-d_C18_SAD_EnAcACP_un = P.kcat9(8).*c_C18_SAD_BHyAcACP_un - P.k9_2r(8).*c_C18_SAD_EnAcACP_un + P.k9_3r(8).*c_SAD.*c_C18_EnAcACP_un - P.k9_3f(8).*c_C18_SAD_EnAcACP_un;
-d_C20_SAD_EnAcACP_un = P.kcat9(9).*c_C20_SAD_BHyAcACP_un - P.k9_2r(9).*c_C20_SAD_EnAcACP_un + P.k9_3r(9).*c_SAD.*c_C20_EnAcACP_un - P.k9_3f(9).*c_C20_SAD_EnAcACP_un;
+% C2n (n=6:10) SAD-Fd-Acyl-ACPs
+d_C12_SAD_Fd_AcACP = P.k9_2f(5).*c_SAD_Fd.*c_C12_AcACP - P.k9_2r(5).*c_C12_SAD_Fd_AcACP - P.kcat9(5).*c_C12_SAD_Fd_AcACP;
+d_C14_SAD_Fd_AcACP = P.k9_2f(6).*c_SAD_Fd.*c_C14_AcACP - P.k9_2r(6).*c_C14_SAD_Fd_AcACP - P.kcat9(6).*c_C14_SAD_Fd_AcACP;
+d_C16_SAD_Fd_AcACP = P.k9_2f(7).*c_SAD_Fd.*c_C16_AcACP - P.k9_2r(7).*c_C16_SAD_Fd_AcACP - P.kcat9(7).*c_C16_SAD_Fd_AcACP;
+d_C18_SAD_Fd_AcACP = P.k9_2f(8).*c_SAD_Fd.*c_C18_AcACP - P.k9_2r(8).*c_C18_SAD_Fd_AcACP - P.kcat9(8).*c_C18_SAD_Fd_AcACP;
+d_C20_SAD_Fd_AcACP = P.k9_2f(9).*c_SAD_Fd.*c_C20_AcACP - P.k9_2r(9).*c_C20_SAD_Fd_AcACP - P.kcat9(9).*c_C20_SAD_Fd_AcACP;
 
 % ER-NADH
 d_ER_NADH = P.k6_1f(1).*c_ER.*c_NADH - P.k6_1r(1).*c_ER_NADH...
@@ -755,37 +734,37 @@ d_C2_KASII_AcCoA = P.k10_4f.*c_KASII.*c_C2_AcCoA - P.k10_4r.*c_C2_KASII_AcCoA + 
 d_C2_KASII_Act = P.k10_5f.*c_C2_KASII_AcCoA - P.k10_5r.*c_C2_KASII_Act.*c_CoA + P.k10_6r.*c_C5_KASII_Act_MalACP - P.k10_6f.*c_C2_KASII_Act.*c_C3_MalACP + P.k10_9f.*c_C2_KASII_AcACP - P.k10_9r.*c_C2_KASII_Act.*c_ACP;
 
 % KASII*-Malonyl-ACP
-d_C5_KASII_Act_MalACP = P.k10_6f.*c_C2_KASII_Act.*c_C3_MalACP - P.k10_6r.*c_C5_KASII_Act_MalACP - P.kcat10_H.*c_C5_KASII_Act_MalACP; 
+d_C5_KASII_Act_MalACP = P.k10_6f.*c_C2_KASII_Act.*c_C3_MalACP - P.k10_6r.*c_C5_KASII_Act_MalACP - P.kcat10_H.*c_C5_KASII_Act_MalACP;
 
 % Giving KASI KASIII-like activity
 % KASI-Acetyl-CoA
-d_C2_KASI_AcCoA = P.k8_4f.*c_KASI.*c_C2_AcCoA - P.k8_4r.*c_C2_KASI_AcCoA + P.k8_5r.*c_C2_KASI_Act.*c_CoA - P.k8_5f.*c_C2_KASI_AcCoA; 
+d_C2_KASI_AcCoA = P.k8_4f.*c_KASI.*c_C2_AcCoA - P.k8_4r.*c_C2_KASI_AcCoA + P.k8_5r.*c_C2_KASI_Act.*c_CoA - P.k8_5f.*c_C2_KASI_AcCoA;
 
 % KASI*
-d_C2_KASI_Act = P.k8_5f.*c_C2_KASI_AcCoA - P.k8_5r.*c_C2_KASI_Act.*c_CoA + P.k8_6r.*c_C5_KASI_Act_MalACP - P.k8_6f.*c_C2_KASI_Act.*c_C3_MalACP + P.k8_9f.*c_C2_KASI_AcACP - P.k8_9r.*c_C2_KASI_Act.*c_ACP; 
+d_C2_KASI_Act = P.k8_5f.*c_C2_KASI_AcCoA - P.k8_5r.*c_C2_KASI_Act.*c_CoA + P.k8_6r.*c_C5_KASI_Act_MalACP - P.k8_6f.*c_C2_KASI_Act.*c_C3_MalACP + P.k8_9f.*c_C2_KASI_AcACP - P.k8_9r.*c_C2_KASI_Act.*c_ACP;
 
 % KASI*-Malonyl-ACP
-d_C5_KASI_Act_MalACP = P.k8_6f.*c_C2_KASI_Act.*c_C3_MalACP - P.k8_6r.*c_C5_KASI_Act_MalACP - P.kcat8_H.*c_C5_KASI_Act_MalACP; 
+d_C5_KASI_Act_MalACP = P.k8_6f.*c_C2_KASI_Act.*c_C3_MalACP - P.k8_6r.*c_C5_KASI_Act_MalACP - P.kcat8_H.*c_C5_KASI_Act_MalACP;
 
 % KASII and KASI decarboxylating mACP to form aACP and reacting with it to form activated enzyme (initiation)
 % KASII-Malonyl-ACP
 d_C3_KASII_MalACP = P.k10_7f.*c_KASII.*c_C3_MalACP - P.k10_7r.*c_C3_KASII_MalACP - P.kcat10_CO2.*c_C3_KASII_MalACP;
 
 % Acetyl-ACP
-d_C2_AcACP = P.k8_8r.*c_C2_KASI_AcACP - P.k8_8f.*c_KASI.*c_C2_AcACP + P.k10_8r.*c_C2_KASII_AcACP - P.k10_8f.*c_KASII.*c_C2_AcACP; 
+d_C2_AcACP = P.k8_8r.*c_C2_KASI_AcACP - P.k8_8f.*c_KASI.*c_C2_AcACP + P.k10_8r.*c_C2_KASII_AcACP - P.k10_8f.*c_KASII.*c_C2_AcACP;
 
 % KASII-Acetyl-ACP
-d_C2_KASII_AcACP = P.kcat10_CO2.*c_C3_KASII_MalACP + P.k10_8f.*c_KASII.*c_C2_AcACP - P.k10_8r.*c_C2_KASII_AcACP + P.k10_9r.*c_C2_KASII_Act.*c_ACP - P.k10_9f.*c_C2_KASII_AcACP; 
+d_C2_KASII_AcACP = P.kcat10_CO2.*c_C3_KASII_MalACP + P.k10_8f.*c_KASII.*c_C2_AcACP - P.k10_8r.*c_C2_KASII_AcACP + P.k10_9r.*c_C2_KASII_Act.*c_ACP - P.k10_9f.*c_C2_KASII_AcACP;
 
 % KASI-Malonyl-ACP
-d_C3_KASI_MalACP = P.k8_7f.*c_KASI.*c_C3_MalACP - P.k8_7r.*c_C3_KASI_MalACP - P.kcat8_CO2.*c_C3_KASI_MalACP; 
+d_C3_KASI_MalACP = P.k8_7f.*c_KASI.*c_C3_MalACP - P.k8_7r.*c_C3_KASI_MalACP - P.kcat8_CO2.*c_C3_KASI_MalACP;
 
 % KASI-Acetyl-ACP
-d_C2_KASI_AcACP = P.kcat8_CO2.*c_C3_KASI_MalACP + P.k8_8f.*c_KASI.*c_C2_AcACP - P.k8_8r.*c_C2_KASI_AcACP + P.k8_9r.*c_C2_KASI_Act.*c_ACP - P.k8_9f.*c_C2_KASI_AcACP; 
+d_C2_KASI_AcACP = P.kcat8_CO2.*c_C3_KASI_MalACP + P.k8_8f.*c_KASI.*c_C2_AcACP - P.k8_8r.*c_C2_KASI_AcACP + P.k8_9r.*c_C2_KASI_Act.*c_ACP - P.k8_9f.*c_C2_KASI_AcACP;
 
 
 dcdt = [d_ATP; d_C1_Bicarbonate; d_C2_AcCoA; d_C4_SucCoA; d_C6_HexCoA; d_C8_OcCoA; d_C10_DecCoA; d_C12_LauCoA; d_C14_EthCoA; d_C16_PalCoA; d_C18_OcDecCoA; d_ACP;...
-    d_NADPH; d_NADP; d_NADH; d_NAD; d_ADP; d_C3_MalCoA; d_CoA; d_C3_MalACP; d_C1_CO2; d_C4_BKeACP; d_C6_BKeACP; d_C8_BKeACP; d_C10_BKeACP; d_C12_BKeACP;...
+    d_NADPH; d_NADP; d_NADH; d_NAD; d_Fd; d_Fd2; d_ADP; d_C3_MalCoA; d_CoA; d_C3_MalACP; d_C1_CO2; d_C4_BKeACP; d_C6_BKeACP; d_C8_BKeACP; d_C10_BKeACP; d_C12_BKeACP;...
     d_C14_BKeACP; d_C16_BKeACP; d_C18_BKeACP; d_C20_BKeACP; d_C12_BKeACP_un; d_C14_BKeACP_un; d_C16_BKeACP_un; d_C18_BKeACP_un; d_C20_BKeACP_un; d_C4_BHyAcACP;...
     d_C6_BHyAcACP; d_C8_BHyAcACP; d_C10_BHyAcACP; d_C12_BHyAcACP; d_C14_BHyAcACP; d_C16_BHyAcACP; d_C18_BHyAcACP; d_C20_BHyAcACP; d_C12_BHyAcACP_un;...
     d_C14_BHyAcACP_un; d_C16_BHyAcACP_un; d_C18_BHyAcACP_un; d_C20_BHyAcACP_un; d_C4_EnAcACP; d_C6_EnAcACP; d_C8_EnAcACP; d_C10_EnAcACP; d_C12_EnAcACP;...
@@ -805,11 +784,7 @@ dcdt = [d_ATP; d_C1_Bicarbonate; d_C2_AcCoA; d_C4_SucCoA; d_C6_HexCoA; d_C8_OcCo
     d_C20_HAD_BHyAcACP; d_C12_HAD_BHyAcACP_un; d_C14_HAD_BHyAcACP_un; d_C16_HAD_BHyAcACP_un; d_C18_HAD_BHyAcACP_un; d_C20_HAD_BHyAcACP_un;...
     d_C4_HAD_EnAcACP; d_C6_HAD_EnAcACP; d_C8_HAD_EnAcACP; d_C10_HAD_EnAcACP; d_C12_HAD_EnAcACP; d_C14_HAD_EnAcACP; d_C16_HAD_EnAcACP;...
     d_C18_HAD_EnAcACP; d_C20_HAD_EnAcACP; d_C12_HAD_EnAcACP_un; d_C14_HAD_EnAcACP_un; d_C16_HAD_EnAcACP_un; d_C18_HAD_EnAcACP_un;...
-    d_C20_HAD_EnAcACP_un; d_C4_SAD_BHyAcACP; d_C6_SAD_BHyAcACP; d_C8_SAD_BHyAcACP; d_C10_SAD_BHyAcACP; d_C12_SAD_BHyAcACP;...
-    d_C14_SAD_BHyAcACP; d_C16_SAD_BHyAcACP; d_C18_SAD_BHyAcACP; d_C20_SAD_BHyAcACP; d_C12_SAD_BHyAcACP_un; d_C14_SAD_BHyAcACP_un;...
-    d_C16_SAD_BHyAcACP_un; d_C18_SAD_BHyAcACP_un; d_C20_SAD_BHyAcACP_un; d_C4_SAD_EnAcACP; d_C6_SAD_EnAcACP; d_C8_SAD_EnAcACP; d_C10_SAD_EnAcACP;...
-    d_C12_SAD_EnAcACP; d_C14_SAD_EnAcACP; d_C16_SAD_EnAcACP; d_C18_SAD_EnAcACP; d_C20_SAD_EnAcACP; d_C10_SAD_cis3EnAcACP; d_C12_SAD_EnAcACP_un;...
-    d_C14_SAD_EnAcACP_un; d_C16_SAD_EnAcACP_un; d_C18_SAD_EnAcACP_un; d_C20_SAD_EnAcACP_un; d_ER_NADH; d_C4_ER_NADH_EnAcACP;...
+    d_C20_HAD_EnAcACP_un; d_SAD_Fd; d_C12_SAD_Fd_AcACP; d_C14_SAD_Fd_AcACP; d_C16_SAD_Fd_AcACP; d_C18_SAD_Fd_AcACP; d_C20_SAD_Fd_AcACP; d_ER_NADH; d_C4_ER_NADH_EnAcACP;...
     d_C6_ER_NADH_EnAcACP; d_C8_ER_NADH_EnAcACP; d_C10_ER_NADH_EnAcACP; d_C12_ER_NADH_EnAcACP; d_C14_ER_NADH_EnAcACP;...
     d_C16_ER_NADH_EnAcACP; d_C18_ER_NADH_EnAcACP; d_C20_ER_NADH_EnAcACP; d_C12_ER_NADH_EnAcACP_un; d_C14_ER_NADH_EnAcACP_un;...
     d_C16_ER_NADH_EnAcACP_un; d_C18_ER_NADH_EnAcACP_un; d_C20_ER_NADH_EnAcACP_un; d_C4_FatA_AcACP; d_C6_FatA_AcACP; d_C8_FatA_AcACP;...

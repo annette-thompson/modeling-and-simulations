@@ -1,5 +1,4 @@
 % Trying to see if parameters run for ACC
-clear all
 
 % Give access to all necessary folders
 my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects/EC FAS';
@@ -17,61 +16,69 @@ ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 %% Simulation
 
 % Time
-S.range = [0 7200]; % 2 hrs (total production)
+S.range = [0 150]; % 2 hrs (total production)
 
 % Initial conditions
 S.init_cond = zeros(S.num,1);
 S.init_cond(1) = 0; % ATP
 S.init_cond(2) = 0; % Bicarbonate
-S.init_cond(3) = 300; % Acetyl-CoA
+S.init_cond(3) = 100; % Acetyl-CoA
 S.init_cond(12) = 10; % holo ACP
-S.init_cond(13) = 2600; % NADPH
-S.init_cond(15) = 2600; % NADH
-S.init_cond(18) = 1500; % Malonyl-CoA
+S.init_cond(13) = 1000; % NADPH
+S.init_cond(15) = 1000; % NADH
+S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-S.enzyme_conc = [0 1 1 1 1 1 10 2 1 1];
+S.enzyme_conc = [0 1 10 0.1 10 1 10 1 1 1];
+
+S.kcat_scaling_fabG = [0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.7,0.7]; %Mutant
 
 P = Param_Function(S);
 
-% P.kcat1_1 = 85.17/60*100; % s^-1
+% P.kcat1_1 = 85.17/60; % s^-1
 % P.Km1_1 = 170; % uM
-% P.kcat1_2 = 73.8/60*100; % s^-1
+% P.kcat1_2 = 73.8/60; % s^-1
 % P.Km1_2 = 370; % uM
-% P.kcat1_3 = 1000.8/60*100; % s^-1
+% P.kcat1_3 = 1000.8/60*S.scaling_factor_kcat_init; % s^-1
 % P.Km1_3 = 160; % uM
-% P.kcat1_4 = 2031.8/60*100; % s^-1
+% P.kcat1_4 = 2031.8/60*S.scaling_factor_kcat_init; % s^-1
 % P.Km1_4 = 450; % uM
 % P.kcat1_5 = 30.1; % s^-1
 % P.Km1_5 = 48.7; % uM
 
-x = 1000;
-y = 1000;
-z = 0.001;
-P.k1_1r = x;
-P.k1_1f = x/170;
-P.k1_2r = x;
-P.k1_2f = x/370;
-P.kcat1_1 = 73.8/60*y;
-P.k1_3r = x;
-P.k1_3f = x/(160*z);
-P.kcat1_2 = 1000.8/60*y;
-P.k1_4r = x;
-P.k1_4f = x/(450*z);
-P.kcat1_3 = 2031.8/60*y;
-P.k1_5r = x;
-P.k1_5f = x/48.7;
-P.kcat1_4 = 30.1;
+% x = 100;
+% y = 100;
+% z = 0.001;
+% P.k1_1r = x;
+% P.k1_1f = x/170;
+% P.k1_2r = x;
+% P.k1_2f = x/370;
+% P.kcat1_1 = 73.8/60*y;
+% P.k1_3r = x;
+% P.k1_3f = x/(160*z);
+% P.kcat1_2 = 1000.8/60*y;
+% P.k1_4r = x;
+% P.k1_4f = x/(450*z);
+% P.kcat1_3 = 2031.8/60*y;
+% P.k1_5r = x;
+% P.k1_5f = x/48.7;
+% P.kcat1_4 = 30.1;
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 tic
 [T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
-[F_raw, rel_rate] = Calc_Function(T,C,S);
+[F_raw, rel_rate_5P] = Calc_Function(T,C,S);
 
 [balance_conc, balances, total_conc, carbon] = mass_balance(C,P);
 
 %% Plotting
+figure()
+bar([rel_rate_1;rel_rate_1P;rel_rate_2;rel_rate_2P;rel_rate_3;rel_rate_3P;rel_rate_4;rel_rate_4P;rel_rate_5;rel_rate_5P;])
+ylabel('Initial Rate (uM C16/m)')
+xticklabels(['      Control       ';'       Mutant       ';'      0.1 G WT      ';'      0.1 G MT      ';'   0.1 G, 10 H WT   ';'   0.1 G, 10 H MT   ';'   0.1 G, 10 Z WT   ';'   0.1 G, 10 Z MT   ';'0.1 G, 10 H, 10 Z WT';'0.1 G, 10 H, 10 Z MT'])
+xtickangle(30)
+
 % figure()
 % bar_labels = {'4','6','8','10','12','12:1','14','14:1','16','16:1','18','18:1','20','20:1'};
 % F_raw_new(1,1:4) = F_raw(1,1:4);
@@ -112,24 +119,24 @@ toc
 % ax = gca;
 % ax.FontSize = 18; 
 % ylim([0 1])
-
-figure('Position',[440 278 548 300])
-%figure()
-F_raw_new(1,1:9) = F_raw(1,1:9);
-for i=10:14
-    F_raw_new(1,i-5) = F_raw(1,i-5)+F_raw(1,i);
-end
-total = sum(F_raw_new);
-bar(F_raw_new(1:8)/total)
-xticklabels([' 4  ';' 6  ';' 8  ';' 10 ';' 12 ';' 14 ';' 16 ';' 18 ';])
-ylim([0 1])
-yticks(0:0.2:1)
-ylabel('Mole Fraction')
-xlabel('Fatty Acid Chain Length')
-text(2.5, 0.85, '1 uM FabB, 2 uM FabF','FontSize',27,'Color','red')
-%title("My Model: No ACC")
- ax = gca;
- ax.FontSize = 27; 
+% 
+% figure('Position',[440 278 548 300])
+% %figure()
+% F_raw_new(1,1:9) = F_raw(1,1:9);
+% for i=10:14
+%     F_raw_new(1,i-5) = F_raw(1,i-5)+F_raw(1,i);
+% end
+% total = sum(F_raw_new);
+% bar(F_raw_new(1:8)/total,'black')
+% xticklabels([' 4  ';' 6  ';' 8  ';' 10 ';' 12 ';' 14 ';' 16 ';' 18 ';])
+% ylim([0 1])
+% yticks(0:0.2:1)
+% ylabel('Mole Fraction')
+% xlabel('Fatty Acid Chain Length')
+% %text(2.5, 0.85, '1 uM FabB, 2 uM FabF','FontSize',27)
+% %title("My Model: No ACC")
+%  ax = gca;
+%  ax.FontSize = 27; 
 
 % Ac/MalCoA
 % figure()

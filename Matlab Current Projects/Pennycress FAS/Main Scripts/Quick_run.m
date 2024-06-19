@@ -27,7 +27,8 @@ S.init_cond(3) = 300; % Acetyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 2600; % NADPH
 S.init_cond(15) = 2600; % NADH
-S.init_cond(18) = 1500; % Malonyl-CoA
+S.init_cond(17) = 2600; % Fd+
+S.init_cond(20) = 1500; % Malonyl-CoA
 
 % (ACC,MCMT,KASIII,KAR,HAD,ER,FatA,KASI,SAD,KASII)
 S.enzyme_conc = [0 1 1 1 1 1 10 1 1 1];
@@ -35,9 +36,11 @@ S.enzyme_conc = [0 1 1 1 1 1 10 1 1 1];
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+
 tic
 [T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 toc
+
 [F_raw, rel_rate] = Calc_Function(T,C,S);
 
 [balance_conc, balances, total_conc, carbon] = mass_balance(C,P);
@@ -56,7 +59,7 @@ total = sum(F_raw_new);
 bar(F_raw_new)
 xticklabels([' 4  ';' 6  ';' 8  ';' 10 ';' 12 ';'12:1';' 14 ';'14:1';' 16 ';'16:1';' 18 ';'18:1';' 20 ';'20:1';])
 ylabel('Production (uM)')
-title("2 hrs, No ACC, With KASIII Inhibition, FatA Scaling [0.25,1]")
+title("2 hrs, No ACC")
 xlabel('Chain Length')
 ylim([0 90])
 

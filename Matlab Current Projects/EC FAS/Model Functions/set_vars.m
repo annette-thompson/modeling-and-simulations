@@ -106,7 +106,7 @@ S.kcat_scaling_fabF_unsat = [1,1,1,1,0.9,0.289,0.34,0.34,0.34];%specificity of r
 S.scaling_factor_fabF = S.p_vec(2);%parameter "a2" (option here to modify FabF scaling seperately)
 S.kcat_scaling_fabZ = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabZ = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105];
-S.scaling_factor_fabB_init = 1;
+S.scaling_factor_fabB_init = 0.1;
 S.scaling_factor_fabF_init = 1;
 
 S.scaling_factor_kcat8_CO2 = S.p_vec(15);

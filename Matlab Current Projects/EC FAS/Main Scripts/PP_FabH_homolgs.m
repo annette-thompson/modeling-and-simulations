@@ -24,24 +24,24 @@ ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 % Figure A AcCoA
 S.kcat_scaling_fabG = EC_kcat4_scaling; % Using E. coli FabG
 
-S.range = [0 150]; %2.5 mins (initial rate)
+S.range = [0 150]; % 2.5 mins (initial rate)
 
 rel_rate_A = zeros(1,4);
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
-S.init_cond(1) = 1000; % ATP
-S.init_cond(2) = 1000; % Bicarbonate
-S.init_cond(3) = 600; % Acetyl-CoA
+S.init_cond(1) = 0; % ATP
+S.init_cond(2) = 0; % Bicarbonate
+S.init_cond(3) = 100; % Acetyl-CoA
 S.init_cond(6) = 0; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
 S.init_cond(15) = 1300; % NADH
-S.init_cond(18) = 0; % Malonyl-CoA
+S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [1 1 0 1 1 1 10 1 1 1;
-                   1 1 1 1 1 1 10 1 1 1]; 
+enz_conc = [0 1 0 1 1 1 10 1 1 1;
+                   0 1 1 1 1 1 10 1 1 1]; 
 
 % No FabH
 S.enzyme_conc = enz_conc(1,:);
@@ -101,18 +101,8 @@ toc
 
 [balance_conc_a4, balances_a4, total_conc_a4, carbon_a4] = mass_balance(Ca4,P);
 
-% Plot
-figure('Position',[500 600 250 175])
-bar(rel_rate_A,'magenta')
-ylabel('Initial Rate (uM C16/m)')
-xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
-ylim([0 15])
-ax = gca;
-ax.FontSize = 10; 
-text(0.1, 14, 'Acetyl-CoA','FontSize',10)
 
-
-%% Figure B OcCoA
+% Figure B OcCoA
 S.kcat_scaling_fabG = EC_kcat4_scaling; % Using E. coli FabG
 
 S.range = [0 150]; %2.5 mins (initial rate)
@@ -121,18 +111,18 @@ rel_rate_B = zeros(1,4);
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
-S.init_cond(1) = 1000; % ATP
-S.init_cond(2) = 1000; % Bicarbonate
-S.init_cond(3) = 500; % Acetyl-CoA
+S.init_cond(1) = 0; % ATP
+S.init_cond(2) = 0; % Bicarbonate
+S.init_cond(3) = 0; % Acetyl-CoA
 S.init_cond(6) = 100; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
 S.init_cond(15) = 1300; % NADH
-S.init_cond(18) = 0; % Malonyl-CoA
+S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [1 1 0 1 1 1 10 1 1 1;
-                   1 1 1 1 1 1 10 1 1 1]; 
+enz_conc = [0 1 0 1 1 1 10 1 1 1;
+                   0 1 1 1 1 1 10 1 1 1]; 
 
 % No FabH
 S.enzyme_conc = enz_conc(1,:);
@@ -192,18 +182,8 @@ toc
 
 [balance_conc_b4, balances_b4, total_conc_b4, carbon_b4] = mass_balance(Cb4,P);
 
-% Plot
-figure('Position',[500 350 250 175])
-bar(rel_rate_B,'magenta')
-ylabel('Initial Rate (uM C16/m)')
-xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
-ylim([0 15])
-ax = gca;
-ax.FontSize = 10; 
-text(0.1, 14, 'Octanoyl-CoA','FontSize',10)
 
-
-%% Figure C No Acyl-CoA
+% Figure C No Acyl-CoA
 S.kcat_scaling_fabG = EC_kcat4_scaling; % Using E. coli FabG
 
 S.range = [0 150]; %2.5 mins (initial rate)
@@ -212,18 +192,18 @@ rel_rate_C = zeros(1,4);
 
 % New order from var_name code
 S.init_cond = zeros(S.num,1);
-S.init_cond(1) = 1000; % ATP
-S.init_cond(2) = 1000; % Bicarbonate
-S.init_cond(3) = 500; % Acetyl-CoA
+S.init_cond(1) = 0; % ATP
+S.init_cond(2) = 0; % Bicarbonate
+S.init_cond(3) = 0; % Acetyl-CoA
 S.init_cond(6) = 0; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1300; % NADPH
 S.init_cond(15) = 1300; % NADH
-S.init_cond(18) = 0; % Malonyl-CoA
+S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [1 1 0 1 1 1 10 1 1 1;
-                   1 1 1 1 1 1 10 1 1 1]; 
+enz_conc = [0 1 0 1 1 1 10 1 1 1;
+                   0 1 1 1 1 1 10 1 1 1]; 
 
 % No FabH
 S.enzyme_conc = enz_conc(1,:);
@@ -283,12 +263,172 @@ toc
 
 [balance_conc_c4, balances_c4, total_conc_c4, carbon_c4] = mass_balance(Cc4,P);
 
-% Plot
-figure('Position',[500 100 250 175])
-bar(rel_rate_C,'magenta')
+%% Plots
+
+% Figure 2A
+%figure()
+figure('Position',[500 600 250 175])
+b = bar(rel_rate_A);
+set(b, 'FaceColor', 'Flat')
+color = mat2cell([124/255,28/255,108/255],ones(1,1),3);
+set(b, {'CData'},color)
 ylabel('Initial Rate (uM C16/m)')
 xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
 ylim([0 15])
 ax = gca;
 ax.FontSize = 10; 
+text(0.1, 14, 'Acetyl-CoA','FontSize',10)
+%title("Acetyl-CoA, FabB Scaling Init = 0.1")
+
+% A - Acetyl-CoA and Malonyl-CoA
+figure()
+colors =  [106/255, 173/255, 138/255;...
+               238/255, 210/255, 148/255;...
+               198/255, 96/255, 93/255;...
+               5/255, 84/255, 117/255];
+La(1) = length(Ta1);
+La(2) = length(Ta2);
+La(3) = length(Ta3);
+La(4) = length(Ta4);
+clear Ta
+Ta = zeros(max(La),4);
+Ta(1:La(1),1)=Ta1;
+Ta(1:La(2),2)=Ta2;
+Ta(1:La(3),3)=Ta3;
+Ta(1:La(4),4)=Ta4;
+clear CA
+CA = zeros(max(La),4);
+CA(1:La(1),1)=Ca1(:,3);
+CA(1:La(2),2)=Ca2(:,3);
+CA(1:La(3),3)=Ca3(:,3);
+CA(1:La(4),4)=Ca4(:,3);
+clear CM
+CM = zeros(max(La),4);
+CM(1:La(1),1)=Ca1(:,18);
+CM(1:La(2),2)=Ca2(:,18);
+CM(1:La(3),3)=Ca3(:,18);
+CM(1:La(4),4)=Ca4(:,18);
+for i=1:4
+    plot(Ta(1:La(i),i)/60,CA(1:La(i),i),'Color',colors(i,:),'LineWidth',2)
+    hold on
+    plot(Ta(1:La(i),i)/60,CM(1:La(i),i),'Color',colors(i,:),'LineWidth',2)
+end
+ylabel('Concentration (uM)')
+xlabel('Time (min)')
+legend('No FabH Acetyl-CoA', 'No FabH Malonyl-CoA',...
+    'EC FabH Acetyl-CoA', 'EC FabH Malonyl-CoA',...
+    'PP FabH1 Acetyl-CoA', 'PP FabH1 Malonyl-CoA',...
+    'PP FabH2 Acetyl-CoA', 'PP FabH2 Malonyl-CoA')
+title("Acetyl-CoA, FabB Scaling Init = 10")
+
+% Figure 2B
+%figure()
+figure('Position',[500 350 250 175])
+b = bar(rel_rate_B);
+set(b, 'FaceColor', 'Flat')
+color = mat2cell([124/255,28/255,108/255],ones(1,1),3);
+set(b, {'CData'},color)
+ylabel('Initial Rate (uM C16/m)')
+xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
+ylim([0 15])
+ax = gca;
+ax.FontSize = 10; 
+text(0.1, 14, 'Octanoyl-CoA','FontSize',10)
+%title("Octonoyl-CoA, FabB Scaling Init = 0.1")
+
+% B - Acetyl-CoA and Malonyl-CoA
+figure()
+colors =  [106/255, 173/255, 138/255;...
+               238/255, 210/255, 148/255;...
+               198/255, 96/255, 93/255;...
+               5/255, 84/255, 117/255];
+Lb(1) = length(Tb1);
+Lb(2) = length(Tb2);
+Lb(3) = length(Tb3);
+Lb(4) = length(Tb4);
+clear Tb
+Tb = zeros(max(Lb),4);
+Tb(1:Lb(1),1)=Tb1;
+Tb(1:Lb(2),2)=Tb2;
+Tb(1:Lb(3),3)=Tb3;
+Tb(1:Lb(4),4)=Tb4;
+clear CA
+CA = zeros(max(Lb),4);
+CA(1:Lb(1),1)=Cb1(:,3);
+CA(1:Lb(2),2)=Cb2(:,3);
+CA(1:Lb(3),3)=Cb3(:,3);
+CA(1:Lb(4),4)=Cb4(:,3);
+clear CM
+CM = zeros(max(Lb),4);
+CM(1:Lb(1),1)=Cb1(:,18);
+CM(1:Lb(2),2)=Cb2(:,18);
+CM(1:Lb(3),3)=Cb3(:,18);
+CM(1:Lb(4),4)=Cb4(:,18);
+for i=1:4
+    plot(Tb(1:Lb(i),i)/60,CA(1:Lb(i),i),'Color',colors(i,:),'LineWidth',2)
+    hold on
+    plot(Tb(1:Lb(i),i)/60,CM(1:Lb(i),i),'Color',colors(i,:),'LineWidth',2)
+end
+ylabel('Concentration (uM)')
+xlabel('Time (min)')
+legend('No FabH Acetyl-CoA', 'No FabH Malonyl-CoA',...
+    'EC FabH Acetyl-CoA', 'EC FabH Malonyl-CoA',...
+    'PP FabH1 Acetyl-CoA', 'PP FabH1 Malonyl-CoA',...
+    'PP FabH2 Acetyl-CoA', 'PP FabH2 Malonyl-CoA')
+title("Octonoyl-CoA, FabB Scaling Init = 10")
+
+% Figure 2C
+%figure()
+figure('Position',[500 100 250 175])
+b = bar(rel_rate_C);
+set(b, 'FaceColor', 'Flat')
+color = mat2cell([124/255,28/255,108/255],ones(1,1),3);
+set(b, {'CData'},color)
+ylabel('Initial Rate (uM C16/m)')
+xticklabels(['No FabH ';'EC FabH ';'PP FabH1';'PP FabH2'])
+ylim([0 15])
+ax = gca;
+ax.FontSize = 10;  
 text(0.1, 14, 'No acyl-CoA','FontSize',10)
+%title("No Acyl-CoA, FabB Scaling Init = 0.1")
+
+% C - Acetyl-CoA and Malonyl-CoA
+figure()
+colors =  [106/255, 173/255, 138/255;...
+               238/255, 210/255, 148/255;...
+               198/255, 96/255, 93/255;...
+               5/255, 84/255, 117/255];
+Lc(1) = length(Tc1);
+Lc(2) = length(Tc2);
+Lc(3) = length(Tc3);
+Lc(4) = length(Tc4);
+clear Tc
+Tc = zeros(max(Lc),4);
+Tc(1:Lc(1),1)=Tc1;
+Tc(1:Lc(2),2)=Tc2;
+Tc(1:Lc(3),3)=Tc3;
+Tc(1:Lc(4),4)=Tc4;
+clear CA
+CA = zeros(max(Lc),4);
+CA(1:Lc(1),1)=Cc1(:,3);
+CA(1:Lc(2),2)=Cc2(:,3);
+CA(1:Lc(3),3)=Cc3(:,3);
+CA(1:Lc(4),4)=Cc4(:,3);
+clear CM
+CM = zeros(max(Lc),4);
+CM(1:Lc(1),1)=Cc1(:,18);
+CM(1:Lc(2),2)=Cc2(:,18);
+CM(1:Lc(3),3)=Cc3(:,18);
+CM(1:Lc(4),4)=Cc4(:,18);
+for i=1:4
+    plot(Tc(1:Lc(i),i)/60,CA(1:Lc(i),i),'Color',colors(i,:),'LineWidth',2)
+    hold on
+    plot(Tc(1:Lc(i),i)/60,CM(1:Lc(i),i),'Color',colors(i,:),'LineWidth',2)
+end
+ylabel('Concentration (uM)')
+xlabel('Time (min)')
+legend('No FabH Acetyl-CoA', 'No FabH Malonyl-CoA',...
+    'EC FabH Acetyl-CoA', 'EC FabH Malonyl-CoA',...
+    'PP FabH1 Acetyl-CoA', 'PP FabH1 Malonyl-CoA',...
+    'PP FabH2 Acetyl-CoA', 'PP FabH2 Malonyl-CoA')
+title("No Acyl-CoA, FabB Scaling Init = 10")

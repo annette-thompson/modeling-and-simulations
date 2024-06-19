@@ -19,7 +19,7 @@ P.kcat8 = S.param_table{'kcat8','parameter_values'}*S.scaling_factor_kcat;
 P.kcat9 = S.param_table{'kcat9','parameter_values'}*S.scaling_factor_kcat;
 P.kcat10 = S.param_table{'kcat10','parameter_values'}*S.scaling_factor_kcat;
 
-P.kcat5 = S.param_table{'kcat5','parameter_values'}*S.scaling_factor_SAD_HAD_kcat; % HAD (c4) scaling
+P.kcat5 = S.param_table{'kcat5','parameter_values'}*S.scaling_factor_HAD_kcat; % HAD (c4) scaling
 
 % Initiation scaling for KASIII
 P.kcat3 = S.param_table{'kcat3','parameter_values'}*S.scaling_factor_kcat_init;
@@ -51,14 +51,12 @@ P.k10_1f = P.k10_1r/S.km_table{'k10_1f','parameter_values'};
 
 % This paramter modification step differs from other steps in thatit is not 
 % a binding step, but a reverse catalytic step. For HAD and SAD reverse 
-% use parameter "c4" and "c2." Note that HAD and SAD are reversible 
-% reactions, the forward reaction is denoted by kcat5 and kcat9, the 
-% reverse reaction by k5_2r and k9_2r. As both forward and reverse are 
+% use parameter "c4" and "c2." Note that HAD is a reversible 
+% reactions, the forward reaction is denoted by kcat5, the 
+% reverse reaction by k5_2r. As both forward and reverse are 
 % scaled by the same constant the ratio (Keq) is maintained.
-P.k5_2r = S.param_table{'k5_2r','parameter_values'}*S.scaling_factor_SAD_HAD_kcat;
-P.k9_2r = S.param_table{'k9_2r','parameter_values'}*S.scaling_factor_kcat;
+P.k5_2r = S.param_table{'k5_2r','parameter_values'}*S.scaling_factor_HAD_kcat;
 
- 
 % For MCMT,KASIII,KASI,KASII forward and reverse intermediate reaction steps 
 % (the intermediate reaction of the ping-pong mechanism) use scaling "b1"
 P.k2_2r = S.param_table{'k2_2r','parameter_values'}*S.kd_fits(3);
@@ -78,6 +76,7 @@ P.k6_1r = S.param_table{'k6_1r','parameter_values'}*S.scaling_factor_elon;
 P.k6_2r = S.param_table{'k6_2r','parameter_values'}*S.scaling_factor_elon;
 P.k8_3r = S.param_table{'k8_3r','parameter_values'}*S.scaling_factor_elon;
 P.k9_1r = S.param_table{'k9_1r','parameter_values'}*S.scaling_factor_elon;
+P.k9_2r = S.param_table{'k9_2r','parameter_values'}*S.scaling_factor_elon;
 P.k10_3r = S.param_table{'k10_3r','parameter_values'}*S.scaling_factor_elon;
 
 P.k4_1f = P.k4_1r/S.km_table{'k4_1f','parameter_values'};
@@ -86,6 +85,7 @@ P.k6_1f = P.k6_1r/S.km_table{'k6_1f','parameter_values'};
 P.k6_2f = P.k6_2r/S.km_table{'k6_2f','parameter_values'};
 P.k8_3f = P.k8_3r/S.km_table{'k8_3f','parameter_values'};
 P.k9_1f = P.k9_1r/S.km_table{'k9_1f','parameter_values'};
+P.k9_2f = P.k9_2r/S.km_table{'k9_2f','parameter_values'};
 P.k10_3f = P.k10_3r/S.km_table{'k10_3f','parameter_values'};
 
 % ACC
@@ -279,20 +279,17 @@ for i = 1:num_elong_steps
 end
 
 % For HAD and SAD chain length specificities of k_rvs (reverse reaction
-% rate 'k5_2r' and 'k9_2r') and kon
+% rate 'k5_2r') and kon
 k5_2r0 = P.k5_2r;
 P.k5_2r = zeros(1,num_elong_steps);
-k9_2r0 = P.k9_2r;
-P.k9_2r = zeros(1,num_elong_steps);
 k5_1f0 = P.k5_1f;
 P.k5_1f = zeros(1,num_elong_steps);
-k9_1f0 = P.k9_1f;
-P.k9_1f = zeros(1,num_elong_steps);
+k9_2f0 = P.k9_2f;
+P.k9_2f = zeros(1,num_elong_steps);
 for i = 1:num_elong_steps
     P.k5_2r(i) = k5_2r0*S.kcat_scaling_HAD(i); % HAD chain length k_rvs scaling
-    P.k9_2r(i) = k9_2r0*S.kcat_scaling_SAD(i); % SAD chain length k_rvs scaling
     P.k5_1f(i) = k5_1f0*S.kon_scaling_HAD(i); % HAD chain length kon scaling
-    P.k9_1f(i) = k9_1f0*S.kon_scaling_SAD(i); % SAD chain length kon scaling
+    P.k9_2f(i) = k9_2f0*S.kon_scaling_SAD(i); % SAD chain length kon scaling
 end
 
 % Remaining parameters that need to be vectors for elongation
@@ -317,7 +314,7 @@ P.k8_1r = P.k8_1r.*ones(1,num_elong_steps);
 P.k8_2r = P.k8_2r.*ones(1,num_elong_steps);
 P.k8_3f = P.k8_3f.*ones(1,num_elong_steps);
 P.k8_3r = P.k8_3r.*ones(1,num_elong_steps);
-P.k9_1r = P.k9_1r.*ones(1,num_elong_steps);
+P.k9_2r = P.k9_2r.*ones(1,num_elong_steps);
 P.k10_1r = P.k10_1r.*ones(1,num_elong_steps);
 P.k10_2r = P.k10_2r.*ones(1,num_elong_steps);
 P.k10_3f = P.k10_3f.*ones(1,num_elong_steps);
@@ -367,14 +364,6 @@ P.k8_inh_r = S.ACP_inh(12);
 P.KASItot = S.enzyme_conc(8);
 
 % SAD
-P.k9_3f = P.k9_1r;
-P.k9_3r = P.k9_1f;
-P.k9_1f_un = P.k9_1f.*S.scaling_vector_SAD_unsat; % specificity of reaction with unsaturated acyl chains
-P.k9_1r_un = P.k9_1r;
-P.kcat9_un = P.kcat9.*S.kcat_scaling_SAD_unsat;
-P.k9_2r_un = P.k9_2r;
-P.k9_3f_un = P.k9_3f;
-P.k9_3r_un = P.k9_3r;
 P.k9_inh_f = S.ACP_inh(13);
 P.k9_inh_r = S.ACP_inh(14);
 P.SADtot = S.enzyme_conc(9);
