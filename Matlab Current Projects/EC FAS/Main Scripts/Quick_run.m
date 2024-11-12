@@ -9,7 +9,6 @@ S = set_vars();
 % Set ODE solver options
 ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 
-
 %% Simulation
 
 % Time
