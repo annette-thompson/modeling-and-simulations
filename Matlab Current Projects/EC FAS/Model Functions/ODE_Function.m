@@ -14,11 +14,11 @@ function dcdt = ODE_Function(t,c,P)
 
 % Assign values to each variable
 for var = 1:numel(P.labels)
- % Get the variable name
- var_name = P.labels{var};
- 
- % Assign the value to the variable in the workspace
- eval([var_name ' = c(var, :);']);
+    % Get the variable name
+    var_name = P.labels{var};
+    
+    % Assign the value to the variable in the workspace
+    eval([var_name ' = c(var, :);']);
 end
 
 % ACC % changed for ACC
@@ -98,7 +98,7 @@ d_ATP = P.k1_1r.*c_BC_ATP - P.k1_1f.*c_ACC_C.*c_ATP;
 d_C1_Bicarbonate = P.k1_2r.*c_C1_BC_ATP_HCO3 - P.k1_2f.*c_BC_ATP.*c_C1_Bicarbonate;
 
 % Acetyl-CoA (- ACC - FabH - FabF - FabB) % changed for ACC
-d_C2_AcCoA = P.k3_1r(1).*c_C2_FabH_CoA - P.k3_1f(1).*c_FabH.*c_C2_AcCoA + P.k1_5r.*c_C3_CT_Act_AcCoA - P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA + P.k8_4r.*c_C2_FabF_AcCoA - P.k8_4f.*c_FabF.*c_C2_AcCoA + P.k10_4r.*c_C2_FabB_AcCoA - P.k10_4f.*c_FabB.*c_C2_AcCoA;
+d_C2_AcCoA = P.k1_5r.*c_C3_CT_Act_AcCoA - P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA + P.k3_1r(1).*c_C2_FabH_CoA - P.k3_1f(1).*c_FabH.*c_C2_AcCoA + P.k8_4r.*c_C2_FabF_AcCoA - P.k8_4f.*c_FabF.*c_C2_AcCoA + P.k10_4r.*c_C2_FabB_AcCoA - P.k10_4f.*c_FabB.*c_C2_AcCoA;
 
 % C2n (n=2:9) Acyl-CoAs (- FabH)
 d_C4_SucCoA = P.k3_1r(2).*c_C4_FabH_CoA - P.k3_1f(2).*c_FabH.*c_C4_SucCoA;
@@ -318,7 +318,7 @@ d_C16_AcACP_un = P.kcat6(7).*c_C16_FabI_NADH_EnAcACP_un + P.k3_4r(7).*c_C16_FabH
 d_C18_AcACP_un = P.kcat6(8).*c_C18_FabI_NADH_EnAcACP_un + P.k3_4r(8).*c_C18_FabH_AcACP_un - P.k3_4f(8).*c_FabH.*c_C18_AcACP_un + P.k3_5r(8).*c_C20_FabH_Act_AcACP_un - P.k3_5f(8).*c_C2_FabH_Act.*c_C18_AcACP_un + P.k7_1r(8).*c_C18_TesA_AcACP_un - P.k7_1f(8).*c_TesA.*c_C18_AcACP_un + P.k8_1r(8).*c_C18_FabF_AcACP_un - P.k8_1f(8).*c_FabF.*c_C18_AcACP_un + P.k10_1r(8).*c_C18_FabB_AcACP_un - P.k10_1f(8).*c_FabB.*c_C18_AcACP_un;
 
 % C2n:1 (n=10) Acyl-ACPs (FabI - TesA - FabH)
-d_C20_AcACP_un = P.kcat6(9).*c_C20_FabI_NADH_EnAcACP_un + P.k7_1r(9).*c_C20_TesA_AcACP_un - P.k7_1f(9).*c_TesA.*c_C20_AcACP_un + P.k3_4r(9).*c_C20_FabH_AcACP_un - P.k3_4f(9).*c_FabH.*c_C20_AcACP_un + P.k3_5r(9).*c_C22_FabH_Act_AcACP_un - P.k3_5f(9).*c_C2_FabH_Act.*c_C20_AcACP_un;
+d_C20_AcACP_un = P.kcat6(9).*c_C20_FabI_NADH_EnAcACP_un + P.k3_4r(9).*c_C20_FabH_AcACP_un - P.k3_4f(9).*c_FabH.*c_C20_AcACP_un + P.k3_5r(9).*c_C22_FabH_Act_AcACP_un - P.k3_5f(9).*c_C2_FabH_Act.*c_C20_AcACP_un + P.k7_1r(9).*c_C20_TesA_AcACP_un - P.k7_1f(9).*c_TesA.*c_C20_AcACP_un;
 
 % Fatty Acids (TesA)
 d_C4_FA = P.kcat7(1).*c_C4_TesA_AcACP;
@@ -384,8 +384,7 @@ d_C18_FabH_CoA = P.k3_1f(9).*c_FabH.*c_C18_OcDecCoA - P.k3_1r(9).*c_C18_FabH_CoA
 
 % C2n (n=1:9) FabH*
 % making FabH* - using FabH* - inhibition from Acyl ACPs (only Acetyl-CoA derived FabH*)
-d_C2_FabH_Act = P.k3_2f(1).*c_C2_FabH_CoA - P.k3_2r(1).*c_C2_FabH_Act.*c_CoA... 
- + P.k3_3r(1).*c_C5_FabH_Act_MalACP - P.k3_3f(1).*c_C2_FabH_Act.*c_C3_MalACP...
+d_C2_FabH_Act = P.k3_2f(1).*c_C2_FabH_CoA - P.k3_2r(1).*c_C2_FabH_Act.*c_CoA + P.k3_3r(1).*c_C5_FabH_Act_MalACP - P.k3_3f(1).*c_C2_FabH_Act.*c_C3_MalACP...
  + P.k3_5r(1).*c_C6_FabH_Act_AcACP - P.k3_5f(1).*c_C2_FabH_Act.*c_C4_AcACP...
  + P.k3_5r(2).*c_C8_FabH_Act_AcACP - P.k3_5f(2).*c_C2_FabH_Act.*c_C6_AcACP...
  + P.k3_5r(3).*c_C10_FabH_Act_AcACP - P.k3_5f(3).*c_C2_FabH_Act.*c_C8_AcACP...
