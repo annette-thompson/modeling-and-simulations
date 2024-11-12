@@ -1,12 +1,7 @@
-% Testing pennycress model (no ACC)
-
 % Give access to all necessary folders
-
-my_dir = '/Users/annettethompson/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects/Pennycress FAS';
+my_dir ='/Users/annettethompson/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects/Pennycress FAS';
 cd(my_dir)
 addpath(genpath(my_dir))
-
-%% Variables
 
 % Run variable code
 S = set_vars();
@@ -14,10 +9,10 @@ S = set_vars();
 % Set ODE solver options
 ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
 
-% Simulation
+%% Simulation
 
 % Time
-S.range = [0 720]; % 12 mins (total production)
+S.range = [0 720]; % 12 mins
 
 % Initial conditions
 S.init_cond = zeros(S.num,1);
@@ -35,11 +30,11 @@ S.enzyme_conc = [1 1 1 1 1 1 10 1 1 1];
 
 P = Param_Function(S);
 
-% Turn off FabF/B initiation
+% Turn off KASI/II Initiation
 P.kcat8_H = 0;
 P.kcat10_H = 0;
 
-% Set ACC Michaelis Menton parameters
+% Set Michaelis Menton parameters for ACC
 P.kcat1_1 = 85.17/60; % s^-1
 P.Km1_1 = 170; % uM
 P.kcat1_2 = 73.8/60; % s^-1
@@ -51,6 +46,7 @@ P.Km1_4 = 450; % uM
 P.kcat1_5 = 30.1; % s^-1
 P.Km1_5 = 48.7; % uM
 
+% Solve ODEs
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 [T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 [F_raw_12, rel_rate] = Calc_Function(T,C,S);
