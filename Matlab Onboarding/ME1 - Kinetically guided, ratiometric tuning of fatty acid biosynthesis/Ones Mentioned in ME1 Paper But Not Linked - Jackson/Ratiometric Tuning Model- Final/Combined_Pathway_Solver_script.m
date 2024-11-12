@@ -205,7 +205,7 @@ param_struct = struct;
 for i = 1:length(param_names{1})
     param_struct.(param_names{1}{i}) = param_func(param_names{1}{i},i,opt_struct,tables);
 end
-
+%%
 %loads the sparsity pattern for the Jacobian
 %Turned off because the sparsity pattern hasn't been updated for the new
 %differential eqns.
