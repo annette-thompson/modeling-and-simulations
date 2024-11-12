@@ -7,8 +7,6 @@ function [balance_conc, balances, total_conc, carbon] = mass_balance(C,P)
 % total_conc: total concentration of balance vs time
 % carbon: each carbon species (scaled by their length) versus time
 
-% Currently does not include NAD+ and NADP+
-
 % What to search for for each balance
 balance_search = {'CoA','ACP','NAD(?!P)','NADP','ATP.*|.*_ADP','_C(\d+)_'};
 

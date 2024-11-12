@@ -1,18 +1,33 @@
+%% Param_Function
 function P = Param_Function(S)
-%% Parameters
+% Calculates all parameters based on in put of variables
+%   Input:
+%       S: structure storing all variables
+%   Output:
+%       P: structure storing all parameters
 
 num_elong_steps = S.num_elong_steps; % number of elongation steps
 
+% Set up structure
 P = struct;
 
+% Store species labels
 P.labels = S.labels;
 
 % if the parameter is kcat, then scale each estimated kcat value from the 
 % table using the appropriate kcat scaling terms
 
-P.kcat7 = S.param_table{'kcat7','parameter_values'}*S.scaling_factor_kcat_term; % termination scaling for TesA
+% Initiation scaling for FabH, ACC
+P.kcat3 = S.param_table{'kcat3','parameter_values'}*S.scaling_factor_kcat_init;
+P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'};%*S.scaling_factor_kcat_init;
+P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'};%*S.scaling_factor_kcat_init;
+P.kcat1_3 = S.param_table{'kcat1_3','parameter_values'};%*S.scaling_factor_kcat_init;
+P.kcat1_4 = S.param_table{'kcat1_4','parameter_values'}; % Doesn't need to be scaled
 
-% Elongation scaling for FabG,FabI,FabF,FabA,FabB
+% Termination scaling for TesA
+P.kcat7 = S.param_table{'kcat7','parameter_values'}*S.scaling_factor_kcat_term; 
+
+% Elongation scaling for FabG, FabI, FabF, FabA, FabB
 P.kcat4 = S.param_table{'kcat4','parameter_values'}*S.scaling_factor_kcat;
 P.kcat6 = S.param_table{'kcat6','parameter_values'}*S.scaling_factor_kcat;
 P.kcat8 = S.param_table{'kcat8','parameter_values'}*S.scaling_factor_kcat;
@@ -20,15 +35,12 @@ P.kcat9 = S.param_table{'kcat9','parameter_values'}*S.scaling_factor_kcat;
 P.kcat10 = S.param_table{'kcat10','parameter_values'}*S.scaling_factor_kcat;
 
 P.kcat5 = S.param_table{'kcat5','parameter_values'}*S.scaling_factor_fabAZ_kcat; % FabZ (c4) scaling
-
-% Initiation scaling for FabH
-P.kcat3 = S.param_table{'kcat3','parameter_values'}*S.scaling_factor_kcat_init;
  
 % if the parameter is kon or koff, then scale both using the appropriate 
 % scaling factors. Kon is further modified using the estimated Kd values 
 % such that kd_est = koff_final/kon_final
  
-% For FabD,FabH use "a1" scaling
+% For FabD, FabH use "a1" scaling
 P.k2_1r = S.param_table{'k2_1r','parameter_values'}*S.scaling_factor_init;
 P.k2_3r = S.param_table{'k2_3r','parameter_values'}*S.scaling_factor_init;
 P.k3_1r = S.param_table{'k3_1r','parameter_values'}*S.scaling_factor_init;
@@ -42,14 +54,14 @@ P.k3_3f = P.k3_3r/S.km_table{'k3_3f','parameter_values'};
 P.k7_1f = S.param_table{'k7_1f','parameter_values'}*S.scaling_factor_term;
 P.k7_1r = S.param_table{'k7_1r','parameter_values'}*S.scaling_factor_term;
 
-% For FabF and FabB use paramter "a2" (seperated as scaling_factor_fabF in 
+% For FabF and FabB use parameter "a2" (separated as scaling_factor_fabF in 
 % case different scalings are desired, note scaling_factor_fabF=a2 here)
 P.k8_1r = S.param_table{'k8_1r','parameter_values'}*S.scaling_factor_fabF;
 P.k10_1r = S.param_table{'k10_1r','parameter_values'}*S.scaling_factor_fabF;
 P.k8_1f = P.k8_1r/S.km_table{'k8_1f','parameter_values'};
 P.k10_1f = P.k10_1r/S.km_table{'k10_1f','parameter_values'};
 
-% This paramter modification step differs from other steps in thatit is not 
+% This parameter modification step differs from other steps in that it is not 
 % a binding step, but a reverse catalytic step. For FabZ and FabA reverse 
 % use parameter "c4" and "c2." Note that FabZ and FabA are reversible 
 % reactions, the forward reaction is denoted by kcat5 and kcat9, the 
@@ -58,8 +70,7 @@ P.k10_1f = P.k10_1r/S.km_table{'k10_1f','parameter_values'};
 P.k5_2r = S.param_table{'k5_2r','parameter_values'}*S.scaling_factor_fabAZ_kcat;
 P.k9_2r = S.param_table{'k9_2r','parameter_values'}*S.scaling_factor_kcat;
 
- 
-% For FabD,FabH,FabF,FabB forward and reverse intermediate reaction steps 
+% For FabD, FabH, FabF, FabB forward and reverse intermediate reaction steps 
 % (the intermediate reaction of the ping-pong mechanism) use scaling "b1"
 P.k2_2r = S.param_table{'k2_2r','parameter_values'}*S.kd_fits(3);
 P.k2_4r = S.param_table{'k2_4r','parameter_values'}*S.kd_fits(3);
@@ -67,13 +78,10 @@ P.k3_2r = S.param_table{'k3_2r','parameter_values'}*S.kd_fits(3);
 P.k8_2r = S.param_table{'k8_2r','parameter_values'}*S.kd_fits(3);
 P.k10_2r = S.param_table{'k10_2r','parameter_values'}*S.kd_fits(3);
 
-% For FabZ use parameter "a2"
-P.k5_1r = S.param_table{'k5_1r','parameter_values'}*S.scaling_factor_elon;
-P.k5_1f = P.k5_1r/S.km_table{'k5_1f','parameter_values'};
-
-% For FabG,FabI,FabF,FabA,FabB use parameter "a2"
+% For FabG,FabZ,FabI,FabF,FabA,FabB use parameter "a2"
 P.k4_1r = S.param_table{'k4_1r','parameter_values'}*S.scaling_factor_elon;
 P.k4_2r = S.param_table{'k4_2r','parameter_values'}*S.scaling_factor_elon;
+P.k5_1r = S.param_table{'k5_1r','parameter_values'}*S.scaling_factor_elon;
 P.k6_1r = S.param_table{'k6_1r','parameter_values'}*S.scaling_factor_elon;
 P.k6_2r = S.param_table{'k6_2r','parameter_values'}*S.scaling_factor_elon;
 P.k8_3r = S.param_table{'k8_3r','parameter_values'}*S.scaling_factor_elon;
@@ -82,6 +90,7 @@ P.k10_3r = S.param_table{'k10_3r','parameter_values'}*S.scaling_factor_elon;
 
 P.k4_1f = P.k4_1r/S.km_table{'k4_1f','parameter_values'};
 P.k4_2f = P.k4_2r/S.km_table{'k4_2f','parameter_values'};
+P.k5_1f = P.k5_1r/S.km_table{'k5_1f','parameter_values'};
 P.k6_1f = P.k6_1r/S.km_table{'k6_1f','parameter_values'};
 P.k6_2f = P.k6_2r/S.km_table{'k6_2f','parameter_values'};
 P.k8_3f = P.k8_3r/S.km_table{'k8_3f','parameter_values'};
@@ -89,20 +98,17 @@ P.k9_1f = P.k9_1r/S.km_table{'k9_1f','parameter_values'};
 P.k10_3f = P.k10_3r/S.km_table{'k10_3f','parameter_values'};
 
 % ACC
-P.k1_1f = S.param_table{'k1_1f','parameter_values'}*S.scaling_factor_init;
-P.k1_1r = S.param_table{'k1_1r','parameter_values'}*S.scaling_factor_init;
-P.k1_2f = S.param_table{'k1_2f','parameter_values'}*S.scaling_factor_init;
-P.k1_2r = S.param_table{'k1_2r','parameter_values'}*S.scaling_factor_init;
-P.k1_3f = S.param_table{'k1_3f','parameter_values'}*S.scaling_factor_init;
-P.k1_3r = S.param_table{'k1_3r','parameter_values'}*S.scaling_factor_init;
-P.k1_4f = S.param_table{'k1_4f','parameter_values'}*S.scaling_factor_init;
-P.k1_4r = S.param_table{'k1_4r','parameter_values'}*S.scaling_factor_init;
-P.k1_5f = S.param_table{'k1_5f','parameter_values'}*S.scaling_factor_init;
-P.k1_5r = S.param_table{'k1_5r','parameter_values'}*S.scaling_factor_init;
-P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'}*S.scaling_factor_kcat_init;
-P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'}*S.scaling_factor_kcat_init;
-P.kcat1_3 = S.param_table{'kcat1_3','parameter_values'}*S.scaling_factor_kcat_init;
-P.kcat1_4 = S.param_table{'kcat1_4','parameter_values'}*S.scaling_factor_kcat_init;
+P.k1_1f = S.param_table{'k1_1f','parameter_values'};
+P.k1_1r = S.param_table{'k1_1r','parameter_values'};
+P.k1_2f = S.param_table{'k1_2f','parameter_values'};
+P.k1_2r = S.param_table{'k1_2r','parameter_values'};
+P.k1_3f = S.param_table{'k1_3f','parameter_values'};
+P.k1_3r = S.param_table{'k1_3r','parameter_values'};
+P.k1_4f = S.param_table{'k1_4f','parameter_values'};
+P.k1_4r = S.param_table{'k1_4r','parameter_values'};
+P.k1_5f = S.param_table{'k1_5f','parameter_values'};
+P.k1_5r = S.param_table{'k1_5r','parameter_values'};
+
 
 % After the initial parameter assignment, additional parameters are
 % assigned, and modified (for example incorporating substrate specificity)
@@ -150,7 +156,7 @@ P.kcat7 = zeros(1,num_elong_steps);
 if strcmp(S.TesA_fitting_source,'Pf')
     kd_12 = exp(S.lin_slope*(12) + S.lin_int); % kd estimated from linear free energy relationship for chain lengths 12-20
     ratio_val = kd_12/S.Pf_scaling; % ratio used to match kd at chain length 12
-    kd_est = (ratio_val).*S.Pf_kd_est_scaling; % Kds for 4,6 and 8-12, estimated Kd is scaled to match linear free energy values
+    kd_est = (ratio_val).*S.Pf_kd_est_scaling; % Kds for 4, 6 and 8-12, estimated Kd is scaled to match linear free energy values
     kcat_scaling = S.Pf_kcat_scaling;
 elseif strcmp(S.TesA_fitting_source,'Fox')
     kd_12 = exp(S.lin_slope*(12) + S.lin_int);
@@ -249,7 +255,7 @@ P.k10_8r = S.param_table{'k10_8r','parameter_values'};
 P.k8_8f = S.param_table{'k8_8f','parameter_values'};
 P.k8_8r = S.param_table{'k8_8r','parameter_values'}*S.scaling_factor_aCoA_8;
 
-% Chain length specificities for FabH,FabG,FabZ,FabI,FabF,FabA,FabB
+% Chain length specificities for FabH, FabG, FabZ, FabI, FabF, FabA, FabB
 kcat30 = P.kcat3;
 P.kcat3 = zeros(1,num_elong_steps);
 kcat40 = P.kcat4;
@@ -292,7 +298,7 @@ for i = 1:num_elong_steps
 end
 
 % Remaining parameters that need to be vectors for elongation
-P.k3_1f = P.k3_1f.*ones(1,num_elong_steps);
+P.k3_1f = P.k3_1f.*S.kcat_scaling_fabH;
 P.k3_1r = P.k3_1r.*ones(1,num_elong_steps);
 P.k3_2f = P.k3_2f.*ones(1,num_elong_steps);
 P.k3_2r = P.k3_2r.*ones(1,num_elong_steps);

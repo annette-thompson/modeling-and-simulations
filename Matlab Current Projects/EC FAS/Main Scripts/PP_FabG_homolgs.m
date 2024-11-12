@@ -1,6 +1,6 @@
 % Give access to all necessary folders
 
-my_dir = '/Users/Annette/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects/EC FAS';
+my_dir = '/Users/annettethompson/Library/CloudStorage/OneDrive-UCB-O365/Annie Thompson/Git Repository/Matlab Current Projects/EC FAS';
 cd(my_dir)
 addpath(genpath(my_dir))
 
@@ -9,14 +9,15 @@ addpath(genpath(my_dir))
 % Run variable code
 S = set_vars();
 
-% Set FabG/FabH scaling
+% Set FabG/FabH scaling (also scales kon)
 EC_kcat3_scaling = [1,0,0,0,0,0,0,0,0];
-PP_H1_kcat3_scaling = [0.5,0,0,0,0,0,0,0,0]; % changed
-PP_H2_kcat3_scaling = [0,0,0,0.4,0,0,0,0,0]; % changed
+PP_H1_kcat3_scaling = [1,0,0,0,0,0,0,0,0]; % changed
+PP_H2_kcat3_scaling = [0,0,0,1,0,0,0,0,0]; % changed
 
 EC_kcat4_scaling = [1,1,1,1,1,1,1,1,1];
 PP_1914_kcat4_scaling = [.1,.1,.1,.1,.1,.1,.1,.1,.1]; % changed
 PP_2783_kcat4_scaling = [0,0,0,.025,.025,.025,.025,.025,.025]; % changed
+% should you scale kon for G? - turn on off - have to add additional scaling param
 
 % Set ODE solver options
 ODE_options = odeset('RelTol',1e-6,'MaxOrder',5,'Vectorized','on');
@@ -32,28 +33,30 @@ rel_rate_D = zeros(1,4);
 S.init_cond = zeros(S.num,1);
 S.init_cond(1) = 0; % ATP
 S.init_cond(2) = 0; % Bicarbonate
-S.init_cond(3) = 100; % Acetyl-CoA
+S.init_cond(3) = 500; % Acetyl-CoA
 S.init_cond(6) = 0; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
-S.init_cond(13) = 1300; % NADPH
-S.init_cond(15) = 1300; % NADH
+S.init_cond(13) = 1000; % NADPH
+S.init_cond(15) = 1000; % NADH
 S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [0 1 1 0 1 1 10 1 1 1;
-                   0 1 1 1 1 1 10 1 1 1]; 
+               0 1 1 1 1 1 10 1 1 1;
+               0 1 1 10 1 1 10 1 1 1];
 
 % No FabG
 S.enzyme_conc = enz_conc(1,:);
 
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
-[Td1,Cd1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-[~, rel_rate_D(1)] = Calc_Function(Td1,Cd1,S);
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
 
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+[Td1,Cd1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+[~, rel_rate_D(1)] = Calc_Function(Td1,Cd1,S);
 [balance_conc_d1, balances_d1, total_conc_d1, carbon_d1] = mass_balance(Cd1,P);
 
 % EC FabG
@@ -64,11 +67,8 @@ S.enzyme_conc = enz_conc(2,:);
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
 [Td2,Cd2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
 [F_raw_D(2,:), rel_rate_D(2)] = Calc_Function(Td2,Cd2,S);
-
 [balance_conc_d2, balances_d2, total_conc_d2, carbon_d2] = mass_balance(Cd2,P);
 
 % Profile plot - normal EC setup
@@ -88,31 +88,33 @@ toc
 % PP 1914
 S.kcat_scaling_fabG = PP_1914_kcat4_scaling; % Using PP 1914 FabG
 
-S.enzyme_conc = enz_conc(2,:);
+S.enzyme_conc = enz_conc(3,:);
     
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
-[Td3,Cd3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-[~, rel_rate_D(3)] = Calc_Function(Td3,Cd3,S);
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
 
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+[Td3,Cd3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+[~, rel_rate_D(3)] = Calc_Function(Td3,Cd3,S);
 [balance_conc_d3, balances_d3, total_conc_d3, carbon_d3] = mass_balance(Cd3,P);
 
 % PP 2783
 S.kcat_scaling_fabG = PP_2783_kcat4_scaling; % Using PP 2783 FabG
 
-S.enzyme_conc = enz_conc(2,:);
+S.enzyme_conc = enz_conc(3,:);
  
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
-[Td4,Cd4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-[~, rel_rate_D(4)] = Calc_Function(Td4,Cd4,S);
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
 
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+[Td4,Cd4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+[~, rel_rate_D(4)] = Calc_Function(Td4,Cd4,S);
 [balance_conc_d4, balances_d4, total_conc_d4, carbon_d4] = mass_balance(Cd4,P);
 
 
@@ -128,27 +130,29 @@ S.init_cond = zeros(S.num,1);
 S.init_cond(1) = 0; % ATP
 S.init_cond(2) = 0; % Bicarbonate
 S.init_cond(3) = 0; % Acetyl-CoA
-S.init_cond(6) = 100; % Octanoyl-CoA
+S.init_cond(6) = 500; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
-S.init_cond(13) = 1300; % NADPH
-S.init_cond(15) = 1300; % NADH
+S.init_cond(13) = 1000; % NADPH
+S.init_cond(15) = 1000; % NADH
 S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
 enz_conc = [0 1 10 0 1 1 10 1 1 1;
-                   0 1 10 1 1 1 10 1 1 1]; 
+               0 1 10 1 1 1 10 1 1 1;
+               0 1 10 10 1 1 10 1 1 1];
 
 % No FabG
 S.enzyme_conc = enz_conc(1,:);
 
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
-[Te1,Ce1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-[~, rel_rate_E(1)] = Calc_Function(Te1,Ce1,S);
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
 
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+[Te1,Ce1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+[~, rel_rate_E(1)] = Calc_Function(Te1,Ce1,S);
 [balance_conc_e1, balances_e1, total_conc_e1, carbon_e1] = mass_balance(Ce1,P);
 
 % EC FabG
@@ -156,44 +160,47 @@ S.kcat_scaling_fabG = EC_kcat4_scaling; % Using E. coli FabG
 
 S.enzyme_conc = enz_conc(2,:);
 
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
+
 P = Param_Function(S);
 
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
 [Te2,Ce2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
 [~, rel_rate_E(2)] = Calc_Function(Te2,Ce2,S);
-
 [balance_conc_e2, balances_e2, total_conc_e2, carbon_e2] = mass_balance(Ce2,P);
 
 % PP 1914
 S.kcat_scaling_fabG = PP_1914_kcat4_scaling; % Using PP 1914 FabG
 
-S.enzyme_conc = enz_conc(2,:);
+S.enzyme_conc = enz_conc(3,:);
     
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
-[Te3,Ce3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-[~, rel_rate_E(3)] = Calc_Function(Te3,Ce3,S);
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
 
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+[Te3,Ce3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+[~, rel_rate_E(3)] = Calc_Function(Te3,Ce3,S);
 [balance_conc_e3, balances_e3, total_conc_e3, carbon_e3] = mass_balance(Ce3,P);
 
 % PP 2783
 S.kcat_scaling_fabG = PP_2783_kcat4_scaling; % Using PP 2783 FabG
 
-S.enzyme_conc = enz_conc(2,:);
+S.enzyme_conc = enz_conc(3,:);
  
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
-[Te4,Ce4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-[~, rel_rate_E(4)] = Calc_Function(Te4,Ce4,S);
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
 
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+[Te4,Ce4] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+[~, rel_rate_E(4)] = Calc_Function(Te4,Ce4,S);
 [balance_conc_e4, balances_e4, total_conc_e4, carbon_e4] = mass_balance(Ce4,P);
 
 
@@ -208,60 +215,62 @@ S.init_cond = zeros(S.num,1);
 S.init_cond(1) = 0; % ATP
 S.init_cond(2) = 0; % Bicarbonate
 S.init_cond(3) = 0; % Acetyl-CoA
-S.init_cond(6) = 100; % Octanoyl-CoA
+S.init_cond(6) = 500; % Octanoyl-CoA
 S.init_cond(12) = 10; % holo ACP
-S.init_cond(13) = 1300; % NADPH
-S.init_cond(15) = 1300; % NADH
+S.init_cond(13) = 1000; % NADPH
+S.init_cond(15) = 1000; % NADH
 S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-enz_conc = [0 1 10 1 1 1 10 1 1 1]; 
+enz_conc = [0 1 10 1 1 1 10 1 1 1;
+               0 1 10 10 1 1 10 1 1 1];
 
 % EC FabG
-S.kcat_scaling_fabG = EC_kcat4_scaling; % Using PP FabH2
+S.kcat_scaling_fabG = EC_kcat4_scaling; % Using EC FabG
 
-S.enzyme_conc = enz_conc;
+S.enzyme_conc = enz_conc(1,:);
 
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
-[Tf1,Cf1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-[F_raw_F(1,:),~] = Calc_Function(Tf1,Cf1,S);
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
 
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+[Tf1,Cf1] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+[F_raw_F(1,:),~] = Calc_Function(Tf1,Cf1,S);
 [balance_conc_f1, balances_f1, total_conc_f1, carbon_f1] = mass_balance(Cf1,P);
 
 % PP 1914
 S.kcat_scaling_fabG = PP_1914_kcat4_scaling; % Using PP 1914 FabG
 
-S.enzyme_conc = enz_conc;
+S.enzyme_conc = enz_conc(2,:);
     
 P = Param_Function(S);
 
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
-[Tf2,Cf2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-[F_raw_F(2,:),~] = Calc_Function(Tf2,Cf2,S);
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
 
+parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+[Tf2,Cf2] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
+[F_raw_F(2,:),~] = Calc_Function(Tf2,Cf2,S);
 [balance_conc_f2, balances_f2, total_conc_f2, carbon_f2] = mass_balance(Cf2,P);
 
 % PP 2783
 S.kcat_scaling_fabG = PP_2783_kcat4_scaling; % Using PP 2783 FabG
 
-S.enzyme_conc = enz_conc;
+S.enzyme_conc = enz_conc(2,:);
  
 P = Param_Function(S);
 
+% No FabB/F Initiation
+P.kcat8_H = 0;
+P.kcat10_H = 0;
+
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
-tic
 [Tf3,Cf3] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-toc
-
 [F_raw_F(3,:),~] = Calc_Function(Tf3,Cf3,S);
-
-
 [balance_conc_f3, balances_f3, total_conc_f3, carbon_f3] = mass_balance(Cf3,P);
 
 F_raw_F_new(:,1:9) = F_raw_F(:,1:9);

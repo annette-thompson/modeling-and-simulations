@@ -58,7 +58,7 @@ for var = 1:numel(P.labels)
     eval([var_name ' = c(var, :);']);
 end
 
-% ACC
+% ACC % changed for ACC
 % BC (AccC)
 c_ACC_C = P.ACC_Ctot - c_BC_ATP - c_C1_BC_ATP_HCO3 - c_C1_BC_Pi_HCO3 - c_C1_BC_Pi_HCO3_BCCP_Biotin;
 % BCCP-Biotin (AccB-Biotin)
@@ -67,43 +67,43 @@ c_ACC_B = P.ACC_Btot - c_C1_BC_Pi_HCO3_BCCP_Biotin - c_C1_BCCP_Biotin_CO2 - c_C1
 c_ACC_AD = P.ACC_ADtot - c_C1_CT_BCCP_Biotin_CO2 - c_C1_CT_Act - c_C3_CT_Act_AcCoA;
 
 % Set of differential equations
-% ATP
+% ATP % changed for ACC
 d_ATP = P.k1_1r.*c_BC_ATP - P.k1_1f.*c_ACC_C.*c_ATP;
 
-% Bicarbonate
+% Bicarbonate % changed for ACC
 d_C1_Bicarbonate = P.k1_2r.*c_C1_BC_ATP_HCO3 - P.k1_2f.*c_BC_ATP.*c_C1_Bicarbonate;
 
-% C2n (n=1:9)-CoA
+% C2n (n=1:9)-CoA % changed for ACC
 d_C2_AcCoA = P.k1_5r.*c_C3_CT_Act_AcCoA - P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA;
 
-% ADP
+% ADP % changed for ACC
 d_ADP = P.kcat1_1.*c_C1_BC_ATP_HCO3;
 
-% Malonyl-CoA kcat1_4
+% Malonyl-CoA kcat1_4 % changed for ACC
 d_C3_MalCoA = P.kcat1_4.*c_C3_CT_Act_AcCoA; 
 
-% BC-ATP k1_1
+% BC-ATP k1_1 % changed for ACC
 d_BC_ATP = P.k1_1f.*c_ACC_C.*c_ATP - P.k1_1r.*c_BC_ATP + P.k1_2r.*c_C1_BC_ATP_HCO3 - P.k1_2f.*c_BC_ATP.*c_C1_Bicarbonate;
 
-% BC-ATP-HCO3 k1_2
+% BC-ATP-HCO3 k1_2 % changed for ACC
 d_C1_BC_ATP_HCO3 = P.k1_2f.*c_BC_ATP.*c_C1_Bicarbonate - P.k1_2r.*c_C1_BC_ATP_HCO3 - P.kcat1_1.*c_C1_BC_ATP_HCO3;
 
-% BC-Pi-HCO3 kcat1_1
+% BC-Pi-HCO3 kcat1_1 % changed for ACC
 d_C1_BC_Pi_HCO3 = P.kcat1_1.*c_C1_BC_ATP_HCO3 + P.k1_3r.*c_C1_BC_Pi_HCO3_BCCP_Biotin - P.k1_3f.*c_ACC_B.*c_C1_BC_Pi_HCO3;
 
-% BC-Pi-HCO3-BCCP-Biotin k1_3
+% BC-Pi-HCO3-BCCP-Biotin k1_3 % changed for ACC
 d_C1_BC_Pi_HCO3_BCCP_Biotin = P.k1_3f.*c_ACC_B.*c_C1_BC_Pi_HCO3 - P.k1_3r.*c_C1_BC_Pi_HCO3_BCCP_Biotin - P.kcat1_2.*c_C1_BC_Pi_HCO3_BCCP_Biotin;
 
-% BCCP-Biotin-CO2 kcat1_2
+% BCCP-Biotin-CO2 kcat1_2 % changed for ACC
 d_C1_BCCP_Biotin_CO2 = P.kcat1_2.*c_C1_BC_Pi_HCO3_BCCP_Biotin + P.k1_4r.*c_C1_CT_BCCP_Biotin_CO2 - P.k1_4f.*c_ACC_AD.*c_C1_BCCP_Biotin_CO2;
 
-% CT-BCCP-Biotin-CO2 k1_4
+% CT-BCCP-Biotin-CO2 k1_4 % changed for ACC
 d_C1_CT_BCCP_Biotin_CO2 = P.k1_4f.*c_ACC_AD.*c_C1_BCCP_Biotin_CO2 - P.k1_4r.*c_C1_CT_BCCP_Biotin_CO2 - P.kcat1_3.*c_C1_CT_BCCP_Biotin_CO2;
 
-% CT* kcat1_3
+% CT* kcat1_3 % changed for ACC
 d_C1_CT_Act = P.kcat1_3.*c_C1_CT_BCCP_Biotin_CO2 + P.k1_5r.*c_C3_CT_Act_AcCoA - P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA;
 
-% CT*-AcCoA k1_5
+% CT*-AcCoA k1_5 % changed for ACC
 d_C3_CT_Act_AcCoA = P.k1_5f.*c_C1_CT_Act.*c_C2_AcCoA - P.k1_5r.*c_C3_CT_Act_AcCoA - P.kcat1_4.*c_C3_CT_Act_AcCoA;
 
 dcdt = [d_ATP;d_C1_Bicarbonate;d_C2_AcCoA;d_ADP;d_C3_MalCoA;d_BC_ATP;d_C1_BC_ATP_HCO3;d_C1_BC_Pi_HCO3;...

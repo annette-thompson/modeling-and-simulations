@@ -1,17 +1,17 @@
-%% set_vars
-function S = set_vars()
-% Assigns all variables needed to calculate parameters
-%   Output: 
+%% set_vars_opt
+function S = set_vars_opt(p_vec)
+% Assigns variables needed to calculate parameters based off optimized
+% parameters guess
+%   Input:
+%       p_vec: optimized parameters vector guess
+%   Output:
 %       S: structure storing all variables
 
 % Set up structure to store variables
 S = struct;
 
-% Optimized parameters vector
-% p_vec = [a1 a2 a3 b1 c2 c3 c1 b2 b3 d1 d2 e f c4 x1 x2 x3 x4];
-S.p_vec = [142473.7238 7597.676912 4.276689943 40213.92919 88.88525384 0.005388274...
-    4.645634978 0.006677519 0.284982219 -0.285700283 3.348915642 2.886607673 132.8499358...
-    2180.050007 0.539756276	0.053673263	34.49718991	11.15058888];
+% Set p_vec to optimization guess
+S.p_vec = p_vec;
 
 % Potential FA lengths for calculating production profile
 % Numbers repeated are saturated and unsaturated
@@ -112,7 +112,7 @@ S.kcat_scaling_fabF_unsat = [1,1,1,1,0.9,0.289,0.34,0.34,0.34];%specificity of r
 S.scaling_factor_fabF = S.p_vec(2);%parameter "a2" (option here to modify FabF scaling seperately)
 S.kcat_scaling_fabZ = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabZ = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105];
-S.scaling_factor_fabB_init = 1;
+S.scaling_factor_fabB_init = S.p_vec(19);
 S.scaling_factor_fabF_init = 1;
 
 S.scaling_factor_kcat8_CO2 = S.p_vec(15);
