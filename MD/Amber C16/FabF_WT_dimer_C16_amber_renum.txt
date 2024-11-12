@@ -1,0 +1,978 @@
+MET       1    MET     1
+LYS       2    LYS     2
+ARG       3    ARG     3
+ARG       4    ARG     4
+VAL       5    VAL     5
+VAL       6    VAL     6
+VAL       7    VAL     7
+THR       8    THR     8
+GLY       9    GLY     9
+LEU      10    LEU    10
+GLY      11    GLY    11
+MET      12    MET    12
+LEU      13    LEU    13
+SER      14    SER    14
+PRO      15    PRO    15
+VAL      16    VAL    16
+GLY      17    GLY    17
+ASN      18    ASN    18
+THR      19    THR    19
+VAL      20    VAL    20
+GLU      21    GLU    21
+SER      22    SER    22
+THR      23    THR    23
+TRP      24    TRP    24
+LYS      25    LYS    25
+ALA      26    ALA    26
+LEU      27    LEU    27
+LEU      28    LEU    28
+ALA      29    ALA    29
+GLY      30    GLY    30
+GLN      31    GLN    31
+SER      32    SER    32
+GLY      33    GLY    33
+ILE      34    ILE    34
+SER      35    SER    35
+LEU      36    LEU    36
+ILE      37    ILE    37
+ASP      38    ASP    38
+HIE      39    HIE    39
+PHE      40    PHE    40
+ASP      41    ASP    41
+THR      42    THR    42
+SER      43    SER    43
+ALA      44    ALA    44
+TYR      45    TYR    45
+ALA      46    ALA    46
+THR      47    THR    47
+LYS      48    LYS    48
+PHE      49    PHE    49
+ALA      50    ALA    50
+GLY      51    GLY    51
+LEU      52    LEU    52
+VAL      53    VAL    53
+LYS      54    LYS    54
+ASP      55    ASP    55
+PHE      56    PHE    56
+ASN      57    ASN    57
+CYS      58    CYS    58
+GLU      59    GLU    59
+ASP      60    ASP    60
+ILE      61    ILE    61
+ILE      62    ILE    62
+SER      63    SER    63
+ARG      64    ARG    64
+LYS      65    LYS    65
+GLU      66    GLU    66
+GLN      67    GLN    67
+ARG      68    ARG    68
+LYS      69    LYS    69
+MET      70    MET    70
+ASP      71    ASP    71
+ALA      72    ALA    72
+PHE      73    PHE    73
+ILE      74    ILE    74
+GLN      75    GLN    75
+TYR      76    TYR    76
+GLY      77    GLY    77
+ILE      78    ILE    78
+VAL      79    VAL    79
+ALA      80    ALA    80
+GLY      81    GLY    81
+VAL      82    VAL    82
+GLN      83    GLN    83
+ALA      84    ALA    84
+MET      85    MET    85
+GLN      86    GLN    86
+ASP      87    ASP    87
+SER      88    SER    88
+GLY      89    GLY    89
+LEU      90    LEU    90
+GLU      91    GLU    91
+ILE      92    ILE    92
+THR      93    THR    93
+GLU      94    GLU    94
+GLU      95    GLU    95
+ASN      96    ASN    96
+ALA      97    ALA    97
+THR      98    THR    98
+ARG      99    ARG    99
+ILE     100    ILE   100
+GLY     101    GLY   101
+ALA     102    ALA   102
+ALA     103    ALA   103
+ILE     104    ILE   104
+GLY     105    GLY   105
+SER     106    SER   106
+GLY     107    GLY   107
+ILE     108    ILE   108
+GLY     109    GLY   109
+GLY     110    GLY   110
+LEU     111    LEU   111
+GLY     112    GLY   112
+LEU     113    LEU   113
+ILE     114    ILE   114
+GLU     115    GLU   115
+GLU     116    GLU   116
+ASN     117    ASN   117
+HIE     118    HIE   118
+THR     119    THR   119
+SER     120    SER   120
+LEU     121    LEU   121
+MET     122    MET   122
+ASN     123    ASN   123
+GLY     124    GLY   124
+GLY     125    GLY   125
+PRO     126    PRO   126
+ARG     127    ARG   127
+LYS     128    LYS   128
+ILE     129    ILE   129
+SER     130    SER   130
+PRO     131    PRO   131
+PHE     132    PHE   132
+PHE     133    PHE   133
+VAL     134    VAL   134
+PRO     135    PRO   135
+SER     136    SER   136
+THR     137    THR   137
+ILE     138    ILE   138
+VAL     139    VAL   139
+ASN     140    ASN   140
+MET     141    MET   141
+VAL     142    VAL   142
+ALA     143    ALA   143
+GLY     144    GLY   144
+HIE     145    HIE   145
+LEU     146    LEU   146
+THR     147    THR   147
+ILE     148    ILE   148
+MET     149    MET   149
+TYR     150    TYR   150
+GLY     151    GLY   151
+LEU     152    LEU   152
+ARG     153    ARG   153
+GLY     154    GLY   154
+PRO     155    PRO   155
+SER     156    SER   156
+ILE     157    ILE   157
+SER     158    SER   158
+ILE     159    ILE   159
+ALA     160    ALA   160
+THR     161    THR   161
+ALA     162    ALA   162
+CYS     163    CYS   163
+THR     164    THR   164
+SER     165    SER   165
+GLY     166    GLY   166
+VAL     167    VAL   167
+HIE     168    HIE   168
+ASN     169    ASN   169
+ILE     170    ILE   170
+GLY     171    GLY   171
+HIE     172    HIE   172
+ALA     173    ALA   173
+ALA     174    ALA   174
+ARG     175    ARG   175
+ILE     176    ILE   176
+ILE     177    ILE   177
+ALA     178    ALA   178
+TYR     179    TYR   179
+GLY     180    GLY   180
+ASP     181    ASP   181
+ALA     182    ALA   182
+ASP     183    ASP   183
+VAL     184    VAL   184
+MET     185    MET   185
+VAL     186    VAL   186
+ALA     187    ALA   187
+GLY     188    GLY   188
+GLY     189    GLY   189
+ALA     190    ALA   190
+GLU     191    GLU   191
+LYS     192    LYS   192
+ALA     193    ALA   193
+SER     194    SER   194
+THR     195    THR   195
+PRO     196    PRO   196
+LEU     197    LEU   197
+GLY     198    GLY   198
+VAL     199    VAL   199
+GLY     200    GLY   200
+GLY     201    GLY   201
+PHE     202    PHE   202
+GLY     203    GLY   203
+ALA     204    ALA   204
+ALA     205    ALA   205
+ARG     206    ARG   206
+ALA     207    ALA   207
+LEU     208    LEU   208
+SER     209    SER   209
+THR     210    THR   210
+ARG     211    ARG   211
+ASN     212    ASN   212
+ASP     213    ASP   213
+ASN     214    ASN   214
+PRO     215    PRO   215
+GLN     216    GLN   216
+ALA     217    ALA   217
+ALA     218    ALA   218
+SER     219    SER   219
+ARG     220    ARG   220
+PRO     221    PRO   221
+TRP     222    TRP   222
+ASP     223    ASP   223
+LYS     224    LYS   224
+GLU     225    GLU   225
+ARG     226    ARG   226
+ASP     227    ASP   227
+GLY     228    GLY   228
+PHE     229    PHE   229
+VAL     230    VAL   230
+LEU     231    LEU   231
+GLY     232    GLY   232
+ASP     233    ASP   233
+GLY     234    GLY   234
+ALA     235    ALA   235
+GLY     236    GLY   236
+MET     237    MET   237
+LEU     238    LEU   238
+VAL     239    VAL   239
+LEU     240    LEU   240
+GLU     241    GLU   241
+GLU     242    GLU   242
+TYR     243    TYR   243
+GLU     244    GLU   244
+HID     245    HID   245
+ALA     246    ALA   246
+LYS     247    LYS   247
+LYS     248    LYS   248
+ARG     249    ARG   249
+GLY     250    GLY   250
+ALA     251    ALA   251
+LYS     252    LYS   252
+ILE     253    ILE   253
+TYR     254    TYR   254
+ALA     255    ALA   255
+GLU     256    GLU   256
+LEU     257    LEU   257
+VAL     258    VAL   258
+GLY     259    GLY   259
+PHE     260    PHE   260
+GLY     261    GLY   261
+MET     262    MET   262
+SER     263    SER   263
+SER     264    SER   264
+ASP     265    ASP   265
+ALA     266    ALA   266
+TYR     267    TYR   267
+HIE     268    HIE   268
+MET     269    MET   269
+THR     270    THR   270
+SER     271    SER   271
+PRO     272    PRO   272
+PRO     273    PRO   273
+GLU     274    GLU   274
+ASN     275    ASN   275
+GLY     276    GLY   276
+ALA     277    ALA   277
+GLY     278    GLY   278
+ALA     279    ALA   279
+ALA     280    ALA   280
+LEU     281    LEU   281
+ALA     282    ALA   282
+MET     283    MET   283
+ALA     284    ALA   284
+ASN     285    ASN   285
+ALA     286    ALA   286
+LEU     287    LEU   287
+ARG     288    ARG   288
+ASP     289    ASP   289
+ALA     290    ALA   290
+GLY     291    GLY   291
+ILE     292    ILE   292
+GLU     293    GLU   293
+ALA     294    ALA   294
+SER     295    SER   295
+GLN     296    GLN   296
+ILE     297    ILE   297
+GLY     298    GLY   298
+TYR     299    TYR   299
+VAL     300    VAL   300
+ASN     301    ASN   301
+ALA     302    ALA   302
+HID     303    HID   303
+GLY     304    GLY   304
+THR     305    THR   305
+SER     306    SER   306
+THR     307    THR   307
+PRO     308    PRO   308
+ALA     309    ALA   309
+GLY     310    GLY   310
+ASP     311    ASP   311
+LYS     312    LYS   312
+ALA     313    ALA   313
+GLU     314    GLU   314
+ALA     315    ALA   315
+GLN     316    GLN   316
+ALA     317    ALA   317
+VAL     318    VAL   318
+LYS     319    LYS   319
+THR     320    THR   320
+ILE     321    ILE   321
+PHE     322    PHE   322
+GLY     323    GLY   323
+GLU     324    GLU   324
+ALA     325    ALA   325
+ALA     326    ALA   326
+SER     327    SER   327
+ARG     328    ARG   328
+VAL     329    VAL   329
+LEU     330    LEU   330
+VAL     331    VAL   331
+SER     332    SER   332
+SER     333    SER   333
+THR     334    THR   334
+LYS     335    LYS   335
+SER     336    SER   336
+MET     337    MET   337
+THR     338    THR   338
+GLY     339    GLY   339
+HIE     340    HIE   340
+LEU     341    LEU   341
+LEU     342    LEU   342
+GLY     343    GLY   343
+ALA     344    ALA   344
+ALA     345    ALA   345
+GLY     346    GLY   346
+ALA     347    ALA   347
+VAL     348    VAL   348
+GLU     349    GLU   349
+SER     350    SER   350
+ILE     351    ILE   351
+TYR     352    TYR   352
+SER     353    SER   353
+ILE     354    ILE   354
+LEU     355    LEU   355
+ALA     356    ALA   356
+LEU     357    LEU   357
+ARG     358    ARG   358
+ASP     359    ASP   359
+GLN     360    GLN   360
+ALA     361    ALA   361
+VAL     362    VAL   362
+PRO     363    PRO   363
+PRO     364    PRO   364
+THR     365    THR   365
+ILE     366    ILE   366
+ASN     367    ASN   367
+LEU     368    LEU   368
+ASP     369    ASP   369
+ASN     370    ASN   370
+PRO     371    PRO   371
+ASP     372    ASP   372
+GLU     373    GLU   373
+GLY     374    GLY   374
+CYS     375    CYS   375
+ASP     376    ASP   376
+LEU     377    LEU   377
+ASP     378    ASP   378
+PHE     379    PHE   379
+VAL     380    VAL   380
+PRO     381    PRO   381
+HIE     382    HIE   382
+GLU     383    GLU   383
+ALA     384    ALA   384
+ARG     385    ARG   385
+GLN     386    GLN   386
+VAL     387    VAL   387
+SER     388    SER   388
+GLY     389    GLY   389
+MET     390    MET   390
+GLU     391    GLU   391
+TYR     392    TYR   392
+THR     393    THR   393
+LEU     394    LEU   394
+CYS     395    CYS   395
+ASN     396    ASN   396
+SER     397    SER   397
+PHE     398    PHE   398
+GLY     399    GLY   399
+PHE     400    PHE   400
+GLY     401    GLY   401
+GLY     402    GLY   402
+THR     403    THR   403
+ASN     404    ASN   404
+GLY     405    GLY   405
+SER     406    SER   406
+LEU     407    LEU   407
+ILE     408    ILE   408
+PHE     409    PHE   409
+LYS     410    LYS   410
+LYS     411    LYS   411
+ILE     412    ILE   412
+SER     413    SER   413
+THR     414    THR   414
+ILE     415    ILE   415
+GLU     416    GLU   416
+GLU     417    GLU   417
+ARG     418    ARG   418
+VAL     419    VAL   419
+LYS     420    LYS   420
+LYS     421    LYS   421
+ILE     422    ILE   422
+ILE     423    ILE   423
+GLY     424    GLY   424
+GLU     425    GLU   425
+GLN     426    GLN   426
+LEU     427    LEU   427
+GLY     428    GLY   428
+VAL     429    VAL   429
+LYS     430    LYS   430
+GLN     431    GLN   431
+GLU     432    GLU   432
+GLU     433    GLU   433
+VAL     434    VAL   434
+THR     435    THR   435
+ASN     436    ASN   436
+ASN     437    ASN   437
+ALA     438    ALA   438
+SER     439    SER   439
+PHE     440    PHE   440
+VAL     441    VAL   441
+GLU     442    GLU   442
+ASP     443    ASP   443
+LEU     444    LEU   444
+GLY     445    GLY   445
+ALA     446    ALA   446
+ASP     447    ASP   447
+C16     448    C16   448
+LEU     449    LEU   449
+ASP     450    ASP   450
+THR     451    THR   451
+VAL     452    VAL   452
+GLU     453    GLU   453
+LEU     454    LEU   454
+VAL     455    VAL   455
+MET     456    MET   456
+ALA     457    ALA   457
+LEU     458    LEU   458
+GLU     459    GLU   459
+GLU     460    GLU   460
+GLU     461    GLU   461
+PHE     462    PHE   462
+ASP     463    ASP   463
+THR     464    THR   464
+GLU     465    GLU   465
+ILE     466    ILE   466
+PRO     467    PRO   467
+ASP     468    ASP   468
+GLU     469    GLU   469
+GLU     470    GLU   470
+ALA     471    ALA   471
+GLU     472    GLU   472
+LYS     473    LYS   473
+ILE     474    ILE   474
+THR     475    THR   475
+THR     476    THR   476
+VAL     477    VAL   477
+GLN     478    GLN   478
+ALA     479    ALA   479
+ALA     480    ALA   480
+ILE     481    ILE   481
+ASP     482    ASP   482
+TYR     483    TYR   483
+ILE     484    ILE   484
+ASN     485    ASN   485
+GLY     486    GLY   486
+HID     487    HID   487
+GLN     488    GLN   488
+ALA     489    ALA   489
+MET A     1    MET   490
+LYS A     2    LYS   491
+ARG A     3    ARG   492
+ARG A     4    ARG   493
+VAL A     5    VAL   494
+VAL A     6    VAL   495
+VAL A     7    VAL   496
+THR A     8    THR   497
+GLY A     9    GLY   498
+LEU A    10    LEU   499
+GLY A    11    GLY   500
+MET A    12    MET   501
+LEU A    13    LEU   502
+SER A    14    SER   503
+PRO A    15    PRO   504
+VAL A    16    VAL   505
+GLY A    17    GLY   506
+ASN A    18    ASN   507
+THR A    19    THR   508
+VAL A    20    VAL   509
+GLU A    21    GLU   510
+SER A    22    SER   511
+THR A    23    THR   512
+TRP A    24    TRP   513
+LYS A    25    LYS   514
+ALA A    26    ALA   515
+LEU A    27    LEU   516
+LEU A    28    LEU   517
+ALA A    29    ALA   518
+GLY A    30    GLY   519
+GLN A    31    GLN   520
+SER A    32    SER   521
+GLY A    33    GLY   522
+ILE A    34    ILE   523
+SER A    35    SER   524
+LEU A    36    LEU   525
+ILE A    37    ILE   526
+ASP A    38    ASP   527
+HIE A    39    HIE   528
+PHE A    40    PHE   529
+ASP A    41    ASP   530
+THR A    42    THR   531
+SER A    43    SER   532
+ALA A    44    ALA   533
+TYR A    45    TYR   534
+ALA A    46    ALA   535
+THR A    47    THR   536
+LYS A    48    LYS   537
+PHE A    49    PHE   538
+ALA A    50    ALA   539
+GLY A    51    GLY   540
+LEU A    52    LEU   541
+VAL A    53    VAL   542
+LYS A    54    LYS   543
+ASP A    55    ASP   544
+PHE A    56    PHE   545
+ASN A    57    ASN   546
+CYS A    58    CYS   547
+GLU A    59    GLU   548
+ASP A    60    ASP   549
+ILE A    61    ILE   550
+ILE A    62    ILE   551
+SER A    63    SER   552
+ARG A    64    ARG   553
+LYS A    65    LYS   554
+GLU A    66    GLU   555
+GLN A    67    GLN   556
+ARG A    68    ARG   557
+LYS A    69    LYS   558
+MET A    70    MET   559
+ASP A    71    ASP   560
+ALA A    72    ALA   561
+PHE A    73    PHE   562
+ILE A    74    ILE   563
+GLN A    75    GLN   564
+TYR A    76    TYR   565
+GLY A    77    GLY   566
+ILE A    78    ILE   567
+VAL A    79    VAL   568
+ALA A    80    ALA   569
+GLY A    81    GLY   570
+VAL A    82    VAL   571
+GLN A    83    GLN   572
+ALA A    84    ALA   573
+MET A    85    MET   574
+GLN A    86    GLN   575
+ASP A    87    ASP   576
+SER A    88    SER   577
+GLY A    89    GLY   578
+LEU A    90    LEU   579
+GLU A    91    GLU   580
+ILE A    92    ILE   581
+THR A    93    THR   582
+GLU A    94    GLU   583
+GLU A    95    GLU   584
+ASN A    96    ASN   585
+ALA A    97    ALA   586
+THR A    98    THR   587
+ARG A    99    ARG   588
+ILE A   100    ILE   589
+GLY A   101    GLY   590
+ALA A   102    ALA   591
+ALA A   103    ALA   592
+ILE A   104    ILE   593
+GLY A   105    GLY   594
+SER A   106    SER   595
+GLY A   107    GLY   596
+ILE A   108    ILE   597
+GLY A   109    GLY   598
+GLY A   110    GLY   599
+LEU A   111    LEU   600
+GLY A   112    GLY   601
+LEU A   113    LEU   602
+ILE A   114    ILE   603
+GLU A   115    GLU   604
+GLU A   116    GLU   605
+ASN A   117    ASN   606
+HIE A   118    HIE   607
+THR A   119    THR   608
+SER A   120    SER   609
+LEU A   121    LEU   610
+MET A   122    MET   611
+ASN A   123    ASN   612
+GLY A   124    GLY   613
+GLY A   125    GLY   614
+PRO A   126    PRO   615
+ARG A   127    ARG   616
+LYS A   128    LYS   617
+ILE A   129    ILE   618
+SER A   130    SER   619
+PRO A   131    PRO   620
+PHE A   132    PHE   621
+PHE A   133    PHE   622
+VAL A   134    VAL   623
+PRO A   135    PRO   624
+SER A   136    SER   625
+THR A   137    THR   626
+ILE A   138    ILE   627
+VAL A   139    VAL   628
+ASN A   140    ASN   629
+MET A   141    MET   630
+VAL A   142    VAL   631
+ALA A   143    ALA   632
+GLY A   144    GLY   633
+HIE A   145    HIE   634
+LEU A   146    LEU   635
+THR A   147    THR   636
+ILE A   148    ILE   637
+MET A   149    MET   638
+TYR A   150    TYR   639
+GLY A   151    GLY   640
+LEU A   152    LEU   641
+ARG A   153    ARG   642
+GLY A   154    GLY   643
+PRO A   155    PRO   644
+SER A   156    SER   645
+ILE A   157    ILE   646
+SER A   158    SER   647
+ILE A   159    ILE   648
+ALA A   160    ALA   649
+THR A   161    THR   650
+ALA A   162    ALA   651
+CYS A   163    CYS   652
+THR A   164    THR   653
+SER A   165    SER   654
+GLY A   166    GLY   655
+VAL A   167    VAL   656
+HIE A   168    HIE   657
+ASN A   169    ASN   658
+ILE A   170    ILE   659
+GLY A   171    GLY   660
+HIE A   172    HIE   661
+ALA A   173    ALA   662
+ALA A   174    ALA   663
+ARG A   175    ARG   664
+ILE A   176    ILE   665
+ILE A   177    ILE   666
+ALA A   178    ALA   667
+TYR A   179    TYR   668
+GLY A   180    GLY   669
+ASP A   181    ASP   670
+ALA A   182    ALA   671
+ASP A   183    ASP   672
+VAL A   184    VAL   673
+MET A   185    MET   674
+VAL A   186    VAL   675
+ALA A   187    ALA   676
+GLY A   188    GLY   677
+GLY A   189    GLY   678
+ALA A   190    ALA   679
+GLU A   191    GLU   680
+LYS A   192    LYS   681
+ALA A   193    ALA   682
+SER A   194    SER   683
+THR A   195    THR   684
+PRO A   196    PRO   685
+LEU A   197    LEU   686
+GLY A   198    GLY   687
+VAL A   199    VAL   688
+GLY A   200    GLY   689
+GLY A   201    GLY   690
+PHE A   202    PHE   691
+GLY A   203    GLY   692
+ALA A   204    ALA   693
+ALA A   205    ALA   694
+ARG A   206    ARG   695
+ALA A   207    ALA   696
+LEU A   208    LEU   697
+SER A   209    SER   698
+THR A   210    THR   699
+ARG A   211    ARG   700
+ASN A   212    ASN   701
+ASP A   213    ASP   702
+ASN A   214    ASN   703
+PRO A   215    PRO   704
+GLN A   216    GLN   705
+ALA A   217    ALA   706
+ALA A   218    ALA   707
+SER A   219    SER   708
+ARG A   220    ARG   709
+PRO A   221    PRO   710
+TRP A   222    TRP   711
+ASP A   223    ASP   712
+LYS A   224    LYS   713
+GLU A   225    GLU   714
+ARG A   226    ARG   715
+ASP A   227    ASP   716
+GLY A   228    GLY   717
+PHE A   229    PHE   718
+VAL A   230    VAL   719
+LEU A   231    LEU   720
+GLY A   232    GLY   721
+ASP A   233    ASP   722
+GLY A   234    GLY   723
+ALA A   235    ALA   724
+GLY A   236    GLY   725
+MET A   237    MET   726
+LEU A   238    LEU   727
+VAL A   239    VAL   728
+LEU A   240    LEU   729
+GLU A   241    GLU   730
+GLU A   242    GLU   731
+TYR A   243    TYR   732
+GLU A   244    GLU   733
+HID A   245    HID   734
+ALA A   246    ALA   735
+LYS A   247    LYS   736
+LYS A   248    LYS   737
+ARG A   249    ARG   738
+GLY A   250    GLY   739
+ALA A   251    ALA   740
+LYS A   252    LYS   741
+ILE A   253    ILE   742
+TYR A   254    TYR   743
+ALA A   255    ALA   744
+GLU A   256    GLU   745
+LEU A   257    LEU   746
+VAL A   258    VAL   747
+GLY A   259    GLY   748
+PHE A   260    PHE   749
+GLY A   261    GLY   750
+MET A   262    MET   751
+SER A   263    SER   752
+SER A   264    SER   753
+ASP A   265    ASP   754
+ALA A   266    ALA   755
+TYR A   267    TYR   756
+HIE A   268    HIE   757
+MET A   269    MET   758
+THR A   270    THR   759
+SER A   271    SER   760
+PRO A   272    PRO   761
+PRO A   273    PRO   762
+GLU A   274    GLU   763
+ASN A   275    ASN   764
+GLY A   276    GLY   765
+ALA A   277    ALA   766
+GLY A   278    GLY   767
+ALA A   279    ALA   768
+ALA A   280    ALA   769
+LEU A   281    LEU   770
+ALA A   282    ALA   771
+MET A   283    MET   772
+ALA A   284    ALA   773
+ASN A   285    ASN   774
+ALA A   286    ALA   775
+LEU A   287    LEU   776
+ARG A   288    ARG   777
+ASP A   289    ASP   778
+ALA A   290    ALA   779
+GLY A   291    GLY   780
+ILE A   292    ILE   781
+GLU A   293    GLU   782
+ALA A   294    ALA   783
+SER A   295    SER   784
+GLN A   296    GLN   785
+ILE A   297    ILE   786
+GLY A   298    GLY   787
+TYR A   299    TYR   788
+VAL A   300    VAL   789
+ASN A   301    ASN   790
+ALA A   302    ALA   791
+HID A   303    HID   792
+GLY A   304    GLY   793
+THR A   305    THR   794
+SER A   306    SER   795
+THR A   307    THR   796
+PRO A   308    PRO   797
+ALA A   309    ALA   798
+GLY A   310    GLY   799
+ASP A   311    ASP   800
+LYS A   312    LYS   801
+ALA A   313    ALA   802
+GLU A   314    GLU   803
+ALA A   315    ALA   804
+GLN A   316    GLN   805
+ALA A   317    ALA   806
+VAL A   318    VAL   807
+LYS A   319    LYS   808
+THR A   320    THR   809
+ILE A   321    ILE   810
+PHE A   322    PHE   811
+GLY A   323    GLY   812
+GLU A   324    GLU   813
+ALA A   325    ALA   814
+ALA A   326    ALA   815
+SER A   327    SER   816
+ARG A   328    ARG   817
+VAL A   329    VAL   818
+LEU A   330    LEU   819
+VAL A   331    VAL   820
+SER A   332    SER   821
+SER A   333    SER   822
+THR A   334    THR   823
+LYS A   335    LYS   824
+SER A   336    SER   825
+MET A   337    MET   826
+THR A   338    THR   827
+GLY A   339    GLY   828
+HIE A   340    HIE   829
+LEU A   341    LEU   830
+LEU A   342    LEU   831
+GLY A   343    GLY   832
+ALA A   344    ALA   833
+ALA A   345    ALA   834
+GLY A   346    GLY   835
+ALA A   347    ALA   836
+VAL A   348    VAL   837
+GLU A   349    GLU   838
+SER A   350    SER   839
+ILE A   351    ILE   840
+TYR A   352    TYR   841
+SER A   353    SER   842
+ILE A   354    ILE   843
+LEU A   355    LEU   844
+ALA A   356    ALA   845
+LEU A   357    LEU   846
+ARG A   358    ARG   847
+ASP A   359    ASP   848
+GLN A   360    GLN   849
+ALA A   361    ALA   850
+VAL A   362    VAL   851
+PRO A   363    PRO   852
+PRO A   364    PRO   853
+THR A   365    THR   854
+ILE A   366    ILE   855
+ASN A   367    ASN   856
+LEU A   368    LEU   857
+ASP A   369    ASP   858
+ASN A   370    ASN   859
+PRO A   371    PRO   860
+ASP A   372    ASP   861
+GLU A   373    GLU   862
+GLY A   374    GLY   863
+CYS A   375    CYS   864
+ASP A   376    ASP   865
+LEU A   377    LEU   866
+ASP A   378    ASP   867
+PHE A   379    PHE   868
+VAL A   380    VAL   869
+PRO A   381    PRO   870
+HIE A   382    HIE   871
+GLU A   383    GLU   872
+ALA A   384    ALA   873
+ARG A   385    ARG   874
+GLN A   386    GLN   875
+VAL A   387    VAL   876
+SER A   388    SER   877
+GLY A   389    GLY   878
+MET A   390    MET   879
+GLU A   391    GLU   880
+TYR A   392    TYR   881
+THR A   393    THR   882
+LEU A   394    LEU   883
+CYS A   395    CYS   884
+ASN A   396    ASN   885
+SER A   397    SER   886
+PHE A   398    PHE   887
+GLY A   399    GLY   888
+PHE A   400    PHE   889
+GLY A   401    GLY   890
+GLY A   402    GLY   891
+THR A   403    THR   892
+ASN A   404    ASN   893
+GLY A   405    GLY   894
+SER A   406    SER   895
+LEU A   407    LEU   896
+ILE A   408    ILE   897
+PHE A   409    PHE   898
+LYS A   410    LYS   899
+LYS A   411    LYS   900
+ILE A   412    ILE   901
+SER A   413    SER   902
+THR A   414    THR   903
+ILE A   415    ILE   904
+GLU A   416    GLU   905
+GLU A   417    GLU   906
+ARG A   418    ARG   907
+VAL A   419    VAL   908
+LYS A   420    LYS   909
+LYS A   421    LYS   910
+ILE A   422    ILE   911
+ILE A   423    ILE   912
+GLY A   424    GLY   913
+GLU A   425    GLU   914
+GLN A   426    GLN   915
+LEU A   427    LEU   916
+GLY A   428    GLY   917
+VAL A   429    VAL   918
+LYS A   430    LYS   919
+GLN A   431    GLN   920
+GLU A   432    GLU   921
+GLU A   433    GLU   922
+VAL A   434    VAL   923
+THR A   435    THR   924
+ASN A   436    ASN   925
+ASN A   437    ASN   926
+ALA A   438    ALA   927
+SER A   439    SER   928
+PHE A   440    PHE   929
+VAL A   441    VAL   930
+GLU A   442    GLU   931
+ASP A   443    ASP   932
+LEU A   444    LEU   933
+GLY A   445    GLY   934
+ALA A   446    ALA   935
+ASP A   447    ASP   936
+C16 A   448    C16   937
+LEU A   449    LEU   938
+ASP A   450    ASP   939
+THR A   451    THR   940
+VAL A   452    VAL   941
+GLU A   453    GLU   942
+LEU A   454    LEU   943
+VAL A   455    VAL   944
+MET A   456    MET   945
+ALA A   457    ALA   946
+LEU A   458    LEU   947
+GLU A   459    GLU   948
+GLU A   460    GLU   949
+GLU A   461    GLU   950
+PHE A   462    PHE   951
+ASP A   463    ASP   952
+THR A   464    THR   953
+GLU A   465    GLU   954
+ILE A   466    ILE   955
+PRO A   467    PRO   956
+ASP A   468    ASP   957
+GLU A   469    GLU   958
+GLU A   470    GLU   959
+ALA A   471    ALA   960
+GLU A   472    GLU   961
+LYS A   473    LYS   962
+ILE A   474    ILE   963
+THR A   475    THR   964
+THR A   476    THR   965
+VAL A   477    VAL   966
+GLN A   478    GLN   967
+ALA A   479    ALA   968
+ALA A   480    ALA   969
+ILE A   481    ILE   970
+ASP A   482    ASP   971
+TYR A   483    TYR   972
+ILE A   484    ILE   973
+ASN A   485    ASN   974
+GLY A   486    GLY   975
+HID A   487    HID   976
+GLN A   488    GLN   977
+ALA A   489    ALA   978
