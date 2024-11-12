@@ -49,13 +49,13 @@ P.Km1_5 = 48.7; % uM
 % Solve ODEs
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 [T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
-[F_raw_12, rel_rate] = Calc_Function(T,C,S);
+[F_raw, rel_rate] = Calc_Function(T,C,S);
 [balance_conc, balances, total_conc, carbon] = mass_balance(C,P);
 
 %% Plotting
 % Profile
 figure()
-F_raw_new(1,1:4) = F_raw_12(1,1:4);
+F_raw_new(1,1:4) = F_raw(1,1:4);
 j=10;
 for i=5:2:13
     F_raw_new(1,i) = F_raw(j-5);
