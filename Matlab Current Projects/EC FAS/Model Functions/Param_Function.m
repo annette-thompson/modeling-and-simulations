@@ -17,12 +17,8 @@ P.labels = S.labels;
 % if the parameter is kcat, then scale each estimated kcat value from the 
 % table using the appropriate kcat scaling terms
 
-% Initiation scaling for FabH, ACC
+% Initiation scaling for FabH
 P.kcat3 = S.param_table{'kcat3','parameter_values'}*S.scaling_factor_kcat_init;
-P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'};%*S.scaling_factor_kcat_init;
-P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'};%*S.scaling_factor_kcat_init;
-P.kcat1_3 = S.param_table{'kcat1_3','parameter_values'};%*S.scaling_factor_kcat_init;
-P.kcat1_4 = S.param_table{'kcat1_4','parameter_values'}; % Doesn't need to be scaled
 
 % Termination scaling for TesA
 P.kcat7 = S.param_table{'kcat7','parameter_values'}*S.scaling_factor_kcat_term; 
@@ -97,7 +93,7 @@ P.k8_3f = P.k8_3r/S.km_table{'k8_3f','parameter_values'};
 P.k9_1f = P.k9_1r/S.km_table{'k9_1f','parameter_values'};
 P.k10_3f = P.k10_3r/S.km_table{'k10_3f','parameter_values'};
 
-% ACC
+% ACC (k1_1-5 are not real values in the table)
 P.k1_1f = S.param_table{'k1_1f','parameter_values'};
 P.k1_1r = S.param_table{'k1_1r','parameter_values'};
 P.k1_2f = S.param_table{'k1_2f','parameter_values'};
@@ -108,7 +104,16 @@ P.k1_4f = S.param_table{'k1_4f','parameter_values'};
 P.k1_4r = S.param_table{'k1_4r','parameter_values'};
 P.k1_5f = S.param_table{'k1_5f','parameter_values'};
 P.k1_5r = S.param_table{'k1_5r','parameter_values'};
-
+P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'};
+P.Km1_1 = S.km_table{'Km1_1','parameter_values'};
+P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'};
+P.Km1_2 = S.km_table{'Km1_2','parameter_values'};
+P.kcat1_3 = S.param_table{'kcat1_3','parameter_values'}*S.scaling_factor_kcat_init;
+P.Km1_3 = S.km_table{'Km1_3','parameter_values'};
+P.kcat1_4 = S.param_table{'kcat1_4','parameter_values'}*S.scaling_factor_kcat_init;
+P.Km1_4 = S.km_table{'Km1_4','parameter_values'};
+P.kcat1_5 = S.param_table{'kcat1_5','parameter_values'};
+P.Km1_5 = S.km_table{'Km1_5','parameter_values'};
 
 % After the initial parameter assignment, additional parameters are
 % assigned, and modified (for example incorporating substrate specificity)

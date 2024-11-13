@@ -88,21 +88,27 @@ P.k9_1f = P.k9_1r/S.km_table{'k9_1f','parameter_values'};
 P.k9_2f = P.k9_2r/S.km_table{'k9_2f','parameter_values'};
 P.k10_3f = P.k10_3r/S.km_table{'k10_3f','parameter_values'};
 
-% ACC
-P.k1_1f = S.param_table{'k1_1f','parameter_values'}*S.scaling_factor_init;
-P.k1_1r = S.param_table{'k1_1r','parameter_values'}*S.scaling_factor_init;
-P.k1_2f = S.param_table{'k1_2f','parameter_values'}*S.scaling_factor_init;
-P.k1_2r = S.param_table{'k1_2r','parameter_values'}*S.scaling_factor_init;
-P.k1_3f = S.param_table{'k1_3f','parameter_values'}*S.scaling_factor_init;
-P.k1_3r = S.param_table{'k1_3r','parameter_values'}*S.scaling_factor_init;
-P.k1_4f = S.param_table{'k1_4f','parameter_values'}*S.scaling_factor_init;
-P.k1_4r = S.param_table{'k1_4r','parameter_values'}*S.scaling_factor_init;
-P.k1_5f = S.param_table{'k1_5f','parameter_values'}*S.scaling_factor_init;
-P.k1_5r = S.param_table{'k1_5r','parameter_values'}*S.scaling_factor_init;
-P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'}*S.scaling_factor_kcat_init;
-P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'}*S.scaling_factor_kcat_init;
+% ACC (k1_1-5 are not real values in the table)
+P.k1_1f = S.param_table{'k1_1f','parameter_values'};
+P.k1_1r = S.param_table{'k1_1r','parameter_values'};
+P.k1_2f = S.param_table{'k1_2f','parameter_values'};
+P.k1_2r = S.param_table{'k1_2r','parameter_values'};
+P.k1_3f = S.param_table{'k1_3f','parameter_values'};
+P.k1_3r = S.param_table{'k1_3r','parameter_values'};
+P.k1_4f = S.param_table{'k1_4f','parameter_values'};
+P.k1_4r = S.param_table{'k1_4r','parameter_values'};
+P.k1_5f = S.param_table{'k1_5f','parameter_values'};
+P.k1_5r = S.param_table{'k1_5r','parameter_values'};
+P.kcat1_1 = S.param_table{'kcat1_1','parameter_values'};
+P.Km1_1 = S.km_table{'Km1_1','parameter_values'};
+P.kcat1_2 = S.param_table{'kcat1_2','parameter_values'};
+P.Km1_2 = S.km_table{'Km1_2','parameter_values'};
 P.kcat1_3 = S.param_table{'kcat1_3','parameter_values'}*S.scaling_factor_kcat_init;
+P.Km1_3 = S.km_table{'Km1_3','parameter_values'};
 P.kcat1_4 = S.param_table{'kcat1_4','parameter_values'}*S.scaling_factor_kcat_init;
+P.Km1_4 = S.km_table{'Km1_4','parameter_values'};
+P.kcat1_5 = S.param_table{'kcat1_5','parameter_values'};
+P.Km1_5 = S.km_table{'Km1_5','parameter_values'};
 
 % After the initial parameter assignment, additional parameters are
 % assigned, and modified (for example incorporating substrate specificity)
@@ -358,7 +364,6 @@ P.k7_inh_r = S.ACP_inh(10);
 P.FatAtot = S.enzyme_conc(7);
 
 % KASI
-P.kcat8_un = P.kcat8(4).*S.kcat_scaling_KASI_unsat; % specificity of reaction with unsaturated acyl chains
 P.k8_inh_f = S.ACP_inh(11);
 P.k8_inh_r = S.ACP_inh(12);
 P.KASItot = S.enzyme_conc(8);
@@ -369,7 +374,6 @@ P.k9_inh_r = S.ACP_inh(14);
 P.SADtot = S.enzyme_conc(9);
 
 % KASII
-P.kcat10_un = P.kcat10(5).*S.kcat_scaling_KASII_unsat; % specificity of reaction with unsaturated acyl chains
 P.k10_inh_f = S.ACP_inh(15);
 P.k10_inh_r = S.ACP_inh(16);
 P.KASIItot = S.enzyme_conc(10);

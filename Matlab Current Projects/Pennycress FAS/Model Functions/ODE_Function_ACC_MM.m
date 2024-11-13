@@ -152,8 +152,7 @@ d_Fd2 = P.kcat9(5).*c_C12_SAD_Fd_AcACP + P.kcat9(6).*c_C14_SAD_Fd_AcACP + P.kcat
 d_ADP = P.kcat1_2.*c_BC_ATP.*c_C1_Bicarbonate./(P.Km1_2 + c_C1_Bicarbonate);
 
 % Malonyl-CoA (ACC - MCMT) % changed for ACC
-d_C3_MalCoA = P.kcat1_5.*c_C1_CT_Act.*c_C2_AcCoA./(P.Km1_5 + c_C2_AcCoA) - P.k2_1f.*c_MCMT.*c_C3_MalCoA;
-
+d_C3_MalCoA = P.kcat1_5.*c_C1_CT_Act.*c_C2_AcCoA./(P.Km1_5 + c_C2_AcCoA) + P.k2_1r.*c_C3_MCMT_MalCoA - P.k2_1f.*c_MCMT.*c_C3_MalCoA;
 
 % CoA (MCMT + KASI + KASII + KASIII)
 d_CoA = P.k2_2f.*c_C3_MCMT_MalCoA - P.k2_2r.*c_C3_MCMT_Act.*c_CoA...

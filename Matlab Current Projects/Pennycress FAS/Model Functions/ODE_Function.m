@@ -154,7 +154,6 @@ d_ADP = P.kcat1_1.*c_C1_BC_ATP_HCO3;
 % Malonyl-CoA (ACC - MCMT) % changed for ACC
 d_C3_MalCoA = P.kcat1_4.*c_C3_CT_Act_AcCoA + P.k2_1r.*c_C3_MCMT_MalCoA - P.k2_1f.*c_MCMT.*c_C3_MalCoA;
 
-
 % CoA (MCMT + KASI + KASII + KASIII)
 d_CoA = P.k2_2f.*c_C3_MCMT_MalCoA - P.k2_2r.*c_C3_MCMT_Act.*c_CoA...
     + P.k3_2f(1).*c_C2_KASIII_CoA - P.k3_2r(1).*c_C2_KASIII_Act.*c_CoA...

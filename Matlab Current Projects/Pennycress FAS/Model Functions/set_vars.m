@@ -74,8 +74,9 @@ S.param_table = readtable('est_param.csv','ReadRowNames',true);
 S.acp_bind = S.p_vec(12);%parameter "e"
 S.ACP_inh = [S.acp_bind*2.41E-04,4.22*2.17E-02,2.41E-03,4.22*2.17E-02,2.41E-03,4.22*2.17E-02,2.41E-03,4.22*2.17E-02,2.41E-03,4.22*2.17E-02,S.acp_bind*2.41E-03,4.22*2.17E-02,2.41E-03,4.22*2.17E-02,2.41E-03,4.22*2.17E-02];%ACP_inh lists kon,koff (in this order) for inhibitory ACP binding[KASIII,KAR,HAD,ER,FatA,KASI,SAD,KASII]
 S.kd_fits = [S.p_vec(8),S.p_vec(9),S.p_vec(4)]; %[b2,b3,b1] Keq or Kd values that are fit
-S.scaling_factor_SAD_unsat = S.p_vec(13);% unused in model?
+S.scaling_factor_FabA_unsat = S.p_vec(13);% unused, f, scaled FabA desaturating C10
 
+S.kcat_scaling_FatA = [1,1,1,1,1,1,1,1,1];
 S.lin_int = S.p_vec(11);%parameter "d2"
 S.lin_slope = S.p_vec(10);%parameter "d1" FatA linear free energy slope and intercept (as a function of chain length)
 S.Pf_kcat_scaling = [0.0568,0.0509,0.1035,0.0158,0.25256,0.45819,1,1.221,1.5368];
@@ -103,32 +104,25 @@ S.scaling_factor_kcat10_CO2 = S.p_vec(16);
 S.scaling_factor_aCoA_8 = S.p_vec(17);
 S.scaling_factor_aCoA_10 = S.p_vec(18);
 
-S.kcat_scaling_KASIII = [1,1,1,1,1,1,1,1,1]; % Can work on C2-CoA
+S.kcat_scaling_KASIII = [1,1,1,1,1,1,1,1,1];
 S.inhibition_kds = (1/S.acp_bind).*[4335.05,23.67;824.7,30.1;967.5,7.55;251.52,8.484;128.78,2.509];% (Acyl-ACP binding KASIII Kd values in pairs (binding to KASIII and KASIII*), first two values are Kd for 4-12, subsequent values are 14-20)
-S.inhibition_on_rates = [0.3088,1.552];% took out FabH AcACP inhibition, (above gets multiplied by this), [0.3088,1.552]
+S.inhibition_on_rates = [0.3088,1.552];
 
-S.kcat_scaling_KAR = [1,1,1,1,1,1,1,1,1]; % Can work on C4-C18
+S.kcat_scaling_KAR = [1,1,1,1,1,1,1,1,1];
 
-S.kcat_scaling_HAD = [1,1,1,1,1,1,1,1,1]; % Can work on C4-C18
+S.kcat_scaling_HAD = [1,1,1,1,1,1,1,1,1];
 S.scaling_factor_HAD_kcat = S.p_vec(14);% scales kcat5, k5_2r (kcat5 reverse)
-S.kon_scaling_HAD = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105]; % scales k5_1f, k5_3r, can work on C4-C18
+S.kon_scaling_HAD = [0.469,1,0.296,0.372,0.2,0.0551,0.105,0.105,0.105]; % scales k5_1f, k5_3r
 
-S.kcat_scaling_ER = [1,1,1,1,1,1,1,1,1]; % Can work on C4-C18
+S.kcat_scaling_ER = [1,1,1,1,1,1,1,1,1];
 
-S.kcat_scaling_KASI = [0.914,0.914,0.901,1,0.9,0.289,0.222,0.222,0.222]; % Can work on C4-C14
-S.kcat_scaling_KASI_unsat = [0,0,0,0,0,0,0,0,0]; % no unsat
+S.kcat_scaling_KASI = [0.914,0.914,0.901,1,0.9,0.289,0.222,0.222,0.222];
 S.scaling_factor_KASI = S.p_vec(2);% scales k8_1r/f
-S.scaling_factor_KASI_init = 1; % scales k8_4f, removing FabF init activity
+S.scaling_factor_KASI_init = 1; % scales k8_4f
 
-S.kcat_scaling_KASII = [0.855,0.855,0.975,0.967,1,0.125,0.0208,0.0208,.0208]; % Can work on C16
-S.kcat_scaling_KASII_unsat = [0,0,0,0,0,0,0,0,0]; % no unsat
+S.kcat_scaling_KASII = [0.855,0.855,0.975,0.967,1,0.125,0.0208,0.0208,0.0208];
 S.scaling_factor_KASI = S.p_vec(2);% scales k10_1r/f
-S.scaling_factor_KASII_init = 1; % scales k10_4f, removing FabB init activity
+S.scaling_factor_KASII_init = 1; % scales k10_4f
 
-S.kcat_scaling_SAD = [0,0,0,0,0,0,0,1,0]; % scales kcat9, only works on C18
-S.kon_scaling_SAD = [0.0847,0.322,0.717,1,0.751,0.0847,0.0373,0.0373,0.0373]; % scales k9_2, only works on C18
-
-S.kcat_scaling_FatA = [0,0,0,0,0,0,0.25,1,0]; % Can work on C16-18
-S.Pf_kcat_scaling = [0.0568,0.0509,0.1035,0.0158,0.25256,0.45819,1,1.221,1.5368];
-S.Pf_kd_est_scaling = [473 293.9 52.986 14.79];
-S.Pf_scaling = 0.519*14.79;
+S.kcat_scaling_SAD = [1,1,1,1,1,1,1,1,1]; % scales kcat9
+S.kon_scaling_SAD = [0.0847,0.322,0.717,1,0.751,0.0847,0.0373,0.0373,0.0373]; % scales k9_2
