@@ -97,7 +97,8 @@ S.scaling_factor_kcat_term = S.p_vec(6);%parameter "c3"
 S.scaling_factor_term = S.p_vec(3);%parameter "a3"
 
 S.kcat_scaling_fabI = [1,1,1,1,1,1,1,1,1];
-S.kcat_scaling_fabH = [1,1,1,1,1,1,1,1,1];
+S.kcat_scaling_fabH = [1,0,0,0,0,0,0,0,0];
+S.kon_scaling_fabH = [1,0,0,0,0,0,0,0,0];
 S.kcat_scaling_fabG = [1,1,1,1,1,1,1,1,1];
 S.kcat_scaling_fabA = [1,1,1,1,1,1,1,1,1];
 S.kon_scaling_fabA = [0.0847,0.322,0.717,1,0.751,0.0847,0.0373,0.0373,0.0373];
