@@ -16,8 +16,8 @@ S.range = [0 720]; % 12 mins
 
 % Initial conditions
 S.init_cond = zeros(S.num,1);
-S.init_cond(1) = 1000; % ATP
-S.init_cond(2) = 1000; % Bicarbonate
+S.init_cond(1) = 0; % ATP
+S.init_cond(2) = 0; % Bicarbonate
 S.init_cond(3) = 500; % Acetyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1000; % NADPH
@@ -26,28 +26,22 @@ S.init_cond(17) = 1000; % Fd+
 S.init_cond(20) = 500; % Malonyl-CoA
 
 % (ACC,MCMT,KASIII,KAR,HAD,ER,FatA,KASI,SAD,KASII)
-S.enzyme_conc = [1 1 1 1 1 1 10 1 1 1];
+S.enzyme_conc = [0 1 1 1 1 1 10 1 0 1];
+
+% S.kcat_scaling_KASI = [0.914,0.914,0.901,1,0.9,0.289,0.222,0.222,0.222]; % FabF scaling
+% S.kcat_scaling_KASII = [0.855,0.855,0.975,0.967,1,0.125,0.0208,0.0208,0.0208]; % FabB scaling
+S.kcat_scaling_KASI = [0.914,0.914,0.901,1,0.9,0.289,0.222,0,0];
+S.kcat_scaling_KASII = [0.855,0.855,0.975,0.967,1,0.125,0.0208,0,0];
+
+% S.FatA_fitting_source = 'FatA'; % kcat_scaling_FatA controls kon and kcat instead of Pf
+% To get to Pf kcat, scale to 0.0569    0.0509    0.1035    0.0158    0.2526    0.4582    1.0000    1.2210    1.5369
+% To get to Pf kon, scale to 0.0172    0.0280    0.1573    0.5625    1.0830    1.9170    3.3955    6.0119   10.6455
+% S.kcat_scaling_FatA = [0.1, 0.1, 0.1, 10, 0.01, 0.01, 0.01, 0.01, 0.01]; % "Cuphea" TE
 
 P = Param_Function(S);
 
-% Turn off KASI/II Initiation
-P.kcat8_H = 0;
-P.kcat10_H = 0;
-
-% Set Michaelis Menton parameters for ACC
-P.kcat1_1 = 85.17/60; % s^-1
-P.Km1_1 = 170; % uM
-P.kcat1_2 = 73.8/60; % s^-1
-P.Km1_2 = 370; % uM
-P.kcat1_3 = 1000.8/60*S.scaling_factor_kcat_init; % s^-1
-P.Km1_3 = 160; % uM
-P.kcat1_4 = 2031.8/60*S.scaling_factor_kcat_init; % s^-1
-P.Km1_4 = 450; % uM
-P.kcat1_5 = 30.1; % s^-1
-P.Km1_5 = 48.7; % uM
-
 % Solve ODEs
-parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
+parameterized_ODEs = @(t,c) ODE_Function_ACC_MM(t,c,P);
 [T,C] = ode15s(parameterized_ODEs,S.range,S.init_cond,ODE_options);
 [F_raw, rel_rate] = Calc_Function(T,C,S);
 [balance_conc, balances, total_conc, carbon] = mass_balance(C,P);
@@ -68,4 +62,4 @@ xticklabels(['  4 ';'  6 ';'  8 ';' 10 ';' 12 ';'12:1';' 14 ';'14:1';' 16 ';'16:
 ylabel('Production (uM)')
 xlabel('Chain Length')
 ylim([0 ceil(max(F_raw_new))])
-set(gca,'FontSize', 24)
+set(gca,'FontSize', 18)

@@ -21,22 +21,6 @@ S.init_cond = init_cond;
 % Calculate kinetic parameters
 P = Param_Function(S);
 
-% Turn off FabB/F Initiation
-P.kcat8_H = 0;
-P.kcat10_H = 0;
-
-% Set Michaelis Menton parameters for ACC
-P.kcat1_1 = 85.17/60; % s^-1
-P.Km1_1 = 170; % uM
-P.kcat1_2 = 73.8/60; % s^-1
-P.Km1_2 = 370; % uM
-P.kcat1_3 = 1000.8/60*S.scaling_factor_kcat_init; % s^-1
-P.Km1_3 = 160; % uM
-P.kcat1_4 = 2031.8/60*S.scaling_factor_kcat_init; % s^-1
-P.Km1_4 = 450; % uM
-P.kcat1_5 = 30.1; % s^-1
-P.Km1_5 = 48.7; % uM
-
 % Make ODEs with new params
 parameterized_ODEs = @(t,c) ODE_Function_ACC_MM(t,c,P);
 

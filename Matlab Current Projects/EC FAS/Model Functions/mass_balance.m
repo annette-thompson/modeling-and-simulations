@@ -10,7 +10,7 @@ function [balance_conc, balances, total_conc, carbon] = mass_balance(C, P)
 %   carbon - Carbon species scaled by length over time
 
 % Define balances to search for
-balance_search = {'CoA', 'ACP', 'NAD(?!P)', 'NADP', 'ATP.*|.*_ADP', '_C(\d+)_'};
+balance_search = {'CoA', 'ACP', 'NAD(?!P)', 'NADP', 'ATP.*|.*ADP', 'C(\d+)_'};
 n_balances = numel(balance_search);
 
 % Initialize outputs
@@ -25,8 +25,8 @@ for i = 1:n_balances
     balance_conc{i} = [matches{:}];
     
     % Handle carbon-specific balances
-    if strcmp(balance_search{i}, '_C(\d+)_')
-        carbon_length = cellfun(@(label) str2double(regexp(label, 'c_C(\d+)_', 'tokens', 'once')), balance_conc{i});
+    if strcmp(balance_search{i}, 'C(\d+)_')
+        carbon_length = cellfun(@(label) str2double(regexp(label, 'C(\d+)_', 'tokens', 'once')), balance_conc{i});
     else
         carbon_length = ones(1, numel(balance_conc{i}));
     end
@@ -42,7 +42,7 @@ for i = 1:n_balances
     total_conc{i} = sum(C(:, conc_index) .* carbon_length, 2);
 
     % Store scaled carbon concentrations over time (only for carbon balance)
-    if strcmp(balance_search{i}, '_C(\d+)_')
+    if strcmp(balance_search{i}, 'C(\d+)_')
         carbon = C(:, conc_index) .* carbon_length;
     end
 end

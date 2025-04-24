@@ -21,10 +21,6 @@ S.init_cond = init_cond;
 % Calculate kinetic parameters
 P = Param_Function(S);
 
-% Turn off FabB/F Initiation
-P.kcat8_H = 0;
-P.kcat10_H = 0;
-
 % Make ODEs with new params
 parameterized_ODEs = @(t,c) ODE_Function(t,c,P);
 

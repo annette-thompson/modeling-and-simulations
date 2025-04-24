@@ -251,8 +251,10 @@ P.k10_7f = S.param_table{'k10_7f','parameter_values'};
 P.k10_7r = S.param_table{'k10_7r','parameter_values'};
 P.k8_7f = S.param_table{'k8_7f','parameter_values'};
 P.k8_7r = S.param_table{'k8_7r','parameter_values'};
-P.kcat10_H = S.param_table{'kcat10_H','parameter_values'};
-P.kcat8_H = S.param_table{'kcat8_H','parameter_values'};
+% P.kcat10_H = S.param_table_old{'kcat10_H','parameter_values'}; % initiation on
+% P.kcat8_H = S.param_table_old{'kcat8_H','parameter_values'}; % initiation on
+P.kcat10_H = S.param_table{'kcat10_H','parameter_values'}; % initiation off
+P.kcat8_H = S.param_table{'kcat8_H','parameter_values'}; % initiation off
 P.kcat10_CO2 = S.param_table{'kcat10_CO2','parameter_values'}*S.scaling_factor_kcat10_CO2;
 P.kcat8_CO2 = S.param_table{'kcat8_CO2','parameter_values'}*S.scaling_factor_kcat8_CO2;
 P.k10_8f = S.param_table{'k10_8f','parameter_values'};
@@ -303,7 +305,7 @@ for i = 1:num_elong_steps
 end
 
 % Remaining parameters that need to be vectors for elongation
-P.k3_1f = P.k3_1f.*S.kcat_scaling_fabH;
+P.k3_1f = P.k3_1f.*S.kon_scaling_fabH;
 P.k3_1r = P.k3_1r.*ones(1,num_elong_steps);
 P.k3_2f = P.k3_2f.*ones(1,num_elong_steps);
 P.k3_2r = P.k3_2r.*ones(1,num_elong_steps);
@@ -340,10 +342,17 @@ P.ACC_ADtot = S.enzyme_conc(1);
 % FabD
 P.FabDtot = S.enzyme_conc(2);
 
-% FabH
+% FabH, new initiation set to 0 for now
 P.k3_inh_f = S.ACP_inh(1);
 P.k3_inh_r = S.ACP_inh(2);
 P.FabHtot = S.enzyme_conc(3);
+P.k3_6f = 0;
+P.k3_6r = 0;
+P.k3_7f = 0;
+P.k3_7r = 0;
+P.k3_8f = 0;
+P.k3_8r = 0;
+P.kcat3_CO2 = 0;
 
 % FabG
 P.k4_inh_f = S.ACP_inh(3);

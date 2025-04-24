@@ -15,22 +15,18 @@ S.range = [0 30];
 % Initial conditions
 S.init_cond = zeros(S.num,1);
 S.init_cond(1) = 1000; % ATP
-S.init_cond(2) = 100; % Bicarbonate
-S.init_cond(3) = 200; % Acetyl-CoA
+S.init_cond(2) = 1000; % Bicarbonate
+S.init_cond(3) = 500; % Acetyl-CoA
 S.init_cond(12) = 10; % holo ACP
 S.init_cond(13) = 1000; % NADPH
 S.init_cond(15) = 1000; % NADH
-S.init_cond(18) = 0; % Malonyl-CoA
+S.init_cond(18) = 500; % Malonyl-CoA
 
 % (ACC,FabD,FabH,FabG,FabZ,FabI,TesA,FabF,FabA,FabB)
-S.enzyme_conc = [10 1 1 1 1 1 0 1 1 1];
+S.enzyme_conc = [10 1 1 1 10 1 0 1 1 1];
 
 P = Param_Function(S);
-
-% Turn off FabB/F Initiation
-P.kcat8_H = 0;
-P.kcat10_H = 0;
-
+P.k5_2r(1:end) = 0;
 % Set Michaelis Menton parameters for ACC
 P.kcat1_1 = 85.17/60; % s^-1
 P.Km1_1 = 170; % uM
@@ -150,15 +146,15 @@ set(timeText, 'String', sprintf('Time: %.2f', frameTimes(61)));
 frameText = text(0.9, 0.95, '', 'Units', 'normalized', 'FontSize', 12, 'HorizontalAlignment', 'center');
 
 % Video setup
-v = VideoWriter('Intermediates_WithoutTesA.mp4','MPEG-4');
-open(v);
+%v = VideoWriter('Intermediates_WithoutTesA.mp4','MPEG-4');
+%open(v);
 
 % Update the bar chart in a loop
-for k = 1:182
+for k = 1:1441
 
     % Capture the plot as an image and write it to the video
     frame = getframe(gcf);
-    writeVideo(v, frame);
+    %writeVideo(v, frame);
 
     % Update data
     [~, timeIndice] = min(abs(T - frameTimes(k)));
@@ -168,7 +164,7 @@ for k = 1:182
     set(h, 'YData', F_raw);
     set(gca,'XTick',1:length(plot_indices),'XTickLabel',bar_labels);
     if max(F_raw)>0
-        set(gca,'YLim',[0 max(F_raw)])
+        set(gca,'YLim',[0 .2])
     end
     set(timeText, 'String', sprintf('Time: %.2f', frameTimes(k)));
     set(frameText, 'String', sprintf('Frame: %i', k));
@@ -178,7 +174,7 @@ for k = 1:182
 end
 
 % Close the video file
-close(v);
+%close(v);
 
 
 %% Maneesh's Data

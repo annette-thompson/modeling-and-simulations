@@ -13,7 +13,7 @@ function [FA_raw, rel_rate, NAD_rate] = Calc_Function(T,C,S)
 FA_indices = contains(S.labels, '_FA', 'IgnoreCase', false);
 FA_raw = C(end, FA_indices);
 FA_weighted = sum(S.FA_dist / 16 .* FA_raw);
-NAD_converted = sum(C(end, strcmp(S.labels, 'c_NADP') | strcmp(S.labels, 'c_NAD')));
+NAD_converted = sum(C(end, strcmp(S.labels, 'NADP') | strcmp(S.labels, 'NAD')));
 
 % Calculate rates
 rel_rate = FA_weighted / T(end) * 60;
